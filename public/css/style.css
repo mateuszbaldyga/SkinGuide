@@ -1,0 +1,93 @@
+#landpic {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 350px;
+}
+
+body {
+  margin: 0 auto;
+  width: 80%
+}
+
+.navbar-default .navbar-brand {
+  font-size: 15px;
+  color: #FF847C;
+}
+
+.navbar-default .navbar-brand:hover {
+  color: #FF847C;
+  text-decoration: underline;
+}
+
+.navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>li>a:hover {
+  background-color: inherit;
+  color: #FF847C;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default {
+  background-color: inherit;
+  color: #FF847C;
+}
+
+.navbar-default {
+  background-color: white;
+}
+
+.btn.btn-outline {
+  background-color: transparent;
+  padding: 5px 10px 5px 10px;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+.head {
+  width: 100%;
+}
+
+.rate {
+  line-height: 1.5em;
+  font-size: 21px;
+}
+
+.rated {
+  text-align: right;
+  line-height: 0px;
+  padding-bottom: 15px;
+  padding-right: 5px;
+  font-size: 15px;
+}
+
+.rate-active {
+  color: #F5D061;
+  cursor: pointer;
+}
+
+.ui.comments {
+  margin: 30px auto auto auto;
+}
+
+.ui.comments>.reply.form {
+  margin-top: 2em;
+}
+
+hr {
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+.ui>.header {
+  margin-bottom: 30px;
+}
+
+.ui.labeled.icon.button {
+  background-color: #49BEB7;
+}
+
+.page-header {
+  margin-top: 100px;
+  border-bottom: none;
+}

@@ -1,0 +1,23 @@
+<% include ../partials/header %>
+<% include ../partials/navbar %>
+
+<img style='display: none' src="/images/foto-04-246x246.jpg"<hr>
+
+<div class="page-header">
+    <h1>Zabiegi</h1>
+</div>
+
+<div>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <% groups.forEach(function(group){ %>
+          <h3> <%= group.name %> </h3>
+          <% group.procedures.forEach(function(procedure){ %>
+              <li><%= procedure.name %> - <%= procedure.price %>zł</li>
+          <% }) %>
+      <% }) %>
+    </div>
+  </div>
+</div>
+
+<% include ../partials/footer %>
