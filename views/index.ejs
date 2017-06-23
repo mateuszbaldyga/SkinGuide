@@ -1,66 +1,102 @@
 <% include ./partials/header %>
 <% include ./partials/navbar %>
 
-<div class="page-header">
-    <h1>O nas</h1>
+<div id='landpic'>
+  <button id="getStarted">Get Started<button>
+  <img src='/images/manu-camargo-60128.jpg'>
 </div>
 
-<div>
+<div class="body-width">
 <div class="panel panel-default">
   <div class="panel-body">
+    <div class="page-header">
+      <h1>O nas</h1>
+    </div>
     <p>Donec dolor massa, eleifend eu maximus in, bibendum sed risus. Ut finibus fringilla erat ut ultricies. Suspendisse mattis est in vulputate sodales. Quisque consequat venenatis aliquam. Praesent finibus in arcu id condimentum. Cras mollis elit sit amet dui tincidunt varius. Suspendisse potenti. Sed porttitor sapien ac odio molestie tincidunt. Mauris fermentum mauris turpis, et lacinia elit imperdiet nec. Fusce laoreet turpis et nisl egestas luctus. Etiam ut consectetur tellus, imperdiet porttitor ante. Nulla facilisi. Nulla ac cursus lacus. Duis in dictum quam. Ut faucibus diam nec odio pharetra pharetra.</p>
 <p>Proin at metus ut ex consectetur posuere. Nunc eget imperdiet orci, ac varius odio. Maecenas vitae augue nibh. Integer sed odio eu libero iaculis fermentum eu a nulla. Duis eget mi quis urna ultrices hendrerit eu at quam. Mauris vitae massa quam. In eget pharetra eros.</p>
 <p>Duis malesuada metus non ligula efficitur maximus. Donec sit amet fermentum erat. Donec efficitur nec arcu in ullamcorper. Vivamus id sem dui. Nunc ligula massa, convallis eu suscipit id, tincidunt sit amet justo. Morbi scelerisque diam at elit rutrum, vitae ultricies leo blandit. Vestibulum elementum tortor sit amet sem convallis, sed tempor magna elementum. Fusce tortor justo, vehicula quis convallis nec, ultrices non nisi.</p>
   </div>
 </div>
-</div>
+
 
 <!-- SHOW -->
 <div class="ui comments">
-  <h3 class="ui  header">Opinie klientów</h3>
+  <div class="panel panel-default">
+    <div class="panel-body">
+  <h3 >Opinie klientów</h3>
   <div class="commentsContainer">
     <% comments.forEach(function(comment){ %>
-    <div class="comment">
-      <a class="avatar">
-        <img src="/images/default-avatar.jpg"> <!-- trzeba bedzie zmienic -->
+    <div id="" class="comment">
+      <a href="#" class="avatar">
+        <img src="<%= comment.author.avatar %>">
       </a>
       <div class="content">
-        <a class="author"><%= comment.author %></a>
+        <a href="#" class="author"><%= comment.author.username %></a>
         <div class="metadata">
           <span status ='notFormated' class="date" style="display: none;"><%= comment.date %></span>
         </div>
-        <div class='rate rated rate-active'>
-        <% for(var i=0; i<comment.rating; i++){ %>
-          <span>&#x2605</span>
-        <% } %>
+        <!-- <button class='button-DeleteComment' ><i class="remove icon"></i></button> -->
+
+        <div class="dropdown show button-DeleteComment">
+          <button class="dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="angle down icon"></i>
+          </button>
+
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">Edytuj</a><br>
+            <a class="dropdown-item" href="#">Usuń</a>
+          </div>
         </div>
+
+        <div class='starsRated'>
+          <% for(var i=0; i<comment.rating; i++){ %>
+            <span>&#x2605</span>
+            <% } %>
+          </div>
         <div class="text">
           <%= comment.text %>
         </div>
-  <!--       <div class="actions">
-          <a class="reply">Reply</a>
-        </div> -->
       </div>
     </div>
     <hr>
     <% }) %>
   </div>
+  <!-- </div>
+  </div> -->
+
 
   <!-- New   -->
-  <form name="formA" id="formA" class="ui reply form" action="/skinguide" method="POST">
-    Ocena:
-    <div class='rate'>
-      <span value='1'>☆</span><span value='2'>☆</span><span value='3'>☆</span><span value='4'>☆</span><span value='5'>☆</span>
+    <div class="space">
+      <div id="button-addOpinion" class="ui primary submit labeled icon button">
+        <i class="icon edit"></i> Dodaj Opinię
+      </div><br>
     </div>
-    <input type="hidden" name="rate" class='rateNum' id='rateNum' />
-    <div class="field">
-      <textarea id='text' name="text" placeholder="Czy jesteś zadowolona z naszych usług?"></textarea>
-    </div>
-    <!-- <button class="ui blue labeled submit icon button"><i class="icon edit"></i>Dodaj Opinię</button> -->
-    <div class="ui primary submit labeled icon button">
-      <i class="icon edit"></i> Dodaj Opinię
-    </div>
-  </form>
-</div>
+    <div id='showForm' style="display: none;">
+      <% if(currentUser){ %>
+        <!-- <div class="panel panel-default space">
+          <div class="panel-body"> -->
+        <form name="formA" id="formA" class="ui reply form" action="/skinguide" method="POST">
+          Ocena:
+          <div class='rate'>
+            <span value='1'>☆</span><span value='2'>☆</span><span value='3'>☆</span><span value='4'>☆</span><span value='5'>☆</span>
+          </div>
+          <input type="hidden" name="rate" id='rateNum'/>
+          <input type="hidden" name="currentuser"  value='<%= currentUser.username %>'/>
+          <input type="hidden" name="avatar"  value='<%= currentUser.avatar %>'/>
+          <div class="field">
+            <textarea id='text' name="text" placeholder="Czy jesteś zadowolona z naszych usług?"></textarea>
+          </div>
+          <!-- <button id="sendOpinion" class="ui blue labeled submit icon button"><i class="icon edit"></i>Dodaj Opinię</button> -->
+          <div id="button-sendOpinion" class="ui primary submit labeled icon button">
+            <i class="icon edit"></i> Wyślij Opinię
+          </div>
 
+        </form>
+        </div></div>
+      <% } else { %>
+        <p class="space"><strong>Aby dodać opinię, <a href="/login" >zaloguj się</a>.</strong></p>
+      <% } %>
+    </div>
+</div>
+</div>
 <% include ./partials/footer %>

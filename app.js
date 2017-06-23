@@ -1,12 +1,20 @@
 var express = require("express"),
-  app = express(),
-  bodyParser = require("body-parser"),
-  mongoose = require("mongoose"),
-  Comment = require("./models/comment"),
-  Group = require("./models/group"),
-  // Procedure   = require("./models/comment"),
-  seedDB = require("./seed")
+    app = express(),
+    bodyParser = require("body-parser"),
+    mongoose = require("mongoose"),
+    passport = require("passport"),
+    LocalStrategy = require("passport-local"),
+    passportLocalMongoose = require("passport-local-mongoose"),
 
+    //models
+    // Comment = require("./models/comment"),
+    // Group = require("./models/group"),
+    User = require("./models/user"),
+
+    seedDB = require("./seed");
+
+var indexRoutes = require('./routes/index'),
+    proceduresRoutes = require('./routes/procedures');
 
 mongoose.connect("mongodb://localhost/skin_guide");
 app.use(bodyParser.urlencoded({
@@ -17,55 +25,30 @@ app.use(express.static(__dirname + "/public"));
 
 // seedDB()
 
+//==========
+// PASSPORT CONFIG
+//==========
+app.use(require("express-session")({
+  secret: "Rusty is the best and cutest dog in the world",
+  resave: false,
+  saveUninitialized: false
+}));
 
-//====================================//
-// ROUTES //
-app.get("/", function(req, res) {
-  res.render("landing");
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//passes currentUser to every template
+app.use(function(req, res, next){
+  res.locals.currentUser = req.user;
+  next();
 });
 
-app.get('/skinguide', function(req, res) {
-  Comment.find({}, function(err, allComments) {
-    if (!err) {
-      console.log('znaleziono wszystkie komentarze');
-    };
-    res.render("index", {
-      comments: allComments
-    });
-  })
-});
-
-app.post('/skinguide', function(req) {
-
-  newComment = {
-    text: req.body.text,
-    author: 'MATI', //req.user.username,
-    rating: req.body.rate,
-  }
-  console.log('RATE: ', req.body);
-  Comment.create(newComment, function(err, newComment) {
-    if (!err) {
-      console.log('Success!');
-    };
-  })
-})
-
-app.get('/skinguide/procedures', function(req, res) {
-  Group.find({}, function(err, allGroups) {
-    if (!err) {
-      console.log('znaleziono wszystkie grupy');
-    };
-    res.render("procedures/show", {
-      groups: allGroups
-    });
-  })
-});
-
-
-// =================================================
-
-
-
+app.use(indexRoutes);
+app.use(proceduresRoutes);
 
 app.listen(3000, function() {
   console.log("The SkinGuide Server Has Started!");
