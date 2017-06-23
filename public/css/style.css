@@ -1,19 +1,20 @@
 #landpic {
-  position: relative;
-  top: -0em;
-  height: 100vh;
-  overflow: hidden; }
-  #landpic img {
-    width: 100vw; }
+  background: url("/images/manu-camargo-60128blured.jpg") center center no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; }
 
-#getStarted {
-  position: relative;
-  top: auto;
-  bottom: auto;
-  margin: 0;
-  padding: 0;
-  left: 0;
-  right: 0; }
+#button-getStarted {
+  background-color: #FF847C;
+  font-size: 1.3em;
+  color: black; }
+  #button-getStarted:hover {
+    background-color: #f98d86; }
 
 body {
   background-color: #fff7fc; }
@@ -26,23 +27,21 @@ body {
   margin-right: auto;
   width: 70em; }
 
-.container-fluid {
-  background-color: white; }
-  .container-fluid #navbar-brand {
-    font-size: 1.3em;
-    color: #FF847C; }
-    .container-fluid #navbar-brand:hover {
-      text-decoration: underline; }
-  .container-fluid #navbar-buttons li a {
-    background-color: transparent; }
-    .container-fluid #navbar-buttons li a:hover {
-      background-color: transparent;
-      color: #FF847C; }
-  .container-fluid .btn.btn-outline {
+.container-fluid #navbar-brand {
+  font-size: 1.3em;
+  color: #FF847C; }
+  .container-fluid #navbar-brand:hover {
+    color: #49BEB7; }
+.container-fluid #navbar-buttons li a {
+  background-color: transparent; }
+  .container-fluid #navbar-buttons li a:hover {
     background-color: transparent;
-    padding: 5px 10px 5px 10px;
-    margin-top: 10px;
-    margin-left: 5px; }
+    color: #FF847C; }
+.container-fluid .btn.btn-outline {
+  background-color: transparent;
+  padding: 5px 10px 5px 10px;
+  margin-top: 10px;
+  margin-left: 5px; }
 
 .nav-up {
   top: -40px; }
@@ -97,11 +96,6 @@ body {
     line-height: 1.6em; }
     .dropdown-menu .dropdown-item:hover {
       color: #FF847C; }
-
-.comment:hover .button-DeleteComment {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.3s; }
 
 .ui.comments .comment, .ui.comments .comment:first-child {
   padding-top: 1.5em;

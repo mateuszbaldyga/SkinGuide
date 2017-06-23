@@ -23,9 +23,9 @@ function scrollToFormBottom(){
 }
 
 function scrollToIndex(){
-  $('#getStarted').click(function(){
+  $('#button-getStarted').click(function(){
     $('html,body').animate({
-      scrollTop: $(".panel-body").offset().top
+      scrollTop: $(".panel-body").offset().top-$(".navbar-fixed-top").height()
       }, 'slow');
   })
 }
