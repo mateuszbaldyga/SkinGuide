@@ -9,6 +9,12 @@
   justify-content: center;
   height: 100vh; }
 
+.login-form {
+  width: 30%;
+  margin: auto;
+  align-items: center;
+  justify-content: center; }
+
 #button-getStarted {
   background-color: #FF847C;
   font-size: 1.3em;
