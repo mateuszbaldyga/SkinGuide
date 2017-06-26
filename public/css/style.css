@@ -1,5 +1,5 @@
 #landpic {
-  background: url("/images/manu-camargo-60128blured.jpg") center center no-repeat;
+  background: url("/images/beauty1.jpg") center center no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -22,16 +22,17 @@
   #button-getStarted:hover {
     background-color: #f98d86; }
 
+div.content {
+  min-height: 37.5px; }
+
 body {
   background-color: #fff7fc; }
 
-.body-space {
-  margin-top: 7em; }
-
-.body-width {
+main {
+  margin-top: 7em;
   margin-left: auto;
   margin-right: auto;
-  width: 70em; }
+  width: 80%; }
 
 .container-fluid #navbar-brand {
   font-size: 1.3em;
@@ -69,9 +70,9 @@ body {
   color: #F5D061;
   cursor: pointer; }
 
-.page-header {
+h1.page-header {
   margin-top: 1em;
-  margin-bottom: 2em; }
+  margin-bottom: 1.3em; }
 
 .space {
   margin-top: 2em; }

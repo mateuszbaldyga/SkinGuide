@@ -1,4 +1,4 @@
-var stars = document.querySelectorAll('.form > .rate > span');
+var stars = document.querySelectorAll(".rate span");
 var clicked = 0;
 
 function init(){
@@ -8,37 +8,37 @@ function init(){
   dateDisplay();
   hideHr();
   addOpinionButtonAction();
-  scrollToIndex();
+  hideLandingPage();
   // navHideShowOnScroll(); //trzeba dopracować
 }
 
 init();
-
+document.querySelector("body")
 
 
 function scrollToFormBottom(){
-  $('html,body').animate({
+  $(document.querySelector("body")).animate({
     scrollTop: $("#showForm").offset().top
-    }, 'slow');
+    }, "slow");
 }
 
-function scrollToIndex(){
-  $('#button-getStarted').click(function(){
-    $('html,body').animate({
-      scrollTop: $(".panel-body").offset().top-$(".navbar-fixed-top").height()
-      }, 'slow');
-  })
+function hideLandingPage(){
+  function hideIt(){
+    $("#landpic").slideUp(600);
+  }
+  $("#button-getStarted").on("click", hideIt);
+  $( window ).on("scroll", hideIt);
 }
 
 function resetStars(){
   for(var i=0; i<stars.length; i++){
-      stars[i].innerHTML = '☆';
-      stars[i].classList.remove('rate-hover');
+      stars[i].innerHTML = "&#9734;";
+      stars[i].classList.remove("rate-hover");
   }
 }
 
 function hideHr() {
-  $('hr:last-of-type').hide();
+  $("hr:last-of-type").hide();
 }
 
 function setNavigation() {
@@ -46,33 +46,33 @@ function setNavigation() {
     path = path.replace(/\/$/, "");
     path = decodeURIComponent(path);
     $(".nav a").each(function () {
-        var href = $(this).attr('href');
+        var href = $(this).attr("href");
         if (path === href) {
-            $(this).closest('a').attr("id", 'active');
+            $(this).closest("a").attr("id", "active");
         }
     })
 }
 
 function dateDisplay(){
-    var dateField = document.querySelectorAll('.date'),
+    var dateField = document.querySelectorAll(".date"),
         dateNow = new Date();
-        // console.log(dateField[0].getAttribute('status'));
+        // console.log(dateField[0].getAttribute("status"));
       for(var i=0; i<dateField.length; i++){
-        if(dateField[i].getAttribute('status')){
+        if(dateField[i].getAttribute("status")){
           var dateCompare = dateNow.getDate() - dateField[i].innerText.slice(8, 10);
-          dateField[i].removeAttribute('status');
+          dateField[i].removeAttribute("status");
 
           if(dateCompare <= 1){
-              dateField[i].setAttribute('title', dateField[i].innerText.slice(4, 21));
-              dateField[i].innerText = 'Today at ' + dateField[i].innerText.slice(16, 21);
+              dateField[i].setAttribute("title", dateField[i].innerText.slice(4, 21));
+              dateField[i].innerText = "Today at " + dateField[i].innerText.slice(16, 21);
           }
           else if(dateCompare <= 2){
-              dateField[i].setAttribute('title', dateField[i].innerText.slice(4, 21));
-              dateField[i].innerText = 'Yesterday at ' + dateField[i].innerText.slice(16, 21);
+              dateField[i].setAttribute("title", dateField[i].innerText.slice(4, 21));
+              dateField[i].innerText = "Yesterday at " + dateField[i].innerText.slice(16, 21);
           }
           else{
-              dateField[i].setAttribute('title', dateField[i].innerText.slice(4, 21));
-              dateField[i].innerText = dateCompare + ' days ago';
+              dateField[i].setAttribute("title", dateField[i].innerText.slice(4, 21));
+              dateField[i].innerText = dateCompare + " days ago";
           }
           $(dateField[i]).show(0);
       }
@@ -81,78 +81,41 @@ function dateDisplay(){
 
 function rate(){
     function piceofCode(i){
-      stars[i].innerHTML = '&#x2605';
-      stars[i].classList.add('rate-hover');
+      stars[i].innerHTML = "&#9733;";
+      stars[i].classList.add("rate-hover");
     }
     for(var i=0; i<stars.length; i++){
-        stars[i].addEventListener('click', function(){
-            clicked = this.getAttribute('value');
-            document.querySelector("#rateNum").setAttribute('value', clicked);
+        stars[i].addEventListener("click", function(){
+            clicked = this.getAttribute("value");
+            document.querySelector("#rateNum").setAttribute("value", clicked);
             resetStars();
             for(var i=0; i<clicked; i++){piceofCode(i)}
         })
-        stars[i].addEventListener('mouseenter', function(){
+        stars[i].addEventListener("mouseenter", function(){
             resetStars();
-            var number = this.getAttribute('value');
+            var number = this.getAttribute("value");
             for(var i=0; i<number; i++){piceofCode(i)}
         })
-        stars[i].addEventListener('mouseleave', function(){
+        stars[i].addEventListener("mouseleave", function(){
             resetStars();
             for(var i=0; i<clicked; i++){piceofCode(i)}
         })
     }
 }
 
-function newCommentDisplay() {
-    $('#button-sendOpinion').click(function(){
-      var form = $('#formA'),
-          data = form.serializeArray().reduce(function(obj, item) {
-                   obj[item.name] = item.value;
-                   return obj;
-                 }, {}),
-          numOfStars = data.rate,
-          commentText = data.text,
-          commentAvatar = data.avatar
-          commentAuthor = data.currentuser;
-          commentRating = '';
-          for(var i=0; i<numOfStars; i++){
-            commentRating += '<span>&#x2605</span>';
-            }
-      var commentTemplate = "<hr>" +
-                            "  <div class=\"comment\" style=\"display: none;\">" +
-                            "      <a class=\"avatar\">" +
-                            "        <img src=\""+commentAvatar+"\"> <!-- trzeba bedzie zmienic -->" +
-                            "      </a>" +
-                            "      <div class=\"content\">" +
-                            "        <a class=\"author\">"+commentAuthor+"<a>" +
-                            "        <div class=\"metadata\">" +
-                            "          <span  status =\"notFormated\" class=\"date\">"+Date()+"</span>" +
-                            "        </div>" +
-                            "        <button class=\"button-DeleteComment\" ><i class=\"remove icon\"></i></button>" +
-                            "        <div class=\"starsRated\">" + commentRating +
-                            "        </div>" +
-                            "        <div class=\"text\">"+commentText+
-                            "        </div>" +
-                            "      </div>" +
-                            "  </div>";
-      $(commentTemplate).appendTo(".commentsContainer").show('normal');
-      form.submit();
-      form[0].reset();
-      resetStars();
-      scrollToFormBottom();
-      clicked = 0;
-      setTimeout(function(){
-        window.stop()
-      }, 1000);
-      dateDisplay();
-    })
-  }
+// function validateForm() {
+//     var x = document.forms["FormA"]["fname"].value;
+//     if (x == "") {
+//         alert("Name must be filled out");
+//         return false;
+//     }
+// }
 
 function addOpinionButtonAction() {
-  $('#button-addOpinion').click(function(){
+  $("#button-addOpinion").click(function(){
 
   $(this).hide(0);
-  $('#showForm').show('slow');
+  $("#showForm").show("slow");
   scrollToFormBottom();
   })
 }
@@ -161,7 +124,7 @@ function navHideShowOnScroll() {
   var didScroll;
   var lastScrollTop = 0;
   var delta = 5;
-  var navbarHeight = $('.navbar').outerHeight();
+  var navbarHeight = $(".navbar").outerHeight();
   $(window).scroll(function(event){
       didScroll = true;
   });
@@ -180,12 +143,150 @@ function navHideShowOnScroll() {
     // This is necessary so you never see what is "behind" the navbar.
     if (st > lastScrollTop && st > navbarHeight){
         // Scroll Down
-        $('.navbar').removeClass('nav-down').addClass('nav-up');
+        $(".navbar").removeClass("nav-down").addClass("nav-up");
     } else {
         // Scroll Up
         if(st + $(window).height() < $(document).height()) {
-            $('.navbar').removeClass('nav-up').addClass('nav-down');
+            $(".navbar").removeClass("nav-up").addClass("nav-down");
         }
       }
 }
 }
+
+
+
+
+
+//============REAL TIME PRÓBA
+function newCommentDisplay() {
+    $("#button-sendOpinion").click(function(){
+      var form = $("#formA");
+      var data = {
+          "numOfStars": form.find('#rateNum').val(),
+          "commentText": form.find('#text').val(),
+          "commentAvatar": form.find('#avatar').val(),
+          "commentAuthor": form.find('#currentuser').val(),
+        }
+        console.log(data);
+        // form.submit();
+        postComment(data);
+          // commentRating = "";
+          // for(var i=0; i<numOfStars; i++){
+          //   commentRating += "<span>&#x2605</span>";
+          //   }
+    //   var template = document.querySelector(".comment");
+    //   template.getElementsByTagName("img")[0].setAttribute("src", commentAvatar);
+    //   template.getElementsByClassName("author")[0].innerText = commentAuthor;
+    //   template.getElementsByClassName("starsRated")[0].innerHTML = commentRating;
+    //   template.getElementsByClassName("#text")[0].innerText = commentText;
+    //   $(template).appendTo("#commentsWrapper").show("slow");
+    //   form.submit();
+    //   form[0].reset();
+    //   resetStars();
+    //   scrollToFormBottom();
+    //   clicked = 0;
+    //   setTimeout(function(){
+    //     window.stop()
+    //   }, 1000);
+    //   dateDisplay();
+    })
+  }
+
+function START(){
+  $('#formA').submit(handleSubmit);
+};
+
+function handleSubmit() {
+  var form = $(this);
+  var data = {
+          "numOfStars": form.find('#rateNum').val(),
+          "commentText": form.find('#text').val(),
+          "commentAvatar": form.find('#avatar').val(),
+          "commentAuthor": form.find('#currentuser').val(),
+          }
+
+  postComment(data);
+
+  return false;
+}
+
+function postComment(data) {
+  $.ajax({
+    type: 'POST',
+    url: 'http://localhost:3000/skinguide',
+    data: data,
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest'
+    },
+    success: postSuccess,
+    error: console.log('error')
+  });
+}
+
+function postSuccess(data, textStatus, jqXHR) {
+  $('#formA').get(0).reset();
+  // displayComment(data);
+}
+  
+function displayComment(data) {
+  var commentHtml = createComment(data);
+  var commentEl = $(commentHtml);
+  commentEl.hide();
+  var postsList = $('#posts-list');
+  postsList.addClass('has-comments');
+  postsList.prepend(commentEl);
+  commentEl.slideDown();
+}
+
+function createComment(data) {
+  var html = '' +
+  '<li><article id="' + data.id + '" class="hentry">' +
+    '<footer class="post-info">' +
+      '<abbr class="published" title="' + data.date + '">' +
+        parseDisplayDate(data.date) +
+      '</abbr>' +
+      '<address class="vcard author">' +
+        'By <a class="url fn" href="#">' + data.comment_author + '</a>' +
+      '</address>' +
+    '</footer>' +
+    '<div class="entry-content">' +
+      '<p>' + data.comment + '</p>' +
+    '</div>' +
+  '</article></li>';
+
+  return html;
+}
+
+function parseDisplayDate(date) {
+  date = (date instanceof Date? date : new Date( Date.parse(date) ) );
+  var display = date.getDate() + ' ' +
+                ['January', 'February', 'March',
+                 'April', 'May', 'June', 'July',
+                 'August', 'September', 'October',
+                 'November', 'December'][date.getMonth()] + ' ' +
+                date.getFullYear();
+  return display;
+}
+
+$(function() {
+
+  $(document).keyup(function(e) {
+    e = e || window.event;
+    if(e.keyCode === 85){
+      displayComment({
+        "id": "comment_1",
+        "comment_post_ID": 1,
+        "date":"Tue, 21 Feb 2012 18:33:03 +0000",
+        "comment": "The realtime Web rocks!",
+        "comment_author": "Phil Leggetter"
+      });
+    }
+  });
+
+});
+
+
+//===========================================
+//                 TESTY
+//===========================================
+// if(stars.length !== 5){alert('stars.length !== 5')}
