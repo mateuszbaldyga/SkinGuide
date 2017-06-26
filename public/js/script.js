@@ -7,15 +7,12 @@ function init(){
   rate();
   newCommentDisplay();
   dateDisplay();
-  // hideHr();
   addOpinionButtonAction();
   hideLandingPage();
   // navHideShowOnScroll(); //trzeba dopracować
 }
 
 init();
-document.querySelector("body")
-
 
 function scrollToFormBottom(){
   $(document.querySelector("body")).animate({
@@ -37,10 +34,6 @@ function resetStars(){
       stars[i].classList.remove("rate-hover");
   }
 }
-
-// function hideHr() {
-//   $("hr:last-of-type").hide();
-// }
 
 function setNavigation() {
     var path = window.location.pathname;
@@ -127,21 +120,16 @@ function postError(jqXHR, textStatus, errorThrown) {
   
 function displayComment(data) {
   // console.log('dataL!!!!!', data);
-  var commentRating = "";
+  var commentRating = "",
+      template = document.getElementById("hiddenCommentTemplate");
   for(var i=0; i<data.numOfStars; i++){
     commentRating += "<span>&#x2605</span>";
     }
-  var template = $($(".comment")[0]).clone();
-  template.find("img").attr("src", data.commentAvatar);
-  $("author", template).text(data.commentAuthor);
-  // var i = template.find("author");//.text(data.commentAuthor);
-  // console.log('tuu: ', i);
-  // $("h2", $tmc).text('new title');
-  // template.find("starsRated")[0].innerHTML = commentRating;
-  // template.find("text")[0].innerText = data.commentText;
-  // $(template).appendTo("#commentsWrapper").show("slow");
-  // console.log(template);
-  $("#commentsWrapper").append(template);
+  template.getElementsByTagName("img")[0].setAttribute("src", data.commentAvatar);
+  template.getElementsByClassName("author")[0].innerText = data.commentAuthor;
+  template.getElementsByClassName("starsRated")[0].innerHTML = commentRating;
+  template.getElementsByClassName("text")[0].innerText = data.commentText;
+  $(template.innerHTML).appendTo("#commentsWrapper").show("slow");
 }
 // } real-time-comment-display
 
