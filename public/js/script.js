@@ -1,4 +1,5 @@
 var stars = document.querySelectorAll(".rate span");
+var form = $("#formA");
 var clicked = 0;
 
 function init(){
@@ -6,7 +7,7 @@ function init(){
   rate();
   newCommentDisplay();
   dateDisplay();
-  hideHr();
+  // hideHr();
   addOpinionButtonAction();
   hideLandingPage();
   // navHideShowOnScroll(); //trzeba dopracować
@@ -37,9 +38,9 @@ function resetStars(){
   }
 }
 
-function hideHr() {
-  $("hr:last-of-type").hide();
-}
+// function hideHr() {
+//   $("hr:last-of-type").hide();
+// }
 
 function setNavigation() {
     var path = window.location.pathname;
@@ -79,6 +80,71 @@ function dateDisplay(){
     }
 }
 
+//real-time-comment-display {
+function newCommentDisplay() {
+    $("#button-sendOpinion").click(function(){
+      var data = {
+          "numOfStars": form.find('#rateNum').val(),
+          "commentText": form.find('#text').val(),
+          "commentAvatar": form.find('#avatar').val(),
+          "commentAuthor": form.find('#currentuser').val(),
+        }
+        // console.log(data);
+        if(data.numOfStars && data.commentText){
+          postComment(data);
+        }
+    })
+  }
+
+function postComment(data) {
+  $.ajax({
+    type: 'POST',
+    url: 'http://localhost:3000/skinguide',
+    data: data,
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest'
+    },
+    success: postSuccess,
+    error: postError,
+  });
+}
+
+function postSuccess(data, textStatus, jqXHR) {
+  console.log('sukces!')
+  form[0].reset();
+  resetStars();
+  clicked = 0;
+  displayComment(data);
+  dateDisplay();
+  scrollToFormBottom();
+}
+
+function postError(jqXHR, textStatus, errorThrown) {
+  console.log("Error, status = " + textStatus + ", " +
+              "error thrown: " + errorThrown
+            );
+  }
+  
+function displayComment(data) {
+  // console.log('dataL!!!!!', data);
+  var commentRating = "";
+  for(var i=0; i<data.numOfStars; i++){
+    commentRating += "<span>&#x2605</span>";
+    }
+  var template = $($(".comment")[0]).clone();
+  template.find("img").attr("src", data.commentAvatar);
+  $("author", template).text(data.commentAuthor);
+  // var i = template.find("author");//.text(data.commentAuthor);
+  // console.log('tuu: ', i);
+  // $("h2", $tmc).text('new title');
+  // template.find("starsRated")[0].innerHTML = commentRating;
+  // template.find("text")[0].innerText = data.commentText;
+  // $(template).appendTo("#commentsWrapper").show("slow");
+  // console.log(template);
+  $("#commentsWrapper").append(template);
+}
+// } real-time-comment-display
+
 function rate(){
     function piceofCode(i){
       stars[i].innerHTML = "&#9733;";
@@ -102,14 +168,6 @@ function rate(){
         })
     }
 }
-
-// function validateForm() {
-//     var x = document.forms["FormA"]["fname"].value;
-//     if (x == "") {
-//         alert("Name must be filled out");
-//         return false;
-//     }
-// }
 
 function addOpinionButtonAction() {
   $("#button-addOpinion").click(function(){
@@ -152,139 +210,6 @@ function navHideShowOnScroll() {
       }
 }
 }
-
-
-
-
-
-//============REAL TIME PRÓBA
-function newCommentDisplay() {
-    $("#button-sendOpinion").click(function(){
-      var form = $("#formA");
-      var data = {
-          "numOfStars": form.find('#rateNum').val(),
-          "commentText": form.find('#text').val(),
-          "commentAvatar": form.find('#avatar').val(),
-          "commentAuthor": form.find('#currentuser').val(),
-        }
-        console.log(data);
-        // form.submit();
-        postComment(data);
-          // commentRating = "";
-          // for(var i=0; i<numOfStars; i++){
-          //   commentRating += "<span>&#x2605</span>";
-          //   }
-    //   var template = document.querySelector(".comment");
-    //   template.getElementsByTagName("img")[0].setAttribute("src", commentAvatar);
-    //   template.getElementsByClassName("author")[0].innerText = commentAuthor;
-    //   template.getElementsByClassName("starsRated")[0].innerHTML = commentRating;
-    //   template.getElementsByClassName("#text")[0].innerText = commentText;
-    //   $(template).appendTo("#commentsWrapper").show("slow");
-    //   form.submit();
-    //   form[0].reset();
-    //   resetStars();
-    //   scrollToFormBottom();
-    //   clicked = 0;
-    //   setTimeout(function(){
-    //     window.stop()
-    //   }, 1000);
-    //   dateDisplay();
-    })
-  }
-
-function START(){
-  $('#formA').submit(handleSubmit);
-};
-
-function handleSubmit() {
-  var form = $(this);
-  var data = {
-          "numOfStars": form.find('#rateNum').val(),
-          "commentText": form.find('#text').val(),
-          "commentAvatar": form.find('#avatar').val(),
-          "commentAuthor": form.find('#currentuser').val(),
-          }
-
-  postComment(data);
-
-  return false;
-}
-
-function postComment(data) {
-  $.ajax({
-    type: 'POST',
-    url: 'http://localhost:3000/skinguide',
-    data: data,
-    headers: {
-      'X-Requested-With': 'XMLHttpRequest'
-    },
-    success: postSuccess,
-    error: console.log('error')
-  });
-}
-
-function postSuccess(data, textStatus, jqXHR) {
-  $('#formA').get(0).reset();
-  // displayComment(data);
-}
-  
-function displayComment(data) {
-  var commentHtml = createComment(data);
-  var commentEl = $(commentHtml);
-  commentEl.hide();
-  var postsList = $('#posts-list');
-  postsList.addClass('has-comments');
-  postsList.prepend(commentEl);
-  commentEl.slideDown();
-}
-
-function createComment(data) {
-  var html = '' +
-  '<li><article id="' + data.id + '" class="hentry">' +
-    '<footer class="post-info">' +
-      '<abbr class="published" title="' + data.date + '">' +
-        parseDisplayDate(data.date) +
-      '</abbr>' +
-      '<address class="vcard author">' +
-        'By <a class="url fn" href="#">' + data.comment_author + '</a>' +
-      '</address>' +
-    '</footer>' +
-    '<div class="entry-content">' +
-      '<p>' + data.comment + '</p>' +
-    '</div>' +
-  '</article></li>';
-
-  return html;
-}
-
-function parseDisplayDate(date) {
-  date = (date instanceof Date? date : new Date( Date.parse(date) ) );
-  var display = date.getDate() + ' ' +
-                ['January', 'February', 'March',
-                 'April', 'May', 'June', 'July',
-                 'August', 'September', 'October',
-                 'November', 'December'][date.getMonth()] + ' ' +
-                date.getFullYear();
-  return display;
-}
-
-$(function() {
-
-  $(document).keyup(function(e) {
-    e = e || window.event;
-    if(e.keyCode === 85){
-      displayComment({
-        "id": "comment_1",
-        "comment_post_ID": 1,
-        "date":"Tue, 21 Feb 2012 18:33:03 +0000",
-        "comment": "The realtime Web rocks!",
-        "comment_author": "Phil Leggetter"
-      });
-    }
-  });
-
-});
-
 
 //===========================================
 //                 TESTY

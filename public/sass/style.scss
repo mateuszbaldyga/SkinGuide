@@ -155,6 +155,13 @@ h1.page-header {
   margin-top: 0;
 }
 
+#commentsWrapper div.comment {
+  border-bottom: 1px solid #dddddd;
+  &:last-child{
+    border-bottom: none;
+  }
+}
+
 hr {
   margin: 0;
 }

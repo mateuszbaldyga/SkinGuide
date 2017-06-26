@@ -18,37 +18,13 @@
 
 <!-- SHOW -->
 <div class="ui comments panel panel-default panel-body" >
-  <div id="commentsWrapper">
   <h3>Opinie klientów</h3>
+  <div id="commentsWrapper">
+  <% include ./partials/hidden_comment_template %>
   <% comments.forEach(function(comment) { %>
-    <div class="comment">
-      <a href="#" class="avatar">
-        <img alt="User's avatar." src="<%= comment.author.avatar %>">
-      </a>
-      <div class="content">
-        <a href="#" class="author">
-          <%= comment.author.username %>
-        </a>
-          <div status='data-notFormated' class="metadata date" style="display: none;"><%= comment.date %></div>
-        <div class="dropdown show button-DeleteComment">
-          <button class="dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="angle down icon"></i>
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="#">Edytuj</a><br>
-            <a class="dropdown-item" href="#">Usuń</a>
-          </div>
-        </div>
-        <div class='starsRated'>
-          <% for(var i=0; i<comment.rating; i++){ %>
-            <span>&#9733;</span>
-            <% } %>
-        </div>
-        <div class="text"><%= comment.text %></div>
-      </div>
-    </div>
-    <hr>
-    <% }) %>
+    <% include ./partials/comment_template %>
+  <% }) %>
+
   </div>
 
 

@@ -23,21 +23,23 @@ router.get('/skinguide', function(req, res) {
   })
 });
 
-router.post('/skinguide', isLoggedIn, function(req) {
+router.post('/skinguide', isLoggedIn, function(req, res) {
   console.log('text:', req.body.text)
   var newComment = {
-        text: req.body.text,
+        text: req.body.commentText,
         author: {
           id: req.user._id,
           username: req.user.username,
           avatar: req.user.avatar
         },
-      rating: req.body.rateValue,
+      rating: req.body.numOfStars,
       }
+    console.log('text:', newComment)
     console.log('RATE: ', req.body);
     Comment.create(newComment, function(err, newComment) {
       if (!err) {
         console.log('Success!');
+        res.send(req.body);
       }
     })
 });

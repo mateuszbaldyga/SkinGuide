@@ -108,6 +108,11 @@ h1.page-header {
   padding-top: 1.5em;
   margin-top: 0; }
 
+#commentsWrapper div.comment {
+  border-bottom: 1px solid #dddddd; }
+  #commentsWrapper div.comment:last-child {
+    border-bottom: none; }
+
 hr {
   margin: 0; }
 
