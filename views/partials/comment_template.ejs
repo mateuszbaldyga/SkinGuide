@@ -22,8 +22,8 @@
         <i class="angle down icon"></i>
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <a class="dropdown-item" href="#">Edytuj</a><br>
-        <button type="button" id="button-DeleteComment" data="
+        <button type="button" class="dropdown-item" href="#">Edytuj</button>
+        <button type="button" class="dropdown-item button-DeleteComment" data="
           <% if(Object.keys(comments).length>0){ %>
             <%=comment._id %>
           <% } else {} %>

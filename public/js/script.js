@@ -1,7 +1,7 @@
 var stars = document.querySelectorAll(".rate span"),
     form = $("#formA"),
     landpic = $("#landpic");
-var buttonDeleteComment = $("#button-DeleteComment");
+
 var clicked = 0;
 
 function init(){
@@ -12,7 +12,7 @@ function init(){
   addOpinionButtonAction();
   hideLandingPage();
   skipLandingPage();
-  destroyComment();
+  AddFunctionDestroyComment();
   // navHideShowOnScroll(); //trzeba dopracować
 }
 
@@ -106,17 +106,29 @@ function postComment(data) {
     headers: {
       'X-Requested-With': 'XMLHttpRequest'
     },
-    success: postSuccess(data),
+    // success: postSuccess(data),
+
+
+    success: function (commentId) {
+               data.commentId = commentId;
+               form[0].reset();
+               resetStars();
+               clicked = 0;
+               displayComment(data);
+               scrollToFormBottom();
+               AddFunctionDestroyComment();  
+             },
     error: error,
   });
 }
 
-function destroyComment(data){
+function AddFunctionDestroyComment(){
+  var buttonDeleteComment = $(".button-DeleteComment");
   buttonDeleteComment.each(function(){
     $(this).on('click', function(){
     console.log('delete click')
     commentId = {
-      "commentId": buttonDeleteComment.attr("data")
+      "commentId": $.trim($(this).attr("data"))
     }
     console.log('commentId: ', commentId)
     $.ajax({
@@ -130,15 +142,16 @@ function destroyComment(data){
   });
 }
 
-function postSuccess(data, textStatus, jqXHR) {
-  console.log('sukces!')
-  form[0].reset();
-  resetStars();
-  clicked = 0;
-  displayComment(data);
-  scrollToFormBottom();
-  
-}
+// function postSuccess(datas, textStatus, jqXHR) {
+//   console.log('sukces!', datas)
+//   // console.log('jqXHR', jqXHR.responseText)
+//   form[0].reset();
+//   resetStars();
+//   clicked = 0;
+//   displayComment(data);
+//   scrollToFormBottom();
+//   AddFunctionDestroyComment();  
+// }
 
 function error(jqXHR, textStatus, errorThrown) {
   console.log("Error, status = " + textStatus + ", " +
@@ -159,7 +172,7 @@ function displayComment(data) {
   template.getElementsByClassName("starsRated")[0].innerHTML = commentRating;
   template.getElementsByClassName("text")[0].innerText = data.commentText;
   template.getElementsByClassName("date")[0].innerText = Date();
-  // buttonDeleteComment.setAttribute("data", )
+  template.getElementsByClassName("button-DeleteComment")[0].setAttribute("data", data.commentId);
   dateFormat(template);
   $(template.outerHTML).appendTo("#commentsWrapper").show("slow");
 }

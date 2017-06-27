@@ -97,11 +97,11 @@ h1.page-header {
   top: 1.2em;
   left: 1em;
   min-width: 0; }
-  .dropdown-menu .dropdown-item {
+  .dropdown-menu button.dropdown-item {
     color: #777;
-    margin: 1em;
+    margin: 0;
     line-height: 1.6em; }
-    .dropdown-menu .dropdown-item:hover {
+    .dropdown-menu button.dropdown-item:hover {
       color: #FF847C; }
 
 .ui.comments .comment, .ui.comments .comment:first-child {

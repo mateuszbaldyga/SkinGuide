@@ -135,9 +135,9 @@ h1.page-header {
   top: 1.2em;
   left: 1em;
   min-width: 0;
-  .dropdown-item {
+  button.dropdown-item {
     color: #777;
-    margin: 1em;
+    margin: 0;
     line-height: 1.6em;
     &:hover {
       color: #FF847C;
