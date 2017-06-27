@@ -125,22 +125,29 @@ function postComment(data) {
 function AddFunctionDestroyComment(){
   var buttonDeleteComment = $(".button-DeleteComment");
   buttonDeleteComment.each(function(){
-    $(this).on('click', function(){
-    console.log('delete click')
+    var thisButton = $(this);
+    thisButton.on('click', function(){
+    console.log('delete click', thisButton )
     commentId = {
-      "commentId": $.trim($(this).attr("data"))
+      "commentId": $.trim(thisButton.attr("data"))
     }
     console.log('commentId: ', commentId)
     $.ajax({
       url: 'http://localhost:3000/skinguide',
       data: commentId,
       type: 'DELETE',
-      success: 'hideComment',
+      success: function(){
+        thisButton.parents("div.comment").hide("normal", function(){$(this).remove()});
+      },
       error: error,
       });
     });
   });
 }
+
+// function hideComment(commentId) {
+
+// }
 
 // function postSuccess(datas, textStatus, jqXHR) {
 //   console.log('sukces!', datas)
@@ -164,6 +171,7 @@ function displayComment(data) {
   var commentRating = "",
       template = document.getElementsByClassName("comment")[0];
       template = $(template).clone()[0]
+      // $(template).hide(0);
   for(var i=0; i<data.numOfStars; i++){
     commentRating += "<span>&#9733;</span>\n";
     }
@@ -174,7 +182,7 @@ function displayComment(data) {
   template.getElementsByClassName("date")[0].innerText = Date();
   template.getElementsByClassName("button-DeleteComment")[0].setAttribute("data", data.commentId);
   dateFormat(template);
-  $(template.outerHTML).appendTo("#commentsWrapper").show("slow");
+  $(template.outerHTML).appendTo("#commentsWrapper").hide(0, function(){$(this).show("normal")});
 }
 // } real-time-comment-display
 
@@ -206,7 +214,7 @@ function addOpinionButtonAction() {
   $("#button-addOpinion").click(function(){
 
   $(this).hide(0);
-  $("#showForm").show("slow");
+  $("#showForm").show("normal");
   scrollToFormBottom();
   })
 }
