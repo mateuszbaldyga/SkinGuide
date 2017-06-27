@@ -12,11 +12,11 @@
         <%= comment.author.username %>
       <% } else {} %>
     </a>
-      <div status='data-notFormated' class="metadata date" style="display: none;">
+      <span class="metadata date" style="display: none;">
         <% if(Object.keys(comments).length>0){ %>
           <%= comment.date %>
         <% } else {} %>
-      </div>
+      </span>
     <div class="dropdown show button-CommentMenu">
       <button class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="angle down icon"></i>

@@ -58,36 +58,29 @@ function setNavigation() {
     })
 }
 
-
 function dateFormat(items){
     var dateFields = items.querySelectorAll(".date"),
         dateNow = new Date()
-        // console.log(dateFields[0].getAttribute("status"));
       for(var i=0; i<dateFields.length; i++){
-        if(dateFields[i].getAttribute("status")){
           var dateComment = new Date(dateFields[i].innerText),
               dateComparison = dateNow.getDate() - dateComment.getDate(),
-              commentTime = dateComment.getHours() + ":" + dateComment.getMinutes()
-          console.log(dateComparison);
-          
-
+              commentMinutes = dateComment.getMinutes(),
+              commentTime = dateComment.getHours() + ":" 
+                            + (commentMinutes<10?'0':'')
+                            + commentMinutes;
+          // console.log(dateComparison);
           if(dateComparison <= 1){
-              // dateFields[i].setAttribute("title", dateFields[i].innerText.slice(4, 21));
               dateFields[i].innerText = "Today at " + commentTime;
           }
           else if(dateComparison <= 2){
-              // dateFields[i].setAttribute("title", dateFields[i].innerText.slice(4, 21));
               dateFields[i].innerText = "Yesterday at " + commentTime;
           }
           else{
-              // dateFields[i].setAttribute("title", dateFields[i].innerText.slice(4, 21));
               dateFields[i].innerText = dateComparison + " days ago";
           }
           $(dateFields[i]).show(0);
       }
-          // dateFields[i].removeAttribute("status");
     }
-}
 
 //real-time-comment-display {
 function newCommentDisplay() {
