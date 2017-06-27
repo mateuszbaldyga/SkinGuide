@@ -1,46 +1,49 @@
 <div class="comment">
   <a href="#" class="avatar">
     <img alt="User's avatar." src="
-    <% if(Object.keys(comments).length>0){ %>
+    <% if(typeof comment != 'undefined'){ %>
       <%= comment.author.avatar %>
-    <% } else {} %>
+    <% } %>
     ">
   </a>
   <div class="content">
     <a href="#" class="author">
-      <% if(Object.keys(comments).length>0){ %>
+      <% if(typeof comment != 'undefined'){ %>
         <%= comment.author.username %>
-      <% } else {} %>
+      <% } %>
     </a>
       <span class="metadata date" style="display: none;">
-        <% if(Object.keys(comments).length>0){ %>
+        <% if(typeof comment != 'undefined'){ %>
           <%= comment.date %>
-        <% } else {} %>
-      </span>
-    <div class="dropdown show button-CommentMenu">
-      <button class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="angle down icon"></i>
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <button type="button" class="dropdown-item" href="#">Edytuj</button>
-        <button type="button" class="dropdown-item button-DeleteComment" data="
-          <% if(Object.keys(comments).length>0){ %>
-            <%=comment._id %>
-          <% } else {} %>
-        " class="dropdown-item" href="#">Usuń</button>
+        <% } %>
+      </span>           
+    <% if((typeof comment === 'undefined') || (currentUser && comment.author.id.equals(currentUser._id))){ %>
+      <div class="dropdown show button-CommentMenu">
+        <button class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="angle down icon"></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <button type="button" class="dropdown-item" href="#">Edytuj</button>
+          <button type="button" class="dropdown-item button-DeleteComment" data="
+            <% if(typeof comment != 'undefined'){ %>
+              <%=comment._id %>
+            <% } %>
+          " class="dropdown-item" href="#">Usuń
+          </button>
+        </div>
       </div>
-    </div>
+    <% } %>
     <div class='starsRated'>
-      <% if(Object.keys(comments).length>0){ %>
+      <% if(typeof comment != 'undefined'){ %>
         <% for(var i=0; i<comment.rating; i++){ %>
           <span>&#9733;</span>
         <% } %>
-      <% } else {} %>
+      <% } %>
     </div>
     <div class="text">
-      <% if(Object.keys(comments).length>0){ %>
+      <% if(typeof comment != 'undefined'){ %>
         <%= comment.text %>
-      <% } else {} %>    
+      <% } %>    
     </div>
   </div>
 </div>

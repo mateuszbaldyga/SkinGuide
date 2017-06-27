@@ -20,11 +20,9 @@
 <div class="ui comments panel panel-default panel-body" >
   <h3>Opinie klientów</h3>
   <div id="commentsWrapper">
-  <% if(Object.keys(comments).length===0){ %>
-    <div style="display: none;">
+  <div style="display: none;">
     <% include ./partials/comment_template %>
-    </div>
-  <% } %>
+  </div>
   <% comments.forEach(function(comment) { %>
     <% include ./partials/comment_template %>
   <% }) %>
@@ -64,3 +62,4 @@
 </div>
 </main>
 <% include ./partials/footer %>
+

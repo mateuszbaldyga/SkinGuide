@@ -46,7 +46,7 @@ router.post('/skinguide', middleware.isLoggedIn, function(req, res) {
     })
 });
 
-router.delete('/skinguide', function(req, res) {
+router.delete('/skinguide', middleware.checkCommentOwnership, function(req, res) {
   console.log('-------delete route-------\n id: ', req.body.commentId)
   Comment.findByIdAndRemove(req.body.commentId, function(err){
       if(err){
