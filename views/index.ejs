@@ -20,7 +20,11 @@
 <div class="ui comments panel panel-default panel-body" >
   <h3>Opinie klientów</h3>
   <div id="commentsWrapper">
-    <% include ./partials/hidden_comment_template %>
+  <% if(Object.keys(comments).length===0){ %>
+    <div style="display: none;">
+    <% include ./partials/comment_template %>
+    </div>
+  <% } %>
   <% comments.forEach(function(comment) { %>
     <% include ./partials/comment_template %>
   <% }) %>
@@ -30,9 +34,9 @@
 
   <!-- New   -->
     <div class="space">
-      <div id="button-addOpinion" class="ui primary submit labeled icon button">
+      <button id="button-addOpinion" class="ui primary submit labeled icon button">
         <i class="icon edit"></i> Dodaj Opinię
-      </div><br>
+      </button><br>
     </div>
     <div id='showForm' style="display: none;">
       <% if(currentUser){ %>
@@ -44,12 +48,14 @@
           <input type="hidden" name="rateValue" id='rateNum'/>
           <input type="hidden" name="currentuser"  id="currentuser" value='<%= currentUser.username %>'/>
           <input type="hidden" name="avatar"  id="avatar" value='<%= currentUser.avatar %>'/>
+          <input type="hidden" name="commentId"  id="commentId" value='<%= currentUser.avatar %>'/>
           <div class="field">
             <textarea id='text' name="text" placeholder="Czy jesteś zadowolona z naszych usług?"></textarea>
           </div>
-          <div id="button-sendOpinion" class="ui primary submit labeled icon button">
+          <!-- because of type="button" page dont reload! -->
+          <button type="button" id="button-sendOpinion" class="ui primary submit labeled icon button">
             <i class="icon edit"></i> Wyślij Opinię
-          </div>
+          </button>
         </form>
       <% } else { %>
         <p class="space"><b>Aby dodać opinię, <a href="/login" >zaloguj się</a>.</b></p>

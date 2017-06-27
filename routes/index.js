@@ -3,10 +3,12 @@ var express = require("express"),
     passport = require("passport"),
 
     Comment = require("../models/comment"),
-    User = require("../models/user");
+    User = require("../models/user"),
+
+    middleware = require("../middleware");
 
 //==========
-// ROUTES
+// COMMENT ROUTES
 //==========
 router.get("/", function(req, res) {
   res.redirect("/skinguide");
@@ -23,8 +25,8 @@ router.get('/skinguide', function(req, res) {
   })
 });
 
-router.post('/skinguide', isLoggedIn, function(req, res) {
-  console.log('text:', req.body.text)
+router.post('/skinguide', middleware.isLoggedIn, function(req, res) {
+  // console.log('text:', req.body.text)
   var newComment = {
         text: req.body.commentText,
         author: {
@@ -34,15 +36,26 @@ router.post('/skinguide', isLoggedIn, function(req, res) {
         },
       rating: req.body.numOfStars,
       }
-    console.log('text:', newComment)
-    console.log('RATE: ', req.body);
+    // console.log('text:', newComment)
     Comment.create(newComment, function(err, newComment) {
       if (!err) {
         console.log('Success!');
-        res.send(req.body);
+        console.log('RATE: ', newComment._id);
+        res.send(newComment._id);
       }
     })
 });
+
+router.delete('/skinguide', function(req, res) {
+  console.log('delete route id: ', req.body.commentId)
+  Comment.findByIdAndRemove(req.body.commentId, function(err){
+      if(!err){
+        res.send(req.body);
+      }
+   });
+});
+
+
 
 //==========
 //AUTH ROUTES
@@ -67,13 +80,11 @@ router.post("/register", function(req, res) {
   });
 });
 
-// LOGIN ROUTES
 //render login form
 router.get("/login", function(req, res) {
   res.render("login");
 });
 //login logic
-//middleware
 router.post("/login", passport.authenticate("local", {
   successRedirect: "/skinguide",
   failureRedirect: "/login"
@@ -84,13 +95,5 @@ router.get("/logout", function(req, res) {
   req.logout();
   res.redirect("/skinguide");
 });
-
-
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/login");
-}
 
 module.exports = router;

@@ -112,7 +112,7 @@ h1.page-header {
   float: right;
 }
 
-.button-DeleteComment {
+.button-CommentMenu {
   position: absolute;
   right: 0.3em;
   top: 0;
@@ -145,11 +145,12 @@ h1.page-header {
   }
 }
 
-// .comment:hover .button-DeleteComment {
+// .comment:hover .button-CommentMenu {
 //   opacity: 1;
 //   visibility: visible;
 //   transition: opacity 0.3s;
 // }
+
 .ui.comments .comment, .ui.comments .comment:first-child {
   padding-top: 1.5em;
   margin-top: 0;

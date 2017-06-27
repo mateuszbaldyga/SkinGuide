@@ -1,14 +1,18 @@
-var stars = document.querySelectorAll(".rate span");
-var form = $("#formA");
+var stars = document.querySelectorAll(".rate span"),
+    form = $("#formA"),
+    landpic = $("#landpic");
+var buttonDeleteComment = $("#button-DeleteComment");
 var clicked = 0;
 
 function init(){
   setNavigation();
   rate();
   newCommentDisplay();
-  dateDisplay();
+  dateFormat(document);
   addOpinionButtonAction();
   hideLandingPage();
+  skipLandingPage();
+  destroyComment();
   // navHideShowOnScroll(); //trzeba dopracować
 }
 
@@ -22,10 +26,17 @@ function scrollToFormBottom(){
 
 function hideLandingPage(){
   function hideIt(){
-    $("#landpic").slideUp(600);
+    landpic.slideUp(600);
   }
   $("#button-getStarted").on("click", hideIt);
   $( window ).on("scroll", hideIt);
+}
+
+function skipLandingPage(){
+  $("#oNas").click(function(){
+    // alert('dwadaw');
+    landpic.hide();
+  })
 }
 
 function resetStars(){
@@ -47,29 +58,34 @@ function setNavigation() {
     })
 }
 
-function dateDisplay(){
-    var dateField = document.querySelectorAll(".date"),
-        dateNow = new Date();
-        // console.log(dateField[0].getAttribute("status"));
-      for(var i=0; i<dateField.length; i++){
-        if(dateField[i].getAttribute("status")){
-          var dateCompare = dateNow.getDate() - dateField[i].innerText.slice(8, 10);
-          dateField[i].removeAttribute("status");
 
-          if(dateCompare <= 1){
-              dateField[i].setAttribute("title", dateField[i].innerText.slice(4, 21));
-              dateField[i].innerText = "Today at " + dateField[i].innerText.slice(16, 21);
+function dateFormat(items){
+    var dateFields = items.querySelectorAll(".date"),
+        dateNow = new Date()
+        // console.log(dateFields[0].getAttribute("status"));
+      for(var i=0; i<dateFields.length; i++){
+        if(dateFields[i].getAttribute("status")){
+          var dateComment = new Date(dateFields[i].innerText),
+              dateComparison = dateNow.getDate() - dateComment.getDate(),
+              commentTime = dateComment.getHours() + ":" + dateComment.getMinutes()
+          console.log(dateComparison);
+          
+
+          if(dateComparison <= 1){
+              // dateFields[i].setAttribute("title", dateFields[i].innerText.slice(4, 21));
+              dateFields[i].innerText = "Today at " + commentTime;
           }
-          else if(dateCompare <= 2){
-              dateField[i].setAttribute("title", dateField[i].innerText.slice(4, 21));
-              dateField[i].innerText = "Yesterday at " + dateField[i].innerText.slice(16, 21);
+          else if(dateComparison <= 2){
+              // dateFields[i].setAttribute("title", dateFields[i].innerText.slice(4, 21));
+              dateFields[i].innerText = "Yesterday at " + commentTime;
           }
           else{
-              dateField[i].setAttribute("title", dateField[i].innerText.slice(4, 21));
-              dateField[i].innerText = dateCompare + " days ago";
+              // dateFields[i].setAttribute("title", dateFields[i].innerText.slice(4, 21));
+              dateFields[i].innerText = dateComparison + " days ago";
           }
-          $(dateField[i]).show(0);
+          $(dateFields[i]).show(0);
       }
+          // dateFields[i].removeAttribute("status");
     }
 }
 
@@ -82,7 +98,7 @@ function newCommentDisplay() {
           "commentAvatar": form.find('#avatar').val(),
           "commentAuthor": form.find('#currentuser').val(),
         }
-        // console.log(data);
+        console.log(data);
         if(data.numOfStars && data.commentText){
           postComment(data);
         }
@@ -97,8 +113,27 @@ function postComment(data) {
     headers: {
       'X-Requested-With': 'XMLHttpRequest'
     },
-    success: postSuccess,
-    error: postError,
+    success: postSuccess(data),
+    error: error,
+  });
+}
+
+function destroyComment(data){
+  buttonDeleteComment.each(function(){
+    $(this).on('click', function(){
+    console.log('delete click')
+    commentId = {
+      "commentId": buttonDeleteComment.attr("data")
+    }
+    console.log('commentId: ', commentId)
+    $.ajax({
+      url: 'http://localhost:3000/skinguide',
+      data: commentId,
+      type: 'DELETE',
+      success: 'hideComment',
+      error: error,
+      });
+    });
   });
 }
 
@@ -108,28 +143,32 @@ function postSuccess(data, textStatus, jqXHR) {
   resetStars();
   clicked = 0;
   displayComment(data);
-  dateDisplay();
   scrollToFormBottom();
+  
 }
 
-function postError(jqXHR, textStatus, errorThrown) {
+function error(jqXHR, textStatus, errorThrown) {
   console.log("Error, status = " + textStatus + ", " +
               "error thrown: " + errorThrown
             );
   }
   
 function displayComment(data) {
-  // console.log('dataL!!!!!', data);
+  console.log('dataL!!!!!', data);
   var commentRating = "",
-      template = document.getElementById("hiddenCommentTemplate");
+      template = document.getElementsByClassName("comment")[0];
+      template = $(template).clone()[0]
   for(var i=0; i<data.numOfStars; i++){
-    commentRating += "<span>&#x2605</span>";
+    commentRating += "<span>&#9733;</span>\n";
     }
   template.getElementsByTagName("img")[0].setAttribute("src", data.commentAvatar);
   template.getElementsByClassName("author")[0].innerText = data.commentAuthor;
   template.getElementsByClassName("starsRated")[0].innerHTML = commentRating;
   template.getElementsByClassName("text")[0].innerText = data.commentText;
-  $(template.innerHTML).appendTo("#commentsWrapper").show("slow");
+  template.getElementsByClassName("date")[0].innerText = Date();
+  // buttonDeleteComment.setAttribute("data", )
+  dateFormat(template);
+  $(template.outerHTML).appendTo("#commentsWrapper").show("slow");
 }
 // } real-time-comment-display
 
