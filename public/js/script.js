@@ -1,4 +1,5 @@
 var stars = document.querySelectorAll(".rate span"),
+    starsQuantity = stars.length,
     form = $("#formA"),
     landpic = $("#landpic");
 
@@ -8,7 +9,7 @@ function init(){
   setNavigation();
   rate();
   newCommentDisplay();
-  dateFormat(document);
+  dateFormat();
   addOpinionButtonAction();
   hideLandingPage();
   skipLandingPage();
@@ -29,18 +30,18 @@ function hideLandingPage(){
     landpic.slideUp(600);
   }
   $("#button-getStarted").on("click", hideIt);
-  $( window ).on("scroll", hideIt);
+  $(window).on("scroll", hideIt);
 }
 
 function skipLandingPage(){
   $("#oNas").click(function(){
     // alert('dwadaw');
     landpic.hide();
-  })
+  });
 }
 
 function resetStars(){
-  for(var i=0; i<stars.length; i++){
+  for(var i=0; i<starsQuantity; i++){
       stars[i].innerHTML = "&#9734;";
       stars[i].classList.remove("rate-hover");
   }
@@ -55,28 +56,26 @@ function setNavigation() {
         if (path === href) {
             $(this).closest("a").attr("id", "active");
         }
-    })
+    });
 }
 
-function dateFormat(items){
-    var dateFields = items.querySelectorAll(".date"),
-        dateNow = new Date()
-      for(var i=0; i<dateFields.length; i++){
+function dateFormat(){
+    var dateFields = document.querySelectorAll(".date"),
+        dateNow = new Date();
+      for(var i=0, len = dateFields.length; i<len; i++){
           var dateComment = new Date(dateFields[i].innerText),
               dateComparison = dateNow.getDate() - dateComment.getDate(),
               commentMinutes = dateComment.getMinutes(),
-              commentTime = dateComment.getHours() + ":" 
-                            + (commentMinutes<10?'0':'')
-                            + commentMinutes;
+              commentTime = `${dateComment.getHours()}:${commentMinutes<10?'0':''}${commentMinutes}`;
           // console.log(dateComparison);
           if(dateComparison <= 1){
-              dateFields[i].innerText = "Today at " + commentTime;
+              dateFields[i].innerText = `Today at ${commentTime}`;
           }
           else if(dateComparison <= 2){
-              dateFields[i].innerText = "Yesterday at " + commentTime;
+              dateFields[i].innerText = `Yesterday at ${commentTime}`;
           }
           else{
-              dateFields[i].innerText = dateComparison + " days ago";
+              dateFields[i].innerText = `${dateComparison} days ago`;
           }
           $(dateFields[i]).show(0);
       }
@@ -89,13 +88,13 @@ function newCommentDisplay() {
           "numOfStars": form.find('#rateNum').val(),
           "commentText": form.find('#text').val(),
           "commentAvatar": form.find('#avatar').val(),
-          "commentAuthor": form.find('#currentuser').val(),
-        }
+          "commentAuthor": form.find('#currentuser').val()
+        };
         console.log(data);
         if(data.numOfStars && data.commentText){
           postComment(data);
         }
-    })
+    });
   }
 
 function postComment(data) {
@@ -106,9 +105,6 @@ function postComment(data) {
     headers: {
       'X-Requested-With': 'XMLHttpRequest'
     },
-    // success: postSuccess(data),
-
-
     success: function (commentId) {
                data.commentId = commentId;
                form[0].reset();
@@ -127,17 +123,17 @@ function AddFunctionDestroyComment(){
   buttonDeleteComment.each(function(){
     var thisButton = $(this);
     thisButton.on('click', function(){
-    console.log('delete click', thisButton )
+    console.log('delete click', thisButton );
     commentId = {
       "commentId": $.trim(thisButton.attr("data"))
-    }
-    console.log('commentId: ', commentId)
+    };
+    console.log('commentId: ', commentId);
     $.ajax({
       url: 'http://localhost:3000/skinguide',
       data: commentId,
       type: 'DELETE',
       success: function(){
-        thisButton.parents("div.comment").hide("normal", function(){$(this).remove()});
+        thisButton.parents("div.comment").hide("normal", function(){$(this).remove();});
       },
       error: error,
       });
@@ -145,33 +141,15 @@ function AddFunctionDestroyComment(){
   });
 }
 
-// function hideComment(commentId) {
-
-// }
-
-// function postSuccess(datas, textStatus, jqXHR) {
-//   console.log('sukces!', datas)
-//   // console.log('jqXHR', jqXHR.responseText)
-//   form[0].reset();
-//   resetStars();
-//   clicked = 0;
-//   displayComment(data);
-//   scrollToFormBottom();
-//   AddFunctionDestroyComment();  
-// }
-
 function error(jqXHR, textStatus, errorThrown) {
-  console.log("Error, status = " + textStatus + ", " +
-              "error thrown: " + errorThrown
-            );
+  console.log(`Error, status = ${textStatus}, error thrown: ${errorThrown}`);
   }
   
 function displayComment(data) {
   console.log('dataL!!!!!', data);
   var commentRating = "",
       template = document.getElementsByClassName("comment")[0];
-      template = $(template).clone()[0]
-      // $(template).hide(0);
+      template = $(template).clone()[0];
   for(var i=0; i<data.numOfStars; i++){
     commentRating += "<span>&#9733;</span>\n";
     }
@@ -182,7 +160,7 @@ function displayComment(data) {
   template.getElementsByClassName("date")[0].innerText = Date();
   template.getElementsByClassName("button-DeleteComment")[0].setAttribute("data", data.commentId);
   dateFormat(template);
-  $(template.outerHTML).appendTo("#commentsWrapper").hide(0, function(){$(this).show("normal")});
+  $(template.outerHTML).appendTo("#commentsWrapper").hide(0, function(){$(this).show("normal");});
 }
 // } real-time-comment-display
 
@@ -191,32 +169,31 @@ function rate(){
       stars[i].innerHTML = "&#9733;";
       stars[i].classList.add("rate-hover");
     }
-    for(var i=0; i<stars.length; i++){
+    for(var i=0; i<starsQuantity; i++){
         stars[i].addEventListener("click", function(){
             clicked = this.getAttribute("value");
             document.querySelector("#rateNum").setAttribute("value", clicked);
             resetStars();
-            for(var i=0; i<clicked; i++){piceofCode(i)}
-        })
+            for(var i=0; i<clicked; i++){piceofCode(i);}
+        });
         stars[i].addEventListener("mouseenter", function(){
             resetStars();
             var number = this.getAttribute("value");
-            for(var i=0; i<number; i++){piceofCode(i)}
-        })
+            for(var i=0; i<number; i++){piceofCode(i);}
+        });
         stars[i].addEventListener("mouseleave", function(){
             resetStars();
-            for(var i=0; i<clicked; i++){piceofCode(i)}
-        })
+            for(var i=0; i<clicked; i++){piceofCode(i);}
+        });
     }
 }
 
 function addOpinionButtonAction() {
   $("#button-addOpinion").click(function(){
-
-  $(this).hide(0);
-  $("#showForm").show("normal");
-  scrollToFormBottom();
-  })
+    $(this).hide(0);
+    $("#showForm").show("normal");
+    scrollToFormBottom();
+  });
 }
 
 function navHideShowOnScroll() {
@@ -255,4 +232,4 @@ function navHideShowOnScroll() {
 //===========================================
 //                 TESTY
 //===========================================
-// if(stars.length !== 5){alert('stars.length !== 5')}
+// if(starsQuantity !== 5){alert('starsQuantity !== 5')}
