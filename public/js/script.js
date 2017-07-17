@@ -1,7 +1,16 @@
 var stars = document.querySelectorAll(".rate span"),
     starsQuantity = stars.length,
-    form = $("#formA"),
+    form = $("#comment-form"),
     landpic = $("#landpic");
+
+
+var menus = document.getElementsByClassName('hamburger-menu');
+
+[].forEach.call(menus, function (m) {
+    m.addEventListener('click', function () {
+        m.classList.toggle('open');
+    });
+});
 
 var clicked = 0;
 
@@ -9,7 +18,7 @@ function init(){
   setNavigation();
   rate();
   newCommentDisplay();
-  dateFormat();
+  dateFormat(document);
   addOpinionButtonAction();
   hideLandingPage();
   skipLandingPage();
@@ -21,7 +30,7 @@ init();
 
 function scrollToFormBottom(){
   $(document.querySelector("body")).animate({
-    scrollTop: $("#showForm").offset().top
+    scrollTop: $("#comment-form-wrapper").offset().top
     }, "slow");
 }
 
@@ -59,8 +68,8 @@ function setNavigation() {
     });
 }
 
-function dateFormat(){
-    var dateFields = document.querySelectorAll(".date"),
+function dateFormat(objective){
+    var dateFields = objective.querySelectorAll(".date"),
         dateNow = new Date();
       for(var i=0, len = dateFields.length; i<len; i++){
           var dateComment = new Date(dateFields[i].innerText),
@@ -158,9 +167,9 @@ function displayComment(data) {
   template.getElementsByClassName("starsRated")[0].innerHTML = commentRating;
   template.getElementsByClassName("text")[0].innerText = data.commentText;
   template.getElementsByClassName("date")[0].innerText = Date();
-  template.getElementsByClassName("button-DeleteComment")[0].setAttribute("data", data.commentId);
+  // template.getElementsByClassName("button-DeleteComment")[0].setAttribute("data", data.commentId);
   dateFormat(template);
-  $(template.outerHTML).appendTo("#commentsWrapper").hide(0, function(){$(this).show("normal");});
+  $(template.outerHTML).appendTo("#comments-wrapper").hide(0, function(){$(this).show("normal");});
 }
 // } real-time-comment-display
 
@@ -191,7 +200,7 @@ function rate(){
 function addOpinionButtonAction() {
   $("#button-addOpinion").click(function(){
     $(this).hide(0);
-    $("#showForm").show("normal");
+    $("#comment-form-wrapper").show("normal");
     scrollToFormBottom();
   });
 }
