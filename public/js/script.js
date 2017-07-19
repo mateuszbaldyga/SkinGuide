@@ -2,6 +2,9 @@ var stars = document.querySelectorAll(".rate span"),
     starsQuantity = stars.length,
     form = $("#comment-form"),
     landpic = $("#landpic");
+    
+    // commentDropdownMenu = document.querySelectorAll('.dropdown-menu');
+
 
 
 var menus = document.getElementsByClassName('hamburger-menu');
@@ -23,10 +26,13 @@ function init(){
   hideLandingPage();
   skipLandingPage();
   AddFunctionDestroyComment();
+  showHideDropdownMenu();
   // navHideShowOnScroll(); //trzeba dopracować
 }
 
 init();
+
+
 
 function scrollToFormBottom(){
   $(document.querySelector("body")).animate({
@@ -167,11 +173,33 @@ function displayComment(data) {
   template.getElementsByClassName("starsRated")[0].innerHTML = commentRating;
   template.getElementsByClassName("text")[0].innerText = data.commentText;
   template.getElementsByClassName("date")[0].innerText = Date();
-  // template.getElementsByClassName("button-DeleteComment")[0].setAttribute("data", data.commentId);
+  template.getElementsByClassName("button-DeleteComment")[0].setAttribute("data", data.commentId);
   dateFormat(template);
-  $(template.outerHTML).appendTo("#comments-wrapper").hide(0, function(){$(this).show("normal");});
+  $(template.outerHTML).appendTo("#comments-wrapper").hide(0, function(){
+    $(this).show("normal");
+  });
+  showHideDropdownMenu(document.querySelectorAll('.dropdown'));
 }
-// } real-time-comment-display
+
+function showHideDropdownMenu(objective) {
+  // show dropdown
+  var commentDropdown = (!objective) ? $(document.querySelectorAll('.dropdown')):$(objective),
+      allDropdownMenus = commentDropdown.find('.dropdown-menu');
+  commentDropdown.each( function() {
+    var clickedButton = $(this);
+    clickedButton.find('.dropdown-toggle').off().on('click', function() {
+      thisMenu = clickedButton.find('.dropdown-menu');
+      allDropdownMenus.not(thisMenu).hide();
+      thisMenu.toggle();
+    });
+  });
+  // hide dropdown
+  $(document).on('click', function(event) {
+    if (!$(event.target).closest('.dropdown').length) {
+      allDropdownMenus.hide();
+    }
+  });
+}
 
 function rate(){
     function piceofCode(i){

@@ -1,4 +1,30 @@
-
+nav.navbar {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  list-style-type: none;
+  overflow: hidden;
+  color: white;
+      position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -o-sticky;
+    position: -ms-sticky;
+    position: sticky;
+    top: 0px;
+  .navbar-header {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  ul {
+    float: left;
+  }
+  @media (min-width: 768px) {
+    .navbar-header {
+      float: left;
+    }
+  }
+}
 
 
 /*.container-fluid {

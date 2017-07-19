@@ -6,7 +6,7 @@
     <% } %>
     ">
   </a>
-  <div class="content">
+  <div class="content dropdown-hover">
     <a href="#" class="author">
       <% if(typeof comment != 'undefined'){ %>
         <%= comment.author.username %>
@@ -19,7 +19,7 @@
     </span>           
     <% if((typeof comment === 'undefined') || (currentUser && comment.author.id.equals(currentUser._id))){ %>
       <div class="dropdown">
-        <button class="dropdown-toggle" data-toggle="dropdown">
+        <button class="dropdown-toggle">
           <i class="glyphicon icon-down"></i>
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
