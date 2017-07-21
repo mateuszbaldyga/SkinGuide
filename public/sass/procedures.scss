@@ -1,0 +1,13 @@
+.procedure-list {
+  list-style-type: disc;
+  padding-left: 40px;
+  width: 500px;
+  line-height: 1.3em;
+  @media (max-width: 620px) {
+    width: 86%;
+  }
+  .procedure-price {
+    color: $tuna;
+    font-weight: bold;
+  }
+}

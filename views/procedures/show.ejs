@@ -2,18 +2,16 @@
 <% include ../partials/navbar %>
 
 <main>
-<div>
-  <div class="panel panel-default">
-    <div class="panel-body">
-      <h1 class="page-header">Zabiegi</h1>
-      <% groups.forEach(function(group){ %>
-          <h3> <%= group.name %> </h3>
-          <% group.procedures.forEach(function(procedure){ %>
-              <li><%= procedure.name %> - <%= procedure.price %>zł</li>
-          <% }) %>
-      <% }) %>
-    </div>
-  </div>
+<div class="panel space">
+  <h1 class="page-header">Zabiegi</h1>
+  <% groups.forEach(function(group){ %>
+      <h3> <%= group.name %> </h3>
+      <ul class="procedure-list">
+        <% group.procedures.forEach(function(procedure){ %>
+            <li><%= procedure.name %> - <span class="procedure-price"><%= procedure.price %>zł</span></li>
+        <% }) %>
+      </ul>
+  <% }) %>
 </div>
 </main>
 

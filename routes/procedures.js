@@ -2,7 +2,7 @@ var express = require("express"),
     router = express.Router(),
     Group = require("../models/group");
 
-router.get('/skinguide/procedures', function(req, res) {
+router.get('/procedures', function(req, res) {
   Group.find({}, function(err, allGroups) {
     if (!err) {
       console.log('znaleziono wszystkie grupy');

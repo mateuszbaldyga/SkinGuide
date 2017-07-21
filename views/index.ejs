@@ -1,12 +1,12 @@
 <% include ./partials/header %>
 <% include ./partials/navbar %>
 
-<div id='landpic'>
+<div id='landpic' class="landpic">
   <button id="button-getStarted" class="ui primary button">Get Started</button>
 </div>
 
 <main>
-<div class="panel">
+<div id="about-us-box" class="panel">
 <!-- <div id="app"></div> -->
     <h1 class="page-header">O nas</h1>
     <p>Donec dolor massa, eleifend eu maximus in, bibendum sed risus. Ut finibus fringilla erat ut ultricies. Suspendisse mattis est in vulputate sodales. Quisque consequat venenatis aliquam. Praesent finibus in arcu id condimentum. Cras mollis elit sit amet dui tincidunt varius. Suspendisse potenti. Sed porttitor sapien ac odio molestie tincidunt. Mauris fermentum mauris turpis, et lacinia elit imperdiet nec. Fusce laoreet turpis et nisl egestas luctus. Etiam ut consectetur tellus, imperdiet porttitor ante. Nulla facilisi. Nulla ac cursus lacus. Duis in dictum quam. Ut faucibus diam nec odio pharetra pharetra.</p>
@@ -19,7 +19,7 @@
 </div>
 
 <!-- SHOW -->
-<div class="panel comments-panel">
+<div class="comments-panel">
   <div id="comments-wrapper" class="comments-wrapper" >
     <h3>Opinie klientów</h3>
     <% comments.forEach(function(comment) { %>

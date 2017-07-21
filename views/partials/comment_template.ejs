@@ -7,6 +7,13 @@
     ">
   </a>
   <div class="content dropdown-hover">
+  <div class='starsRated'>
+      <% if(typeof comment != 'undefined'){ %>
+        <% for(var i=0; i<comment.rating; i++){ %>
+          &#9733;
+        <% } %>
+      <% } %>
+    </div>
     <a href="#" class="author">
       <% if(typeof comment != 'undefined'){ %>
         <%= comment.author.username %>
@@ -33,13 +40,7 @@
         </div>
       </div>
     <% } %>
-    <div class='starsRated'>
-      <% if(typeof comment != 'undefined'){ %>
-        <% for(var i=0; i<comment.rating; i++){ %>
-          <span>&#9733;</span>
-        <% } %>
-      <% } %>
-    </div>
+    
     <div class="text">
       <% if(typeof comment != 'undefined'){ %>
         <%= comment.text %>

@@ -1,21 +1,9 @@
 var stars = document.querySelectorAll(".rate span"),
     starsQuantity = stars.length,
     form = $("#comment-form"),
-    landpic = $("#landpic");
-    
-    // commentDropdownMenu = document.querySelectorAll('.dropdown-menu');
-
-
-
-var menus = document.getElementsByClassName('hamburger-menu');
-
-[].forEach.call(menus, function (m) {
-    m.addEventListener('click', function () {
-        m.classList.toggle('open');
-    });
-});
-
-var clicked = 0;
+    landpic = $("#landpic"),
+    commentFormWrap = $('#comment-form-wrapper'),
+    clicked = 0;
 
 function init(){
   setNavigation();
@@ -24,33 +12,51 @@ function init(){
   dateFormat(document);
   addOpinionButtonAction();
   hideLandingPage();
-  skipLandingPage();
+  // skipLandingPage();
   AddFunctionDestroyComment();
   showHideDropdownMenu();
+  CollapseNavbar()
   // navHideShowOnScroll(); //trzeba dopracować
 }
 
 init();
 
+function CollapseNavbar() {
+  var collapseNav = $('#navbar-collapse'),
+      collapsed = true,
+      duration = 300;
+  $('#navbar-toggle').click( function() {
+    $(this).children().toggleClass('open');
+    if(collapsed) {
+      collapseNav.slideDown(duration);
+      collapsed = false;
+    } else {
+      collapseNav.slideUp(duration).promise().done(function() {
+        collapseNav.removeAttr("style");
+      });
+      collapsed = true;
+    }
+  });
+}
 
-
-function scrollToFormBottom(){
+function scrollToObjective(objective){
   $(document.querySelector("body")).animate({
-    scrollTop: $("#comment-form-wrapper").offset().top
+    scrollTop: objective.offset().top - $('nav').outerHeight()
     }, "slow");
 }
 
 function hideLandingPage(){
   function hideIt(){
-    landpic.slideUp(600);
+    scrollToObjective($('main'))
   }
   $("#button-getStarted").on("click", hideIt);
-  $(window).on("scroll", hideIt);
+  if(window.location.href.indexOf("skinguide") > -1) {
+    $(window).one("scroll", hideIt);
+  }
 }
 
 function skipLandingPage(){
   $("#oNas").click(function(){
-    // alert('dwadaw');
     landpic.hide();
   });
 }
@@ -66,10 +72,10 @@ function setNavigation() {
     var path = window.location.pathname;
     path = path.replace(/\/$/, "");
     path = decodeURIComponent(path);
-    $(".nav a").each(function () {
+    $("nav ul li a").each(function () {
         var href = $(this).attr("href");
         if (path === href) {
-            $(this).closest("a").attr("id", "active");
+            $(this).closest("a").addClass('active');
         }
     });
 }
@@ -82,7 +88,6 @@ function dateFormat(objective){
               dateComparison = dateNow.getDate() - dateComment.getDate(),
               commentMinutes = dateComment.getMinutes(),
               commentTime = `${dateComment.getHours()}:${commentMinutes<10?'0':''}${commentMinutes}`;
-          // console.log(dateComparison);
           if(dateComparison <= 1){
               dateFields[i].innerText = `Today at ${commentTime}`;
           }
@@ -126,7 +131,7 @@ function postComment(data) {
                resetStars();
                clicked = 0;
                displayComment(data);
-               scrollToFormBottom();
+               scrollToObjective(commentFormWrap);
                AddFunctionDestroyComment();  
              },
     error: error,
@@ -229,7 +234,7 @@ function addOpinionButtonAction() {
   $("#button-addOpinion").click(function(){
     $(this).hide(0);
     $("#comment-form-wrapper").show("normal");
-    scrollToFormBottom();
+    scrollToObjective(commentFormWrap);
   });
 }
 

@@ -1,7 +1,27 @@
-/*reset*/
-@import 'reset';
-@import 'comments';
-@import 'navbar';
+$nav-high: 52px;
+
+//colors:
+$white: #FFFFFF;
+$beige: #fff7fc;
+$tuna: #FF847C;
+// $ocean-blue: #49BEB7;
+$ocean-blue: #49BEB7;
+$grey4font: #5D5D5D;
+$border-color : #e7e7e7;
+$nav-background-color: #f8f8f8;
+
+@mixin input-focus($percent) {
+  border-color: $ocean-blue;
+  box-shadow: 0 0 6px lighten($ocean-blue, $percent);
+}
+
+
+@import 'reset',
+        'comments',
+        'navbar',
+        'landing-page',
+        'procedures',
+        'login-register';
 
 
 /* Bootstrap Extract */
@@ -41,33 +61,25 @@ h3 {
 
 body {
   font-family: 'Lato', sans-serif;
-  background-color: #fff7fc;
-  width: 70em;
-  margin: 7em auto auto auto;
+  background-color: $beige;
 }
 
 main {
-  margin-top: 7em;
+  padding-top: 40px;
   margin-left: auto;
   margin-right: auto;
-  width: 80%;
+  width: 850px;
+  overflow: hidden;
+  @media (max-width: 878px) {
+    width: 98%;
+    min-width: 320px;
+
+  }
+
 }
 
 .hidden-template {
   display: none;
-}
-
-/*my settings*/
-#landpic {
-background: url('/images/beauty1.jpg') center center no-repeat;
--webkit-background-size: cover;
--moz-background-size: cover;
--o-background-size: cover;
-background-size: cover;
-display: flex;
-align-items: center;
-justify-content: center;
-height: 100vh;
 }
 
 .login-form {
@@ -81,12 +93,21 @@ height: 100vh;
   padding: 20px;
   margin-bottom: 20px;
   background-color: #ffffff;
-  border: 1px solid #e2e2e2;
+  border: 1px solid $border-color;
   border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px #e2e2e2;
-  box-shadow: 0 1px 1px #e2e2e2;
+  box-shadow: 0 0px 20px $border-color;
   text-align: justify;
   overflow: hidden;
+  @media (max-width: 620px) {
+      padding: 10px;
+    }
+  @media (max-width: 500px) {
+    padding: 8px;
+  }
+}
+
+.space {
+  margin-top: $nav-high;
 }
 
 h1.page-header {
@@ -95,10 +116,6 @@ h1.page-header {
   margin-top: 1em;
   margin-bottom: 1.3em;
   border-bottom: 1px solid #f2f2f2;
-}
-
-.space {
-  height: 2em;
 }
 
 hr {

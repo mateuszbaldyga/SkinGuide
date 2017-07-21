@@ -1,9 +1,12 @@
 .comments-panel {
-  width: 70%;
+  @extend .panel;
+  width: 550px;
   overflow: visible;
+  @media (max-width: 620px) {
+    width: 85%;
+  }
   .comments-wrapper {
     .comment {
-      position: relative;
       margin: .5em 0 0;
       padding: .5em 0 0;
       line-height: 1.2;
@@ -17,7 +20,7 @@
         width: 2.5em;
         display: block;
         display: block;
-        margin: 0 auto;
+        margin-top: 18px;
         border: 0;
         border-radius: .25rem;
         vertical-align: middle;
@@ -37,16 +40,15 @@
           font-size: .8em;
         }
         .starsRated {
+          text-align: right;
           color: #F5D061;
-          float: right;
-          position: relative;
           right: 20px;
           font-size: 15px;
-
+          letter-spacing: -1px;
         }
         .text {
-          margin: .25em 8em .5em 0;
-          font-size: 1em;
+          margin: .25em 0 .5em 0;
+          font-size: 0.95em;
           word-wrap: break-word;
           color: rgba(0,0,0,.87);
           line-height: 1.3;
@@ -55,7 +57,7 @@
           width: 0;
           position: relative;
           right: 20px;
-          top: -16px;
+          top: -34px;
           float: right;
           .dropdown-toggle {
             border: none;
@@ -70,7 +72,7 @@
             display: none;
             background-color: #ffffff;
             position: absolute;
-            box-shadow: 0 2px 3px 0 rgba(34,36,38,.15);
+            box-shadow: 1px 1px 3px rgba(34,36,38,.15);
             border: 1px solid rgba(34,36,38,.15);
             border-radius: .28571429rem;
             padding: 5px 5px;
@@ -79,8 +81,11 @@
             left: -37px;
             button {
               display: block;
-              border: none;
               background-color: transparent;
+              &:hover {
+                color: $tuna;
+                transition: color 0.1s ease;
+              }
             }
           }
         }
@@ -88,26 +93,14 @@
     }
   }
 
-  .button {
-    background-color: #49BEB7;
-    float: right;
 
-    padding: 0.7em 1.5em;
-    color: #ffffff;
-    border-radius: 4px;
-    border: none;
+  .login-alert {
+    color: $ocean-blue;
     font-weight: bold;
     &:hover {
-      background-color: #44afa9;
-    }
-    &:active {
-      background-color: #3b9b95;
+      color: lighten($ocean-blue, 10%);
     }
   }
-  .login-alert {
-      color: #85B7D9;
-      font-weight: bold;
-    }
   .comment-form-wrapper {
     display: none;
     .comment-textarea {
@@ -122,8 +115,7 @@
       margin-bottom: 15px;
 
       &:focus {
-        border-color: #85B7D9;
-        box-shadow: 0 0 6px rgba(133, 183, 217, 0.5);
+        @include input-focus(20%);
       }
     }
     .rate {
@@ -138,12 +130,22 @@
   }
 }
 
-
-
-
-
-
-
-
-
-
+.button {
+  $move: 1px;
+  background-color: $ocean-blue;
+  float: right;
+  padding: 0.7em 1.5em;
+  color: #ffffff;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-bottom: $move;
+  &:hover {
+    background-color: lighten($ocean-blue, 6%);
+    transition: background-color 0.4s ease;
+  }
+  &:active {
+    background-color: darken($ocean-blue, 5%);
+    margin-top: $move;
+    margin-bottom: 0;
+  }
+}
