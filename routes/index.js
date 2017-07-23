@@ -46,6 +46,18 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
     });
 });
 
+router.put('/', middleware.checkCommentOwnership, function(req, res) {
+  console.log('-------update route-------\n id: ', req.body.editFormText, req.body.commentId);
+  Comment.findByIdAndUpdate(req.body.commentId, { text: req.body.editFormText }, function(err) {
+    if(err){
+      res.sendStatus(200);
+    } else {
+      console.log('Update Success');
+      res.sendStatus(200);
+    }
+  });
+});
+
 router.delete('/', middleware.checkCommentOwnership, function(req, res) {
   console.log('-------delete route-------\n id: ', req.body.commentId)
   Comment.findByIdAndRemove(req.body.commentId, function(err){

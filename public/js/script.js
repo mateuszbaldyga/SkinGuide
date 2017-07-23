@@ -12,18 +12,21 @@ var clickedStar = 0,
     path = window.location.pathname + window.location.search;
 
 function init() {
+  navHideShowOnScroll();
+  collapseMobileNavbarOnClick()
   setNavigation();
-  rate();
-  addFunctionPostComment();
-  dateFormat(document);
-  addOpinionButtonAction();
-  scrollLandingPage();
+
   skipLandingPage();
+  scrollLandingPage();
+
+  rate();
+  dateFormat(document); //FIXME:NEED WORK
+  showHideDropdownMenu();
+
+  addOpinionButtonAction();
+  addFunctionPostComment();
   addFunctionDestroyComment();
   addFunctionEditComment();
-  showHideDropdownMenu();
-  collapseMobileNavbarOnClick()
-  navHideShowOnScroll(); //trzeba dopracować
 } 
 
 init();
@@ -114,7 +117,7 @@ function addFunctionPostComment() {
           "commentAvatar": form.find('#avatar').val(),
           "commentAuthor": form.find('#currentuser').val()
         };
-        console.log(data);
+        // console.log(data);
         if(data.numOfStars && data.commentText){
           postComment(data);
         }
@@ -148,28 +151,31 @@ function addFunctionEditComment(){
       btnToggleDropdown = $(document.querySelectorAll('.dropdown'));
   buttonEditComment.each(function(){
     $(this).on('click', () => {
-      let commentId = {
+      let data = {
             "commentId": $.trim($(this).parent().attr("data"))
           },
+
           commentContent = $(this).closest("div.content"),
           textDiv = commentContent.find('div.text'),
           editForm = `<form id="edit-form" class=edit-form>
                         <textarea id="text-area" class="text-area">${textDiv.text().trim()}</textarea>
                         <div class='buttons-container'>
-                          <button type="button" id="buttonCancel" class="button btn-cancel">Anuluj</button>
                           <button type="button" id="buttonAccept" class="button btn-accept">Zatwierdź</button>
+                          <button type="button" id="buttonCancel" class="button btn-cancel">Anuluj</button>
                         </div>
                       </form>`;
+      
       btnToggleDropdown.fadeOut(100);
       textDiv.replaceWith(editForm).promise().done(() => {
         let editForm = commentContent.find('#edit-form');
-            // editFormText = form.find('#text-area').val()
-            
+        //button-accept
         commentContent.find('#buttonAccept').on('click', () => {
-          let editFormText = editForm.find('#text-area').val(),
-              newTextDiv = textDiv.text(editFormText);
+          data.editFormText = editForm.find('#text-area').val();
+          let newTextDiv = textDiv.text(data.editFormText);
           editForm.replaceWith(newTextDiv);
           btnToggleDropdown.fadeIn(100);
+          console.log(data);
+          updateComment(data);
         });
         //button-cancel
         commentContent.find('#buttonCancel').on('click', () => {
@@ -179,16 +185,18 @@ function addFunctionEditComment(){
       });
     });
   });
+}
 
-    // $.ajax({
-    //   url: 'http://localhost:3000/',
-    //   data: commentId,
-    //   type: 'PUT', //variable
-    //   success: () => {
-    //     $(this).parents("div.comment").hide("normal", function() {$(this).remove();});
-    //   },
-    //   error: error,
-    // });
+function updateComment(data) {
+  $.ajax({
+  type: 'PUT',
+  url: 'http://localhost:3000/',
+  data: data,
+  headers: {
+    'X-Requested-With': 'XMLHttpRequest'
+  },
+  error: error,
+});
 }
 
 function addFunctionDestroyComment(){
@@ -198,7 +206,7 @@ function addFunctionDestroyComment(){
     let commentId = {
       "commentId": $.trim($(this).parent().attr("data"))
     };
-    console.log('commentId: ', commentId);
+    // console.log('commentId: ', commentId);
     $.ajax({
       url: 'http://localhost:3000/',
       data: commentId,
@@ -213,7 +221,7 @@ function addFunctionDestroyComment(){
 }
 
 function error(jqXHR, textStatus, errorThrown) {
-  console.log(`Error, status = ${textStatus}, error thrown: ${errorThrown}`);
+  // console.log(`Error, status = ${textStatus}, error thrown: ${errorThrown}`);
   }
   
 function displayComment(data) {
