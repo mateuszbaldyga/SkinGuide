@@ -1,0 +1,200 @@
+.comments-panel {
+  @extend .panel;
+  width: 550px;
+  overflow: visible;
+  @media (max-width: 620px) {
+    width: 85%;
+  }
+  .comments-wrapper {
+    .comment {
+      margin: .5em 0 0;
+      padding: .5em 0 0;
+      line-height: 1.2;
+      border-top: 1px solid #e8e5e5;
+      &:first-of-type {
+        margin-top: 1.5em;
+        border-top: none;
+      }
+      .avatar img {
+        float: left;
+        width: 2.5em;
+        display: block;
+        display: block;
+        margin-top: 18px;
+        border: 0;
+        border-radius: .25rem;
+        vertical-align: middle;
+      }
+      .content {
+        margin-left: 3.5em;
+        .author {
+          font-size: 1em;
+          color: rgba(0,0,0,.87);
+          font-weight: 700;
+        }
+        .date {
+          // display: inline-block;
+          // display: none;
+          margin-left: .5em;
+          color: rgba(0,0,0,.4);
+          font-size: .8em;
+        }
+        .starsRated {
+          text-align: right;
+          color: #F5D061;
+          right: 20px;
+          font-size: 15px;
+        }
+        .text {
+          margin: .25em 0 .5em 0;
+          font-size: 0.95em;
+          word-wrap: break-word;
+          color: rgba(0,0,0,.87);
+          line-height: 1.3;
+        }
+        .edit-form {
+          .text-area {
+            color: $grey4font;
+            display: block;
+            box-sizing: border-box;
+            border: 1px solid $border-color;
+            border-radius: 4px;
+            width: 100%;
+            margin: 15px 0 10px 0;
+            &:focus {
+              @include input-focus(30%);
+            }
+          }
+          .buttons-container {
+            min-height: 30px;
+            button {
+              margin-left: 5px;
+              font-weight: normal;
+              padding: 5px 7px;
+            }
+          }
+        }
+        .dropdown {
+          width: 0;
+          position: relative;
+          right: 20px;
+          top: -34px;
+          float: right;
+          .dropdown-toggle {
+            border: none;
+            background-color: transparent;
+            color: #9ccecb;
+            .icon-down:before {
+              background-color: #ffffff;
+              content: "\e259";
+            }
+          }
+          .dropdown-menu {
+            display: none;
+            background-color: #ffffff;
+            position: absolute;
+            box-shadow: 1px 1px 3px rgba(34,36,38,.15);
+            border: 1px solid rgba(34,36,38,.15);
+            border-radius: .28571429rem;
+            padding: 5px 5px;
+            z-index: 1;
+            top: 21px;
+            left: -37px;
+            button {
+              display: block;
+              background-color: transparent;
+              &:hover {
+                color: $tuna;
+                transition: color 0.1s ease;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .login-alert-link {
+    color: $ocean-blue;
+    font-weight: bold;
+    &:hover {
+      color: lighten($ocean-blue, 10%);
+    }
+  }
+  .container{
+    min-height: 40px;
+    margin-top: 30px;
+  .comment-form-wrapper {
+    display: none;
+    .comment-textarea {
+      display: block;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      box-sizing: border-box;
+      width: 100%;
+      height: 12em;
+      max-height: 20em;
+      margin-top: 2px;
+      margin-bottom: 15px;
+      &:focus {
+        @include input-focus(20%);
+      }
+      @include placeholder-color();
+    }
+    .rate {
+      line-height: 1.5em;
+      font-size: 21px;
+    }
+
+    .rate-hover {
+      color: #F5D061;
+      cursor: pointer;
+    }
+  }
+}
+}
+
+
+.button {
+  $move: 1px;
+  background-color: $ocean-blue;
+  float: right;
+  padding: 0.7em 1.5em;
+  color: #ffffff;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-bottom: $move;
+  &:hover {
+    background-color: lighten($ocean-blue, 6%);
+    transition: background-color 0.4s ease;
+  }
+  &:active {
+    background-color: darken($ocean-blue, 5%);
+    margin-top: $move;
+    margin-bottom: 0;
+  }
+}
+  
+.btn-accept {
+  background-color: $btn-green;
+  &:hover {
+    background-color: lighten($btn-green, 6%);
+    transition: background-color 0.4s ease;
+  }
+  &:active {
+    background-color: darken($btn-green, 5%);
+  }
+}
+
+.btn-cancel {
+  background-color: $btn-red;
+  &:hover {
+    background-color: lighten($btn-red, 6%);
+    transition: background-color 0.4s ease;
+  }
+  &:active {
+    background-color: darken($btn-red, 5%);
+  }
+}
+
+

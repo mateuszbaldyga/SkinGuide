@@ -6,40 +6,41 @@
     <% } %>
     ">
   </a>
-  <div class="content">
+  <div class="content dropdown-hover">
+  <div class='starsRated'>
+      <% if(typeof comment != 'undefined'){ %>
+          <%- '&#9733;'.repeat(comment.rating) %> 
+      <% } %>
+    </div>
     <a href="#" class="author">
       <% if(typeof comment != 'undefined'){ %>
         <%= comment.author.username %>
       <% } %>
     </a>
-      <span class="metadata date" style="display: none;">
-        <% if(typeof comment != 'undefined'){ %>
-          <%= comment.date %>
-        <% } %>
-      </span>           
+    <span class="date">
+      <% if(typeof comment != 'undefined'){ %>
+        <%= comment.date %>
+      <% } %>
+    </span>           
     <% if((typeof comment === 'undefined') || (currentUser && comment.author.id.equals(currentUser._id))){ %>
-      <div class="dropdown show button-CommentMenu">
-        <button class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="angle down icon"></i>
+      <div class="dropdown">
+        <button class="dropdown-toggle">
+          <i class="glyphicon icon-down"></i>
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <button type="button" class="dropdown-item" href="#">Edytuj</button>
-          <button type="button" class="dropdown-item button-DeleteComment" data="
+        <div class="dropdown-menu" data="
             <% if(typeof comment != 'undefined'){ %>
               <%=comment._id %>
-            <% } %>
-          " class="dropdown-item" href="#">Usuń
+            <% } %>">
+          <button type="button" class="dropdown-item button-EditComment" href="#">
+            Edytuj
+          </button>
+          <button type="button" class="dropdown-item button-DeleteComment" href="#">
+            Usuń
           </button>
         </div>
       </div>
     <% } %>
-    <div class='starsRated'>
-      <% if(typeof comment != 'undefined'){ %>
-        <% for(var i=0; i<comment.rating; i++){ %>
-          <span>&#9733;</span>
-        <% } %>
-      <% } %>
-    </div>
+    
     <div class="text">
       <% if(typeof comment != 'undefined'){ %>
         <%= comment.text %>

@@ -1,143 +1,210 @@
-var stars = document.querySelectorAll(".rate span"),
-    form = $("#formA"),
-    landpic = $("#landpic");
+const stars = document.querySelectorAll(".rate span"),
+      starsQuantity = stars.length,
+      form = $("#comment-form"),
+      landpic = $("#landpic"),
+      main = $('main'),
+      commentFormWrap = $('#comment-form-wrapper'),
+      defaultNavbar = $('#nav'),
+      mobileNavbar = $('#navbar-collapse');
 
-var clicked = 0;
+var clickedStar = 0,
+    mobileNavIsCollapsed = true,
+    path = window.location.pathname + window.location.search;
 
-function init(){
+function init() {
   setNavigation();
   rate();
-  newCommentDisplay();
+  addFunctionPostComment();
   dateFormat(document);
   addOpinionButtonAction();
-  hideLandingPage();
+  scrollLandingPage();
   skipLandingPage();
-  AddFunctionDestroyComment();
-  // navHideShowOnScroll(); //trzeba dopracować
-}
+  addFunctionDestroyComment();
+  addFunctionEditComment();
+  showHideDropdownMenu();
+  collapseMobileNavbarOnClick()
+  navHideShowOnScroll(); //trzeba dopracować
+} 
 
 init();
 
-function scrollToFormBottom(){
-  $(document.querySelector("body")).animate({
-    scrollTop: $("#showForm").offset().top
-    }, "slow");
+function collapseMobileNavbarOnClick() {
+  var duration = 300;
+  $('#navbar-toggle').click( function() {
+    $(this).children().toggleClass('open');
+    if(mobileNavIsCollapsed) {
+      mobileNavbar.slideDown(duration);
+      mobileNavIsCollapsed = false;
+    } else {
+      mobileNavbar.slideUp(duration).promise().done(() => {
+        mobileNavbar.removeAttr("style");
+      });
+      mobileNavIsCollapsed = true;
+    }
+  });
 }
 
-function hideLandingPage(){
-  function hideIt(){
-    landpic.slideUp(600);
+function scrollToObjective(objective, duration=800){
+  $('body,html').animate({
+    scrollTop: objective.offset().top
+    }, duration);
+}
+
+function scrollLandingPage(){
+  $("#button-getStarted").on("click", () => {
+    scrollToObjective(main)
+  });
+   if(path === '/') {
+    $(window).one("scroll", () => {
+      scrollToObjective(main)
+    });
   }
-  $("#button-getStarted").on("click", hideIt);
-  $( window ).on("scroll", hideIt);
 }
 
 function skipLandingPage(){
-  $("#oNas").click(function(){
-    // alert('dwadaw');
-    landpic.hide();
-  })
+  if(path === '/?info') {
+    // landpic.hide();
+    scrollToObjective(main);
+  }
 }
 
 function resetStars(){
-  for(var i=0; i<stars.length; i++){
+  for(let i=0; i<starsQuantity; i++){
       stars[i].innerHTML = "&#9734;";
       stars[i].classList.remove("rate-hover");
   }
 }
 
 function setNavigation() {
-    var path = window.location.pathname;
-    path = path.replace(/\/$/, "");
-    path = decodeURIComponent(path);
-    $(".nav a").each(function () {
-        var href = $(this).attr("href");
-        if (path === href) {
-            $(this).closest("a").attr("id", "active");
-        }
-    })
+  $("nav ul li a").each(function () {
+      let href = $(this).attr("href");//.split('?')[0];
+      if (path === href) {
+          $(this).closest("a").addClass('active');
+      }
+  });
 }
 
-function dateFormat(items){
-    var dateFields = items.querySelectorAll(".date"),
-        dateNow = new Date()
-      for(var i=0; i<dateFields.length; i++){
-          var dateComment = new Date(dateFields[i].innerText),
+function dateFormat(objective){
+    let dateFields = objective.querySelectorAll(".date"),
+        dateNow = new Date();
+      for(let i=0, len = dateFields.length; i<len; i++){
+          let dateComment = new Date(dateFields[i].innerText),
               dateComparison = dateNow.getDate() - dateComment.getDate(),
               commentMinutes = dateComment.getMinutes(),
-              commentTime = dateComment.getHours() + ":" 
-                            + (commentMinutes<10?'0':'')
-                            + commentMinutes;
-          // console.log(dateComparison);
+              commentTime = `${dateComment.getHours()}:${commentMinutes<10?'0':''}${commentMinutes}`;
           if(dateComparison <= 1){
-              dateFields[i].innerText = "Today at " + commentTime;
+              dateFields[i].innerText = `Today at ${commentTime}`;
           }
           else if(dateComparison <= 2){
-              dateFields[i].innerText = "Yesterday at " + commentTime;
+              dateFields[i].innerText = `Yesterday at ${commentTime}`;
           }
           else{
-              dateFields[i].innerText = dateComparison + " days ago";
+              dateFields[i].innerText = `${dateComparison} days ago`;
           }
           $(dateFields[i]).show(0);
       }
     }
 
 //real-time-comment-display {
-function newCommentDisplay() {
-    $("#button-sendOpinion").click(function(){
-      var data = {
+function addFunctionPostComment() {
+    $("#button-sendOpinion").click(() => {
+      let data = {
           "numOfStars": form.find('#rateNum').val(),
           "commentText": form.find('#text').val(),
           "commentAvatar": form.find('#avatar').val(),
-          "commentAuthor": form.find('#currentuser').val(),
-        }
+          "commentAuthor": form.find('#currentuser').val()
+        };
         console.log(data);
         if(data.numOfStars && data.commentText){
           postComment(data);
         }
-    })
+    });
   }
 
 function postComment(data) {
   $.ajax({
     type: 'POST',
-    url: 'http://localhost:3000/skinguide',
+    url: 'http://localhost:3000/',
     data: data,
     headers: {
       'X-Requested-With': 'XMLHttpRequest'
     },
-    // success: postSuccess(data),
-
-
-    success: function (commentId) {
+    success: (commentId) => {
                data.commentId = commentId;
                form[0].reset();
                resetStars();
-               clicked = 0;
+               clickedStar = 0;
                displayComment(data);
-               scrollToFormBottom();
-               AddFunctionDestroyComment();  
+               scrollToObjective(commentFormWrap);
+               addFunctionDestroyComment();
+               addFunctionEditComment();
              },
     error: error,
   });
 }
 
-function AddFunctionDestroyComment(){
-  var buttonDeleteComment = $(".button-DeleteComment");
+function addFunctionEditComment(){
+  let buttonEditComment = $(".button-EditComment"),
+      btnToggleDropdown = $(document.querySelectorAll('.dropdown'));
+  buttonEditComment.each(function(){
+    $(this).on('click', () => {
+      let commentId = {
+            "commentId": $.trim($(this).parent().attr("data"))
+          },
+          commentContent = $(this).closest("div.content"),
+          textDiv = commentContent.find('div.text'),
+          editForm = `<form id="edit-form" class=edit-form>
+                        <textarea id="text-area" class="text-area">${textDiv.text().trim()}</textarea>
+                        <div class='buttons-container'>
+                          <button type="button" id="buttonCancel" class="button btn-cancel">Anuluj</button>
+                          <button type="button" id="buttonAccept" class="button btn-accept">Zatwierdź</button>
+                        </div>
+                      </form>`;
+      btnToggleDropdown.fadeOut(100);
+      textDiv.replaceWith(editForm).promise().done(() => {
+        let editForm = commentContent.find('#edit-form');
+            // editFormText = form.find('#text-area').val()
+            
+        commentContent.find('#buttonAccept').on('click', () => {
+          let editFormText = editForm.find('#text-area').val(),
+              newTextDiv = textDiv.text(editFormText);
+          editForm.replaceWith(newTextDiv);
+          btnToggleDropdown.fadeIn(100);
+        });
+        //button-cancel
+        commentContent.find('#buttonCancel').on('click', () => {
+          editForm.replaceWith(textDiv);
+          btnToggleDropdown.fadeIn(100);
+        });
+      });
+    });
+  });
+
+    // $.ajax({
+    //   url: 'http://localhost:3000/',
+    //   data: commentId,
+    //   type: 'PUT', //variable
+    //   success: () => {
+    //     $(this).parents("div.comment").hide("normal", function() {$(this).remove();});
+    //   },
+    //   error: error,
+    // });
+}
+
+function addFunctionDestroyComment(){
+  let buttonDeleteComment = $(".button-DeleteComment");
   buttonDeleteComment.each(function(){
-    var thisButton = $(this);
-    thisButton.on('click', function(){
-    console.log('delete click', thisButton )
-    commentId = {
-      "commentId": $.trim(thisButton.attr("data"))
-    }
-    console.log('commentId: ', commentId)
+    $(this).on('click', () => {
+    let commentId = {
+      "commentId": $.trim($(this).parent().attr("data"))
+    };
+    console.log('commentId: ', commentId);
     $.ajax({
-      url: 'http://localhost:3000/skinguide',
+      url: 'http://localhost:3000/',
       data: commentId,
       type: 'DELETE',
-      success: function(){
-        thisButton.parents("div.comment").hide("normal", function(){$(this).remove()});
+      success: () => {
+        $(this).closest("div.comment").slideUp(400, function() {$(this).remove();});
       },
       error: error,
       });
@@ -145,114 +212,113 @@ function AddFunctionDestroyComment(){
   });
 }
 
-// function hideComment(commentId) {
-
-// }
-
-// function postSuccess(datas, textStatus, jqXHR) {
-//   console.log('sukces!', datas)
-//   // console.log('jqXHR', jqXHR.responseText)
-//   form[0].reset();
-//   resetStars();
-//   clicked = 0;
-//   displayComment(data);
-//   scrollToFormBottom();
-//   AddFunctionDestroyComment();  
-// }
-
 function error(jqXHR, textStatus, errorThrown) {
-  console.log("Error, status = " + textStatus + ", " +
-              "error thrown: " + errorThrown
-            );
+  console.log(`Error, status = ${textStatus}, error thrown: ${errorThrown}`);
   }
   
 function displayComment(data) {
-  console.log('dataL!!!!!', data);
-  var commentRating = "",
-      template = document.getElementsByClassName("comment")[0];
-      template = $(template).clone()[0]
-      // $(template).hide(0);
-  for(var i=0; i<data.numOfStars; i++){
-    commentRating += "<span>&#9733;</span>\n";
-    }
+  // console.log('dataL!!!!!', data);
+  let commentRating = "",
+      template = $(document.getElementsByClassName("comment")[0]).clone()[0];
+  for(let i=0; i<data.numOfStars; i++) {
+    commentRating += "&#9733;";
+  }
   template.getElementsByTagName("img")[0].setAttribute("src", data.commentAvatar);
   template.getElementsByClassName("author")[0].innerText = data.commentAuthor;
   template.getElementsByClassName("starsRated")[0].innerHTML = commentRating;
   template.getElementsByClassName("text")[0].innerText = data.commentText;
   template.getElementsByClassName("date")[0].innerText = Date();
-  template.getElementsByClassName("button-DeleteComment")[0].setAttribute("data", data.commentId);
+  $(template.getElementsByClassName("button-DeleteComment")[0]).parent().attr("data", data.commentId);
   dateFormat(template);
-  $(template.outerHTML).appendTo("#commentsWrapper").hide(0, function(){$(this).show("normal")});
+  $(template.outerHTML).appendTo("#comments-wrapper").hide(0, function(){
+    $(this).show("normal");
+  });
+  showHideDropdownMenu(document.querySelectorAll('.dropdown'));
 }
-// } real-time-comment-display
+
+function showHideDropdownMenu(objective) {
+  // show dropdown
+  let commentDropdown = (!objective) ? $(document.querySelectorAll('.dropdown')):$(objective),
+      allDropdownMenus = commentDropdown.find('.dropdown-menu'),
+      duration = 150;
+  commentDropdown.each( function() {
+    $(this).off().on('click', () => {
+      let thisMenu = $(this).find('.dropdown-menu');
+      allDropdownMenus.not(thisMenu).slideUp(duration);
+      thisMenu.slideToggle(duration);
+
+    });
+  });
+  // hide dropdown
+  $(document).on('click', (event) => {
+    if (!$(event.target).closest('.dropdown').length) {
+      allDropdownMenus.slideUp(duration);
+    }
+  });
+}
 
 function rate(){
     function piceofCode(i){
       stars[i].innerHTML = "&#9733;";
       stars[i].classList.add("rate-hover");
     }
-    for(var i=0; i<stars.length; i++){
+    for(var i=0; i<starsQuantity; i++){
         stars[i].addEventListener("click", function(){
-            clicked = this.getAttribute("value");
-            document.querySelector("#rateNum").setAttribute("value", clicked);
+            clickedStar = this.getAttribute("value");
+            document.querySelector("#rateNum").setAttribute("value", clickedStar);
             resetStars();
-            for(var i=0; i<clicked; i++){piceofCode(i)}
-        })
+            for(let i=0; i<clickedStar; i++){piceofCode(i);}
+        });
         stars[i].addEventListener("mouseenter", function(){
             resetStars();
-            var number = this.getAttribute("value");
-            for(var i=0; i<number; i++){piceofCode(i)}
-        })
-        stars[i].addEventListener("mouseleave", function(){
+            for(let i=0; i<this.getAttribute("value"); i++){piceofCode(i);}
+        });
+        stars[i].addEventListener("mouseleave", () => {
             resetStars();
-            for(var i=0; i<clicked; i++){piceofCode(i)}
-        })
+            for(let i=0; i<clickedStar; i++){piceofCode(i);}
+        });
     }
 }
 
 function addOpinionButtonAction() {
   $("#button-addOpinion").click(function(){
-
-  $(this).hide(0);
-  $("#showForm").show("normal");
-  scrollToFormBottom();
-  })
+    $(this).fadeOut(200);
+    // $("#comment-form-wrapper").show("normal");
+    $("#comment-form-wrapper").fadeIn("normal");
+    scrollToObjective(commentFormWrap);
+  });
 }
 
 function navHideShowOnScroll() {
-  var didScroll;
-  var lastScrollTop = 0;
-  var delta = 5;
-  var navbarHeight = $(".navbar").outerHeight();
-  $(window).scroll(function(event){
-      didScroll = true;
+  let didScroll,
+      lastScrollTop,
+      duration = 200,
+      navbarHeight = defaultNavbar.outerHeight();
+  $(window).scroll( () => {
+    didScroll = true;
   });
-  setInterval(function() {
-      if (didScroll) {
-          hasScrolled();
-          didScroll = false;
-      }
-  }, 250);
+  setInterval( () => {
+    if (didScroll) {
+      hasScrolled();
+      didScroll = false;
+    }
+  }, 300);
   function hasScrolled() {
-    var st = $(this).scrollTop();
-    // Make sure they scroll more than delta
-    if(Math.abs(lastScrollTop - st) <= delta)
-        return;
-    // If they scrolled down and are past the navbar, add class .nav-up.
-    // This is necessary so you never see what is "behind" the navbar.
+    let st = $(window).scrollTop();
     if (st > lastScrollTop && st > navbarHeight){
-        // Scroll Down
-        $(".navbar").removeClass("nav-down").addClass("nav-up");
-    } else {
-        // Scroll Up
-        if(st + $(window).height() < $(document).height()) {
-            $(".navbar").removeClass("nav-up").addClass("nav-down");
-        }
+      defaultNavbar.animate({top: -navbarHeight}, duration);
+      if(!mobileNavIsCollapsed) {
+        mobileNavbar.fadeOut('fast').promise().done(() => {
+          mobileNavbar.removeAttr("style");
+        });
       }
+      lastScrollTop = st;
+    } else if(st + $(window).height() < $(document).height()) {
+      defaultNavbar.animate({top: '0'}, duration);
+      if(!mobileNavIsCollapsed) {
+        mobileNavbar.fadeIn('fast');
+      }
+      lastScrollTop = st;
+    }
+  }
 }
-}
-
-//===========================================
-//                 TESTY
-//===========================================
-// if(stars.length !== 5){alert('stars.length !== 5')}
