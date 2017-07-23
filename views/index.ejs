@@ -28,33 +28,31 @@
 
 <!-- New   -->
   </div>
-  <div class="space">
-  </div>
-  <button id="button-addOpinion" class="button">
-    Dodaj Opinię
-  </button>
-  <div id='comment-form-wrapper' class='comment-form-wrapper'>
-    <% if(currentUser){ %>
-      <form name="comment-form" id="comment-form" action="/skinguide" method="POST">
-        Ocena:
-        <div class='rate'>
-          <span value='1'>&#9734;</span><span value='2'>&#9734;</span><span value='3'>&#9734;</span><span value='4'>&#9734;</span><span value='5'>&#9734;</span>
-        </div>
-        <input type="hidden" name="rateValue" id='rateNum'/>
-        <input type="hidden" name="currentuser"  id="currentuser" value='<%= currentUser.username %>'/>
-        <input type="hidden" name="avatar"  id="avatar" value='<%= currentUser.avatar %>'/>
-        <input type="hidden" name="commentId"  id="commentId" value='<%= currentUser.avatar %>'/>
-        <div class="field">
+  <div class="container">
+    <button id="button-addOpinion" class="button">
+      Dodaj Opinię
+    </button>
+    <div id='comment-form-wrapper' class='comment-form-wrapper'>
+      <% if(currentUser){ %>
+        <form name="comment-form" id="comment-form" action="/skinguide" method="POST">
+          Ocena:
+          <div class='rate'>
+            <span value='1'>&#9734;</span><span value='2'>&#9734;</span><span value='3'>&#9734;</span><span value='4'>&#9734;</span><span value='5'>&#9734;</span>
+          </div>
+          <input type="hidden" name="rateValue" id='rateNum'/>
+          <input type="hidden" name="currentuser"  id="currentuser" value='<%= currentUser.username %>'/>
+          <input type="hidden" name="avatar"  id="avatar" value='<%= currentUser.avatar %>'/>
+          <input type="hidden" name="commentId"  id="commentId" value='<%= currentUser.avatar %>'/>
           <textarea id='text' class="comment-textarea" name="text" placeholder="Czy jesteś zadowolona z naszych usług?"></textarea>
-        </div>
-        <!-- because of type="button" page dont reload! -->
-        <button type="button" id="button-sendOpinion" class="button">
-          <i class="icon edit"></i> Wyślij Opinię
-        </button>
-      </form>
-    <% } else { %>
-      <p class="space"><b>Aby dodać opinię, <a href="/login" class="login-alert">zaloguj się</a>.</b></p>
-    <% } %>
+          <!-- because of type="button" page dont reload! -->
+          <button type="button" id="button-sendOpinion" class="button">
+            <i class="icon edit"></i> Wyślij Opinię
+          </button>
+        </form>
+      <% } else { %>
+        <p class="login-alert"><b>Aby dodać opinię, <a href="/login" class="login-alert-link">zaloguj się</a>.</b></p>
+      <% } %>
+    </div>
   </div>
 </div>
 </main>

@@ -1,66 +1,26 @@
 $collapsed-nav-width: 200px;
-$nav-shadow: -2px 2px 10px darken($nav-background-color, 5%);
+$nav-shadow: -2px 4px 10px darken($nav-background-color, 5%);
 
 nav.navbar {
   background-color: $nav-background-color;
-  padding-left: 15px;
   height: $nav-high;
   position: fixed;
-  width: 100%;
+  width: 100vw;
   top: 0;
   z-index: 10;
   box-shadow: $nav-shadow;
   .nav-container {
+    background-color: $nav-background-color;
     display:flex;
     align-items: center;
+    height: 100%;
+    // position: absolute;
+    z-index: 10;
     .navbar-header {
       display:flex;
       align-items: center;
       z-index: 3;
-      button.navbar-toggle {
-        background-color: transparent;
-        position: absolute;
-        right: 20px;
-        border: 1px solid $border-color;
-        border-radius: 4px;
-        @media (min-width: 774px) {
-          display: none;
-        }
-        &:hover {
-          border-color: lighten($tuna, 15% );
-          box-shadow: 0 0px 2px lighten($tuna, 15% );
-          transition: all 0.3s ease;
-          .hamburger-menu div {
-            background-color: lighten($tuna, 15% );
-          }
-        }
-        .hamburger-menu {
-          background-color: transparent;
-          cursor: pointer;
-          padding: 2px;
-          div {
-            $div-margin: 5px;
-            background-color: #B0B0B0;
-            width: 25px;
-            height: 2px;
-            margin-top: $div-margin;
-            margin-bottom: $div-margin;
-            transition: all 0.3s ease-out;
-          }
-          &.open {
-            $translate: 7px;
-            .one {
-                transform: translateY($translate) rotate(45deg);
-            }
-            .two {
-                opacity: 0;
-            }
-            .three {
-                transform: translateY(-$translate) rotate(-45deg);
-            }
-          }
-        }
-      }
+      
       .navbar-brand {
         font-size: 1.3em;
         color: $tuna;
@@ -71,6 +31,53 @@ nav.navbar {
           color: $ocean-blue;
           text-shadow: 0 0 1px $ocean-blue;
           transition: all 0.3s ease;
+        }
+      }
+    }
+  button.navbar-toggle {
+      // display:flex;
+      // align-items: center;
+      // z-index: 3;
+      background-color: transparent;
+      position: absolute;
+      right: 20px;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      @media (min-width: 774px) {
+        display: none;
+      }
+      &:hover {
+        border-color: lighten($tuna, 15% );
+        box-shadow: 0 0px 2px lighten($tuna, 15% );
+        transition: all 0.3s ease;
+        .hamburger-menu div {
+          background-color: lighten($tuna, 15% );
+        }
+      }
+      .hamburger-menu {
+        background-color: transparent;
+        cursor: pointer;
+        padding: 2px;
+        div {
+          $div-margin: 5px;
+          background-color: #B0B0B0;
+          width: 25px;
+          height: 2px;
+          margin-top: $div-margin;
+          margin-bottom: $div-margin;
+          transition: all 0.3s ease-out;
+        }
+        &.open {
+          $translate: 7px;
+          .one {
+              transform: translateY($translate) rotate(45deg);
+          }
+          .two {
+              opacity: 0;
+          }
+          .three {
+              transform: translateY(-$translate) rotate(-45deg);
+          }
         }
       }
     }
@@ -87,8 +94,8 @@ nav.navbar {
         width: $collapsed-nav-width;
         padding: 10px 0;
         justify-content:center;
-        z-index: 1;
-        box-shadow: $nav-shadow;
+        z-index: -1;
+        box-shadow: $nav-shadow, 0 0px;
       }
       ul.navbar-right {
         padding-left: 0;

@@ -1,9 +1,10 @@
 $nav-high: 52px;
-
 //colors:
 $white: #FFFFFF;
 $beige: #fff7fc;
 $tuna: #FF847C;
+$btn-green: #8CD95B;
+$btn-red: #FE6256;
 // $ocean-blue: #49BEB7;
 $ocean-blue: #49BEB7;
 $grey4font: #5D5D5D;
@@ -13,6 +14,24 @@ $nav-background-color: #f8f8f8;
 @mixin input-focus($percent) {
   border-color: $ocean-blue;
   box-shadow: 0 0 6px lighten($ocean-blue, $percent);
+}
+
+@mixin shadowed-border {
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  box-shadow: 0 0px 20px $border-color;
+}
+
+@mixin placeholder-color($color: #BABABA) {
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+  &:-moz-placeholder {
+    color: $color;
+  } 
+  &:-ms-input-placeholder {
+    color: $color;
+  }
 }
 
 
@@ -71,8 +90,8 @@ main {
   width: 850px;
   overflow: hidden;
   @media (max-width: 878px) {
-    width: 98%;
-    min-width: 320px;
+    width: 97vw;
+    min-width: 310px;
 
   }
 
@@ -82,21 +101,16 @@ main {
   display: none;
 }
 
-.login-form {
-  width: 30%;
-  margin: auto;
-  align-items: center;
-  justify-content: center;
-}
+
 
 .panel {
+  display: flex;
+  flex-direction: column;
   padding: 20px;
   margin-bottom: 20px;
   background-color: #ffffff;
-  border: 1px solid $border-color;
-  border-radius: 4px;
-  box-shadow: 0 0px 20px $border-color;
-  text-align: justify;
+  @include shadowed-border;
+  text-align: left;
   overflow: hidden;
   @media (max-width: 620px) {
       padding: 10px;

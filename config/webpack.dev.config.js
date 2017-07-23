@@ -6,11 +6,11 @@ module.exports = {
     entry: [
         'webpack/hot/dev-server',
         'webpack-hot-middleware/client',
-        "./public/js/client.js"
+        "./public/js/script.js"
     ],
     output: {
         path: '/',
-        filename: 'bundle.js',
+        filename: 'script-es6.js',
         publicPath: 'http://localhost:3000/scripts/',
     },
     module: {
@@ -38,6 +38,9 @@ module.exports = {
         new webpack.NoEmitOnErrorsPlugin(),
         // new webpack.ResolverPlugin(new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json'), ['main']),
         new webpackStats('webpack.json'),
+        new webpack.optimize.UglifyJsPlugin({
+          minimize: true
+        }),
     ],
     target: 'web',
     devServer: { 

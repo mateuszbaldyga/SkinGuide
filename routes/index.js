@@ -10,22 +10,22 @@ var express = require("express"),
 //==========
 // COMMENT ROUTES
 //==========
-router.get("/", function(req, res) {
-  res.redirect("/skinguide");
-});
+// router.get("/", function(req, res) {
+//   res.redirect("/skinguide");
+// });
 
-router.get('/skinguide', function(req, res) {
+router.get('/', function(req, res) {
   Comment.find({}, function(err, allComments) {
     if (!err) {
       console.log('znaleziono wszystkie komentarze');
-    };
-    res.render("index", {
+      res.render("index", {
       comments: allComments
-    });
-  })
+      });
+    }
+  });
 });
 
-router.post('/skinguide', middleware.isLoggedIn, function(req, res) {
+router.post('/', middleware.isLoggedIn, function(req, res) {
   // console.log('text:', req.body.text)
   var newComment = {
         text: req.body.commentText,
@@ -38,23 +38,24 @@ router.post('/skinguide', middleware.isLoggedIn, function(req, res) {
       }
     // console.log('text:', newComment)
     Comment.create(newComment, function(err, newComment) {
-      if (!err) {
+      if(!err) {
         console.log('Success!');
         console.log('RATE: ', newComment._id);
         res.send(newComment._id);
       }
-    })
+    });
 });
 
-router.delete('/skinguide', middleware.checkCommentOwnership, function(req, res) {
+router.delete('/', middleware.checkCommentOwnership, function(req, res) {
   console.log('-------delete route-------\n id: ', req.body.commentId)
   Comment.findByIdAndRemove(req.body.commentId, function(err){
       if(err){
         console.log(err, '\n', '------------------------');
-        res.send("ERROR");
+        res.sendStatus(200);
       } else {
-        console.log('Delete Success')
-        res.send(req.body);
+        console.log('Delete Success');
+        // res.send(req.body);
+        res.sendStatus(200);
       }
    });
 });
@@ -79,7 +80,7 @@ router.post("/register", function(req, res) {
       return res.render('register');
     }
     passport.authenticate("local")(req, res, function() {
-      res.redirect("/skinguide");
+      res.redirect("/");
     });
   });
 });
@@ -90,14 +91,14 @@ router.get("/login", function(req, res) {
 });
 //login logic
 router.post("/login", passport.authenticate("local", {
-  successRedirect: "/skinguide",
+  successRedirect: "/",
   failureRedirect: "/login"
 }), function(req, res) {});
 
 //logout logic
 router.get("/logout", function(req, res) {
   req.logout();
-  res.redirect("/skinguide");
+  res.redirect("/login");
 });
 
 module.exports = router;
