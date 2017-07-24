@@ -1,12 +1,6 @@
 var express = require('express'),
     app = express(),
-
-    webpack = require('webpack'),
-    webpackDevMiddleware = require('webpack-dev-middleware'),
-    webpackHotMiddleware = require('webpack-hot-middleware'),
-    config = require('./config/webpack.dev.config'),
-    compiler = webpack(config)
-
+    cookieSession = require('cookie-session'),
 
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
@@ -37,10 +31,10 @@ app.use(flash());
 //==========
 // PASSPORT CONFIG
 //==========
-app.use(require('express-session')({
-  secret: '84sr9g84sv98e4gt4d65f7ewh84re89g7s4d5s',
-  resave: false,
-  saveUninitialized: false
+app.use(cookieSession({
+  name: 'session',
+  keys: ['gjeoisgf49ds489rv4ds489'],
+  maxAge: 48*60*60*1000,
 }));
 
 app.use(passport.initialize());
@@ -59,15 +53,6 @@ app.use(function(req, res, next){
 app.use(authRoutes);
 app.use(indexRoutes);
 app.use(proceduresRoutes);
-
-app.use(webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath,
-    stats: {colors: true}
-}));
-
-app.use(webpackHotMiddleware(compiler, {
-    log: console.log
-}))
 
 app.listen(3000, function() {
   console.log('The SkinGuide Server Has Started!');

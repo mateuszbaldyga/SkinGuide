@@ -137,17 +137,12 @@ function dateFormat(objective){
   let dateFields = objective.querySelectorAll(".date"),
       timestampNow = Date.now(),
       divider = 1000*60*60*24;
-      // console.log(timestampNow);
   for(let i=0, len = dateFields.length; i<len; i++){
     let commentDate = new Date(dateFields[i].innerText),
         commentMinutes = commentDate.getMinutes(),
         commentTime = `${commentDate.getHours()}:${commentMinutes<10?'0':''}${commentMinutes}`,
         commentTimestamp = commentDate.getTime(),
         dateComparison = Math.floor((timestampNow-commentTimestamp)/divider);
-        console.log(dateComparison);
-        // console.log((timestampNow-commentTimestamp)/divider);
-    //     dateComparison = dateNow.getDate() - dateComment.getDate(),
-    //     console.log(dateComparison, dateNow.getDate(), dateComment.getDate());
     if(dateComparison <= 1){
       dateFields[i].innerText = `Dziś o ${commentTime}`;
     }
