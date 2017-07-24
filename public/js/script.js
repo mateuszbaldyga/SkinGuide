@@ -1,3 +1,5 @@
+// import '../css/style.css';
+
 const stars = document.querySelectorAll(".rate span"),
       starsQuantity = stars.length,
       form = $("#comment-form"),
@@ -132,7 +134,7 @@ function rateComment(){
         });
     }
 }
-
+//kom
 function dateFormat(objective){
   let dateFields = objective.querySelectorAll(".date"),
       timestampNow = Date.now(),

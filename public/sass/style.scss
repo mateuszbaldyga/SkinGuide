@@ -1,5 +1,4 @@
 $nav-high: 52px;
-
 //colors:
 $white: #FFFFFF;
 $beige: #fff7fc;
@@ -34,15 +33,13 @@ $nav-background-color: #f8f8f8;
   }
 }
 
-
 @import 'reset',
         'comments',
         'navbar',
         'landing-page',
         'procedures',
         'login-register';
-
-
+        
 /* Bootstrap Extract */
 @font-face {
   font-family: 'Glyphicons Halflings';
@@ -100,8 +97,6 @@ main {
 .hidden-template {
   display: none;
 }
-
-
 
 .panel {
   display: flex;
