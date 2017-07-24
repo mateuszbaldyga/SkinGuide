@@ -4,9 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "webpack": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app.deploy.js",
+    "dev": "node app.js"
   },
   "author": "",
   "license": "ISC",
