@@ -15,14 +15,12 @@ var express = require('express'),
     LocalStrategy = require('passport-local'),
     passportLocalMongoose = require('passport-local-mongoose'),
 
-    //models
-    // Comment = require('./models/comment'),
-    // Group = require('./models/group'),
     User = require('./models/user'),
 
     seedDB = require('./seed');
 
-var indexRoutes = require('./routes/index'),
+var authRoutes = require('./routes/auth'),
+    indexRoutes = require('./routes/index'),
     proceduresRoutes = require('./routes/procedures');
 
 mongoose.connect('mongodb://localhost/skin_guide');
@@ -58,6 +56,7 @@ app.use(function(req, res, next){
   next();
 });
 
+app.use(authRoutes);
 app.use(indexRoutes);
 app.use(proceduresRoutes);
 

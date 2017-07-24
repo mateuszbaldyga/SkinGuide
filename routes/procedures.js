@@ -1,5 +1,6 @@
 var express = require("express"),
     router = express.Router(),
+
     Group = require("../models/group");
 
 router.get('/procedures', function(req, res) {
@@ -12,12 +13,5 @@ router.get('/procedures', function(req, res) {
     });
   })
 });
-
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/login");
-}
 
 module.exports = router;

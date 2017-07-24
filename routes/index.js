@@ -1,32 +1,22 @@
 var express = require("express"),
     router = express.Router(),
-    passport = require("passport"),
 
     Comment = require("../models/comment"),
-    User = require("../models/user"),
 
     middleware = require("../middleware");
 
-//==========
-// COMMENT ROUTES
-//==========
-// router.get("/", function(req, res) {
-//   res.redirect("/skinguide");
-// });
-
 router.get('/', function(req, res) {
   Comment.find({}, function(err, allComments) {
-    if (!err) {
-      console.log('znaleziono wszystkie komentarze');
-      res.render("index", {
-      comments: allComments
-      });
+    if(err) {
+      res.sendStatus(404);
+    } else {
+      console.log('Get route: SUCCESS!');
+      res.render("index", { comments: allComments });
     }
   });
 });
 
 router.post('/', middleware.isLoggedIn, function(req, res) {
-  // console.log('text:', req.body.text)
   var newComment = {
         text: req.body.commentText,
         author: {
@@ -36,81 +26,39 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
         },
       rating: req.body.numOfStars,
       }
-    // console.log('text:', newComment)
     Comment.create(newComment, function(err, newComment) {
-      if(!err) {
-        console.log('Success!');
-        console.log('RATE: ', newComment._id);
+      if(err) {
+        console.log('Post route: ERROR!');
+        res.sendStatus(500);
+      } else {
+        console.log('Post route: SUCCESS!');
         res.send(newComment._id);
       }
     });
 });
 
 router.put('/', middleware.checkCommentOwnership, function(req, res) {
-  console.log('-------update route-------\n id: ', req.body.editFormText, req.body.commentId);
-  Comment.findByIdAndUpdate(req.body.commentId, { text: req.body.editFormText }, function(err) {
+  Comment.findByIdAndUpdate(req.body.commentId, { text: req.body.editFormText },function(err) {
     if(err){
-      res.sendStatus(200);
+      console.log('Update route: ERROR');
+      res.redirect("back");
     } else {
-      console.log('Update Success');
+      console.log('Update route: SUCCESS!');
       res.sendStatus(200);
     }
   });
 });
 
 router.delete('/', middleware.checkCommentOwnership, function(req, res) {
-  console.log('-------delete route-------\n id: ', req.body.commentId)
   Comment.findByIdAndRemove(req.body.commentId, function(err){
       if(err){
-        console.log(err, '\n', '------------------------');
-        res.sendStatus(200);
+        console.log('Delete route: ERROR');
+        res.sendStatus(500);
       } else {
-        console.log('Delete Success');
-        // res.send(req.body);
+        console.log('Delete route: SUCCESS!');
         res.sendStatus(200);
       }
    });
-});
-
-
-
-//==========
-//AUTH ROUTES
-//==========
-//show sign up form
-router.get("/register", function(req, res) {
-  res.render("register");
-});
-//handling user sign up
-router.post("/register", function(req, res) {
-  var newUser = new User({
-    username: req.body.username
-  });
-  User.register(newUser, req.body.password, function(err, user) {
-    if (err) {
-      console.log(err);
-      return res.render('register');
-    }
-    passport.authenticate("local")(req, res, function() {
-      res.redirect("/");
-    });
-  });
-});
-
-//render login form
-router.get("/login", function(req, res) {
-  res.render("login");
-});
-//login logic
-router.post("/login", passport.authenticate("local", {
-  successRedirect: "/",
-  failureRedirect: "/login"
-}), function(req, res) {});
-
-//logout logic
-router.get("/logout", function(req, res) {
-  req.logout();
-  res.redirect("/login");
 });
 
 module.exports = router;
