@@ -1,0 +1,16 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  @include shadowed-border;
+  text-align: left;
+  overflow: hidden;
+  @media (max-width: 620px) {
+      padding: 10px;
+    }
+  @media (max-width: 500px) {
+    padding: 8px;
+  }
+}

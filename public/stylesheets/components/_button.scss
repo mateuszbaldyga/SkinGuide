@@ -1,0 +1,56 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+.button {
+  $move: 1px;
+  background-color: $ocean-blue;
+  float: right;
+  padding: 0.7em 1.5em;
+  color: #ffffff;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-bottom: $move;
+
+  &:hover {
+    background-color: lighten($ocean-blue, 6%);
+    transition: background-color 0.4s ease;
+  }
+  
+  &:active {
+    background-color: darken($ocean-blue, 5%);
+    margin-top: $move;
+    margin-bottom: 0;
+  }
+}
+  
+.button--accept {
+  margin-left: 5px;
+  font-weight: normal;
+  padding: 5px 7px;
+  background-color: $btn-green;
+
+  &:hover {
+    background-color: lighten($btn-green, 6%);
+    transition: background-color 0.4s ease;
+  }
+
+  &:active {
+    background-color: darken($btn-green, 5%);
+  }
+}
+
+.button--cancel {
+  margin-left: 5px;
+  font-weight: normal;
+  padding: 5px 7px;
+  background-color: $btn-red;
+
+  &:hover {
+    background-color: lighten($btn-red, 6%);
+    transition: background-color 0.4s ease;
+  }
+
+  &:active {
+    background-color: darken($btn-red, 5%);
+  }
+}

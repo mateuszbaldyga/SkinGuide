@@ -1,0 +1,39 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+/// Regular font family
+/// @type List
+$text-font-stack: 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !default;
+
+/// Code (monospace) font family
+/// @type List
+$code-font-stack: 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', monospace !default;
+
+/// Navbar height
+$nav-height: 52px;
+
+/// Colors
+$white: hsl(0, 0%, 100%);
+$beige: hsl(322, 100%, 98%);
+$tuna: hsl(4, 100%, 74%);
+$ocean-blue: hsl(176, 47%, 52%);
+
+$btn-green: hsl(97, 62%, 60%);
+$btn-red: hsl(4, 99%, 67%);
+$font-grey: hsl(0, 0%, 36%);
+$border-grey : hsl(0, 0%, 91%);
+$nav-background-beige: hsl(0, 0%, 97%);
+
+/// Container's maximum width
+/// @type Length
+$max-width: 1180px !default;
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+$breakpoints: (
+  'small': 320px,
+  'medium': 768px,
+  'large': 1024px,
+) !default;

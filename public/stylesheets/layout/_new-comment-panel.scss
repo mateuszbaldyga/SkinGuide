@@ -1,0 +1,46 @@
+.login-alert-link {
+  color: $ocean-blue;
+  font-weight: bold;
+  &:hover {
+    color: lighten($ocean-blue, 10%);
+  }
+}
+
+.panel--comments__container {
+  min-height: 40px;
+  margin-top: 30px;
+
+  .button {
+    font-size: 0.8em;
+  }
+}
+
+.container__new-comment-form-wrapper {
+  display: none;
+}
+
+.new-comment-form__rate {
+  line-height: 1.5em;
+  font-size: 21px;
+}
+
+.new-comment-form__textarea {
+  display: block;
+  border: 1px solid $border-grey;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 100%;
+  height: 12em;
+  max-height: 400px;
+  margin-top: 2px;
+  margin-bottom: 15px;
+  &:focus {
+    @include input-focus(20%);
+  }
+  @include placeholder-color();
+}
+
+.new-comment-form__rate--hover {
+  color: #F5D061;
+  cursor: pointer;
+}

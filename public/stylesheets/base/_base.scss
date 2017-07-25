@@ -1,0 +1,65 @@
+// -----------------------------------------------------------------------------
+// This file contains very basic styles.
+// -----------------------------------------------------------------------------
+
+/**
+ * Set up a decent box model on the root element
+ */
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: $beige;
+}
+
+main {
+  padding-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 850px;
+  overflow: hidden;
+  @media (max-width: 878px) {
+    width: 97vw;
+    min-width: 310px;
+  }
+}
+
+/**
+ * Make all elements from the DOM inherit from the parent box-sizing
+ * Since `*` has a specificity of 0, it does not override the `html` value
+ * making all elements inheriting from the root box-sizing value
+ * See: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+ */
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: initial;
+}
+
+h3 {
+    font-size: 1.17em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+textarea {
+  outline: 0;
+  font-family: inherit;
+  padding: 8px;
+}
+
+button {
+  outline: 0;
+  cursor: pointer;
+  border: none;
+}
