@@ -2,7 +2,7 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: [
-    './public/js/script.js',
+    './public/javascripts/script.js',
   ],
   output: {
     path: '/',

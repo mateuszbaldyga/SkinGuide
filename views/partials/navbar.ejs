@@ -1,28 +1,25 @@
-<nav id="nav" role="navigation" class="navbar">
-  <div class="nav-container">
-    <div class="navbar-header">
-      <a id='navbar-brand' class="navbar-brand" href="/">SkinGuide</a>
-    </div>
-    <button id='navbar-toggle' type="button" class="navbar-toggle collapsed">
-      <div class="hamburger-menu">
-          <div class="one"></div>
-          <div class="two"></div>
-          <div class="three"></div>
-      </div>
+<nav id="nav" role="navigation" class="nav">
+  <div class="nav__container">
+    <a class="container__brand" href="/">SkinGuide
+    </a>
+    <button id='nav__hamburger' type="button" class="container__hamburger">
+      <div class="hamburger__one"></div>
+      <div class="hamburger__two"></div>
+      <div class="hamburger__three"></div>
     </button>
-    <div id="navbar-collapse" class="navbar-collapse">
-      <ul id="navbar-buttons" class="navbar-right">
-        <li id="oNas"><a href="/?info">O Nas</a></li>
+    <div id="nav__collapse" class="container__collapse">
+      <ul id="nav__buttons" class="collapse__buttons">
+        <li><a href="/?info">O Nas</a></li>
         <li><a href="/procedures">Zabiegi</a></li>
         <li><a href="#">Promocje</a></li>
         <li><a href="#">Galeria</a></li>
         <li><a href="#">Kontakt</a></li>
         <% if(!currentUser){ %>
-          <li><a href="/register" class="log-button">Sign Up</a></li>
-          <li><a href="/login" class="log-button">Login</a></li>
+          <li><a href="/register" class="collapse__buttons--log-button">Sign Up</a></li>
+          <li><a href="/login" class="collapse__buttons--log-button">Login</a></li>
         <% } else { %>
-          <li><a id='currentuser' class="current-user" href='#' currentuser='<%= currentUser.username %>'>Signed in as <%= currentUser.username %></a></li>
-          <li><a href="/logout" class="log-button">Logout</a></li>
+          <li><a class="collapse__buttons--current-user" href="#">Signed in as <%= currentUser.username %></a></li>
+          <li><a href="/logout" class="collapse__buttons--log-button">Logout</a></li>
         <% } %>
       </ul>
     </div>

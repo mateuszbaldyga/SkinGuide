@@ -22,7 +22,9 @@ var authRoutes = require('./routes/auth'),
     indexRoutes = require('./routes/index'),
     proceduresRoutes = require('./routes/procedures');
 
-mongoose.connect('mongodb://localhost/skin_guide');
+mongoose.connect('mongodb://localhost/skin_guide', {
+  useMongoClient: true,
+});
 // mongoose.connect('mongodb://admin:Admin47@ds141232.mlab.com:41232/skinguide');
 app.use(bodyParser.urlencoded({
   extended: true
