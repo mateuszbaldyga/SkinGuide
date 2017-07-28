@@ -1,0 +1,58 @@
+<% include ./partials/header %>
+<% include ./partials/navbar %>
+
+<div id='landpic' class="landpic">
+  <button id="button-getStarted" class="ui primary button">Get Started</button>
+</div>
+
+<main>
+<div class="panel">
+  <h1 class="page-header">O nas</h1>
+  <p>Donec dolor massa, eleifend eu maximus in, bibendum sed risus. Ut finibus fringilla erat ut ultricies. Suspendisse mattis est in vulputate sodales. Quisque consequat venenatis aliquam. Praesent finibus in arcu id condimentum. Cras mollis elit sit amet dui tincidunt varius. Suspendisse potenti. Sed porttitor sapien ac odio molestie tincidunt. Mauris fermentum mauris turpis, et lacinia elit imperdiet nec. Fusce laoreet turpis et nisl egestas luctus. Etiam ut consectetur tellus, imperdiet porttitor ante. Nulla facilisi. Nulla ac cursus lacus. Duis in dictum quam. Ut faucibus diam nec odio pharetra pharetra.</p>
+  <p>Proin at metus ut ex consectetur posuere. Nunc eget imperdiet orci, ac varius odio. Maecenas vitae augue nibh. Integer sed odio eu libero iaculis fermentum eu a nulla. Duis eget mi quis urna ultrices hendrerit eu at quam. Mauris vitae massa quam. In eget pharetra eros.</p>
+  <p>Duis malesuada metus non ligula efficitur maximus. Donec sit amet fermentum erat. Donec efficitur nec arcu in ullamcorper. Vivamus id sem dui. Nunc ligula massa, convallis eu suscipit id, tincidunt sit amet justo. Morbi scelerisque diam at elit rutrum, vitae ultricies leo blandit. Vestibulum elementum tortor sit amet sem convallis, sed tempor magna elementum. Fusce tortor justo, vehicula quis convallis nec, ultrices non nisi.</p>
+</div>
+
+<div id="commentHiddenTemplate" class="hidden-template">
+  <% include ./partials/comment_template %>
+</div>
+
+<!-- SHOW -->
+<div class="panel panel--comments">
+  <div id="comments-wrapper" class="panel--comments__comments-wrapper">
+    <h3>Opinie klientów</h3>
+    <% comments.forEach(function(comment) { %>
+      <% include ./partials/comment_template %>
+    <% }) %>
+  </div>
+<!-- New   -->
+  <div class="panel--comments__container">
+    <button id="button-addOpinion" class="button">
+      Dodaj Opinię
+    </button>
+    <div id='comment-form-wrapper' class='container__new-comment-form-wrapper'>
+      <% if(currentUser){ %>
+        <form name="comment-form" id="comment-form" action="/skinguide" method="POST">
+          Ocena:
+          <div id="rate" class='new-comment-form__rate'>
+            <span value='1'>&#9734;</span><span value='2'>&#9734;</span><span value='3'>&#9734;</span><span value='4'>&#9734;</span><span value='5'>&#9734;</span>
+          </div>
+          <input type="hidden" name="rateValue" id='rateNum'/>
+          <input type="hidden" name="currentuser"  id="currentuser" value='<%= currentUser.username %>'/>
+          <input type="hidden" name="avatar"  id="avatar" value='<%= currentUser.avatar %>'/>
+          <input type="hidden" name="commentId"  id="commentId" value='<%= currentUser.avatar %>'/>
+          <textarea id='text' class="new-comment-form__textarea" name="text" placeholder="Czy jesteś zadowolona z naszych usług?"></textarea>
+          <!-- because of type="button" page dont reload! -->
+          <button type="button" id="button-sendOpinion" class="button">
+            <i class="icon edit"></i> Wyślij Opinię
+          </button>
+        </form>
+      <% } else { %>
+        <p class="login-alert"><b>Aby dodać opinię, <a href="/login" class="login-alert-link">zaloguj się</a>.</b></p>
+      <% } %>
+    </div>
+  </div>
+</div>
+</main>
+<% include ./partials/footer %>
+
