@@ -4,7 +4,9 @@
 @import
   'abstracts/variables',
   // 'abstracts/functions',
-  'abstracts/mixins';
+  'abstracts/mixins',
+
+  'abstracts/animations/scroll-to';
 
 // 2. Vendors
 @import
@@ -31,8 +33,9 @@
 
 // 5. Components
 @import
+  'components/offer-picture',
+  'components/map',
   'components/button',
-  // 'components/hamburger',
   'components/page-header',
   'components/panel',
   'components/procedures-list';
@@ -42,5 +45,5 @@
   'pages/home';
 
 // 7. Themes
-@import
-  'themes/default';
+// @import
+//   'themes/default';

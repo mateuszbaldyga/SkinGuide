@@ -2,7 +2,8 @@
 <% include ../partials/navbar %>
 
 <main>
-<div class="panel space">
+<div class="main__wrapper">
+<div class="panel">
   <h1 class="page-header">Zabiegi</h1>
   <% groups.forEach(function(group){ %>
       <h3> <%= group.name %> </h3>
@@ -13,6 +14,7 @@
       </ul>
   <% }) %>
 </div>
+<div class="main__wrapper">
 </main>
 
 <% include ../partials/footer %>

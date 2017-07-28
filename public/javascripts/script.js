@@ -1,15 +1,14 @@
-// import '../css/style.css';
-
 const stars = document.querySelectorAll("#rate span"),
       starsQuantity = stars.length,
       form = $("#comment-form"),
-      landpic = $("#landpic"),
+      landpage = $("#landpage"),
+      landpic = $("#landpage__pic"),
       main = $('main'),
       commentFormWrap = $('#comment-form-wrapper'),
       defaultNavbar = $('#nav'),
       mobileNavbar = $('#nav__collapse'),
       months = [ 'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca',
-                 'sierpnia', 'września', 'października', 'listopada', 'grudnia'
+                 'sierpnia', 'września', 'października', 'listopada', 'grudnia',
       ];
 
 var clickedStar = 0,
@@ -21,7 +20,6 @@ function init() {
   collapseMobileNavbarOnClick()
   setNavigation();
 
-  skipLandingPage();
   scrollLandingPage();
 
   rateComment();
@@ -32,6 +30,8 @@ function init() {
   addFunctionPostComment();
   addFunctionDestroyComment();
   addFunctionEditComment();
+
+  // initMap();
 } 
 
 init();
@@ -96,20 +96,14 @@ function setNavigation() {
   });
 }
 
-function skipLandingPage(){
-  if(path === '/?info') {
-    scrollToObjective(main);
-  }
+function hideLandingpage() {
+  landpage.addClass('landpage--hidden');
 }
 
 function scrollLandingPage(){
-  $("#button-getStarted").on("click", () => {
-    scrollToObjective(main)
-  });
+  $("#button-getStarted").on("click", hideLandingpage);
    if(path === '/') {
-    $(window).one("scroll", () => {
-      scrollToObjective(main)
-    });
+    $(window).one("scroll", hideLandingpage);
   }
 }
 
@@ -353,4 +347,16 @@ function resetStars(){
       stars[i].innerHTML = "&#9734;";
       stars[i].classList.remove("new-comment-form__rate--hover");
   }
+}
+
+function initMap() {
+  var uluru = {lat: -25.363, lng: 131.044};
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: uluru
+  });
+  var marker = new google.maps.Marker({
+    position: uluru,
+    map: map
+  });
 }

@@ -12,6 +12,8 @@ $code-font-stack: 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono',
 
 /// Navbar height
 $nav-height: 52px;
+$collapsed-nav-width: 200px;
+
 
 /// Colors
 $white: hsl(0, 0%, 100%);
@@ -25,6 +27,8 @@ $font-grey: hsl(0, 0%, 36%);
 $border-grey : hsl(0, 0%, 91%);
 $nav-background-beige: hsl(0, 0%, 97%);
 
+$nav-shadow: -2px 4px 10px darken($nav-background-beige, 5%);
+
 /// Container's maximum width
 /// @type Length
 $max-width: 1180px !default;
@@ -33,7 +37,8 @@ $max-width: 1180px !default;
 /// @prop {String} keys - Keys are identifiers mapped to a given length
 /// @prop {Map} values - Values are actual breakpoints expressed in pixels
 $breakpoints: (
-  'small': 320px,
-  'medium': 768px,
-  'large': 1024px,
-) !default;
+  'x-small': 500px,
+  'small': 620px,
+  'medium': 670px,
+  'large': 878px,
+);

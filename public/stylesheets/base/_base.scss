@@ -7,19 +7,24 @@
  */
 html {
   box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
 }
 
+
 body {
-  font-family: 'Lato', sans-serif;
   background-color: $beige;
 }
 
 main {
-  padding-top: 40px;
+  position: relative;
+  top: 0;
+  z-index: 25;
+  padding-top: $nav-height + 40px;
   margin-left: auto;
   margin-right: auto;
   width: 850px;
   overflow: hidden;
+
   @media (max-width: 878px) {
     width: 97vw;
     min-width: 310px;

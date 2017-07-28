@@ -20,7 +20,10 @@ var express = require('express'),
 
 var authRoutes = require('./routes/auth'),
     indexRoutes = require('./routes/index'),
-    proceduresRoutes = require('./routes/procedures');
+    proceduresRoutes = require('./routes/procedures'),
+    contactRoutes = require('./routes/contact');
+    offersRoutes = require('./routes/offers');
+    galleryRoutes = require('./routes/gallery');
 
 mongoose.connect('mongodb://localhost/skin_guide', {
   useMongoClient: true,
@@ -60,6 +63,10 @@ app.use(function(req, res, next){
 app.use(authRoutes);
 app.use(indexRoutes);
 app.use(proceduresRoutes);
+app.use(contactRoutes);
+app.use(offersRoutes);
+app.use(galleryRoutes);
+
 
 app.use(webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath,

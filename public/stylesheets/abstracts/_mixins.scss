@@ -1,6 +1,17 @@
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass mixins.
 // -----------------------------------------------------------------------------
+@mixin mq($mq-breakpoint, $min-or-max, $mq-breakpoints: $breakpoints) {
+  // If $mq-breakpoint is a key that exists in
+  // $mq-breakpoints, get and use the value
+  @if map-has-key($mq-breakpoints, $mq-breakpoint) {
+    $mq-breakpoint: map-get($mq-breakpoints, $mq-breakpoint);
+  }
+  
+  @media screen and (($min-or-max)+-width: #{$mq-breakpoint}) {
+    @content;
+  }
+}
 
 @mixin input-focus($percent) {
   border-color: $ocean-blue;

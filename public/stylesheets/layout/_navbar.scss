@@ -1,18 +1,14 @@
-$collapsed-nav-width: 200px;
-$nav-shadow: -2px 4px 10px darken($nav-background-beige, 5%);
-
 .nav {
-  background-color: $nav-background-beige;
-  height: $nav-height;
   position: fixed;
+  height: $nav-height;
   width: 100vw;
   top: 0;
-  z-index: 10;
-  box-shadow: $nav-shadow;
+  z-index: 100;
 }
 
 .nav__container {
   background-color: $nav-background-beige;
+  box-shadow: $nav-shadow;
   display:flex;
   align-items: center;
   height: 100%;
@@ -45,7 +41,8 @@ $nav-shadow: -2px 4px 10px darken($nav-background-beige, 5%);
   cursor: pointer;
   padding: 3px 6px;
 
-  @media (min-width: 774px) {
+  // @include mq(medium, min) {
+  @include mq(medium, min) {
     display: none;
   }
 
@@ -89,7 +86,7 @@ $nav-shadow: -2px 4px 10px darken($nav-background-beige, 5%);
   display: block;
   padding-right: 15px;
 
-  @media (max-width: 774px) {
+  @include mq(medium, max) {
     top: 52px;
     display: none;
     background-color: $nav-background-beige;
@@ -105,7 +102,7 @@ $nav-shadow: -2px 4px 10px darken($nav-background-beige, 5%);
 .collapse__buttons li {
   float: left;
 
-  @media (max-width: 774px) {
+  @include mq(medium, max) {
     float: initial;
     padding: 2px 0;
     display: flex;
@@ -115,7 +112,7 @@ $nav-shadow: -2px 4px 10px darken($nav-background-beige, 5%);
     font-size: 0.9em;
     color: $font-grey;
     padding: 10px;
-    @media (max-width: 774px) {
+    @include mq(medium, max) {
       padding: 5px 15px;
     }
     &:hover {
@@ -136,7 +133,7 @@ $nav-shadow: -2px 4px 10px darken($nav-background-beige, 5%);
   color: $font-grey;
   padding: 10px 15px;
 
-  @media (max-width: 774px) {
+  @include mq(medium, max) {
     margin: 0;
     padding: 5px 15px;
   }
