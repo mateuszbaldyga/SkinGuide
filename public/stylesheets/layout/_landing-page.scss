@@ -1,37 +1,22 @@
 .landpage {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    pointer-events: auto;
-    z-index: 40;
-}
-
-.landpage--hidden {
-    pointer-events: none;
-
-    .landpage__pic {
-      -webkit-transform: translateY(-100vh);
-      transform: translateY(-100vh);
-    }
-}
-
-.landpage__pic {
   background: url('/images/beauty1.jpg') center center no-repeat;
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  top: 0;
   height: 100vh;
   width: 100vw;
   z-index: 50;
+  pointer-events: auto;
+  overflow: hidden;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 0;
+  will-change: transform;
+  transition: transform 500ms ease-in;
   .button {
     background-color: $tuna;
     font-size: 1.3em;
@@ -47,11 +32,13 @@
       margin-top: 5px;
     }
   }
-  will-change: transform;
-  pointer-events: auto;
-  transition: transform 500ms ease-in;
 }
 
+.landpage--hidden {
+  pointer-events: none;
+  -webkit-transform: translateY(-100vh);
+  transform: translateY(-100vh);
+}
 
 //Skips Landing Page
 a[id="about-us"]:target ~ .landpage {

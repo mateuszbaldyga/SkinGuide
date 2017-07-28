@@ -3,12 +3,31 @@
   height: $nav-height;
   width: 100vw;
   top: 0;
+  left: 0;
   z-index: 100;
+  pointer-events: auto;
+  -webkit-transform: none;
+  transform: none;
+  will-change: transform;
+}
+
+.nav--hidden {
+  -webkit-transform: translateY(-$nav-height);
+  transform: translateY(-$nav-height);
+  pointer-events: none;
+}
+
+.nav--animatable {
+  transition: all 330ms ease-out;
+}
+
+.nav--hidden.nav--animatable {
+  transition: all 130ms ease-in;
 }
 
 .nav__container {
   background-color: $nav-background-beige;
-  box-shadow: $nav-shadow;
+  border: 1px solid $border-grey;
   display:flex;
   align-items: center;
   height: 100%;
@@ -38,10 +57,8 @@
   right: 20px;
   border: 1px solid $border-grey;
   border-radius: 6px;
-  cursor: pointer;
   padding: 3px 6px;
-
-  // @include mq(medium, min) {
+  pointer-events: auto;
   @include mq(medium, min) {
     display: none;
   }
@@ -53,14 +70,12 @@
     height: 2px;
     margin-top: $div-margin;
     margin-bottom: $div-margin;
-    transition: all 0.3s ease-out;
+    will-change: transform;
+    transition: transform 0.3s ease;
   }
 
   &:hover {
     border-color: lighten($tuna, 15% );
-    box-shadow: 0 0px 2px lighten($tuna, 15% );
-    transition: all 0.3s ease;
-
     div {
       background-color: lighten($tuna, 15% );
     }
@@ -85,20 +100,28 @@
   right: 0;
   display: block;
   padding-right: 15px;
-
   @include mq(medium, max) {
     top: 52px;
     display: none;
+    opacity: 0;
     background-color: $nav-background-beige;
-    border-top: none;
     width: $collapsed-nav-width;
     padding: 10px 0;
     justify-content:center;
     z-index: -1;
-    box-shadow: $nav-shadow, 0 0px;
+    border: 1px solid $border-grey;
+    border-top: none;
+    will-change: opacity;
+    // transition: opacity 2000s;
   }
 }
-      
+
+.container__collapse--visible {
+  display: block;
+  opacity: 1;
+
+}
+
 .collapse__buttons li {
   float: left;
 
@@ -117,7 +140,6 @@
     }
     &:hover {
       color: $tuna;
-      transition: color 0.2s ease;
     }
 
     &.collapse__buttons--current-user {
@@ -140,9 +162,7 @@
 
   &:hover {
     border-color: lighten( $tuna, 15% );
-    box-shadow: 0 0px 1px $tuna;
     color: $tuna;
-    transition: all 0.2s ease;
   }
 }
 

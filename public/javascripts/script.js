@@ -2,11 +2,11 @@ const stars = document.querySelectorAll("#rate span"),
       starsQuantity = stars.length,
       form = $("#comment-form"),
       landpage = $("#landpage"),
-      landpic = $("#landpage__pic"),
+      // landpic = $("#landpage__pic"),
       main = $('main'),
       commentFormWrap = $('#comment-form-wrapper'),
-      defaultNavbar = $('#nav'),
-      mobileNavbar = $('#nav__collapse'),
+      defaultNavbar = document.getElementById('nav'),
+      mobileNavbar = document.getElementById('nav__collapse'),
       months = [ 'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca',
                  'sierpnia', 'września', 'października', 'listopada', 'grudnia',
       ];
@@ -18,18 +18,18 @@ var clickedStar = 0,
 function init() {
   navHideShowOnScroll();
   collapseMobileNavbarOnClick()
-  setNavigation();
+  // setNavigation();
 
   scrollLandingPage();
 
-  rateComment();
-  dateFormat(document);
-  showHideDropdownMenu();
+  // rateComment();
+  // dateFormat(document);
+  // showHideDropdownMenu();
 
-  addOpinionButtonAction();
-  addFunctionPostComment();
-  addFunctionDestroyComment();
-  addFunctionEditComment();
+  // addOpinionButtonAction();
+  // addFunctionPostComment();
+  // addFunctionDestroyComment();
+  // addFunctionEditComment();
 
   // initMap();
 } 
@@ -40,7 +40,8 @@ function navHideShowOnScroll() {
   let didScroll,
       lastScrollTop,
       duration = 200,
-      navbarHeight = defaultNavbar.outerHeight();
+      navbarHeight = defaultNavbar.getBoundingClientRect().bottom;
+      console.log(navbarHeight);
   $(window).scroll( () => {
     didScroll = true;
   });
@@ -53,17 +54,15 @@ function navHideShowOnScroll() {
   function hasScrolled() {
     let st = $(window).scrollTop();
     if (st > lastScrollTop && st > navbarHeight){
-      defaultNavbar.animate({top: -navbarHeight}, duration);
+      defaultNavbar.classList.add('nav--hidden');
       if(!mobileNavIsCollapsed) {
-        mobileNavbar.fadeOut('fast').promise().done(() => {
-          mobileNavbar.removeAttr("style");
-        });
+          mobileNavbar.classList.remove('container__collapse--visible');
       }
       lastScrollTop = st;
     } else if(st + $(window).height() < $(document).height()) {
-      defaultNavbar.animate({top: '0'}, duration);
+      defaultNavbar.classList.remove('nav--hidden');
       if(!mobileNavIsCollapsed) {
-        mobileNavbar.fadeIn('fast');
+        mobileNavbar.classList.add('container__collapse--visible');
       }
       lastScrollTop = st;
     }
@@ -75,12 +74,10 @@ function collapseMobileNavbarOnClick() {
   $('#nav__hamburger').click( function() {
     $(this).toggleClass('container__hamburger--open');
     if(mobileNavIsCollapsed) {
-      mobileNavbar.slideDown(duration);
+      mobileNavbar.classList.add('container__collapse--visible');
       mobileNavIsCollapsed = false;
     } else {
-      mobileNavbar.slideUp(duration).promise().done(() => {
-        mobileNavbar.removeAttr("style");
-      });
+      mobileNavbar.classList.remove('container__collapse--visible');
       mobileNavIsCollapsed = true;
     }
   });

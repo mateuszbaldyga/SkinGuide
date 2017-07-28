@@ -592,50 +592,41 @@ button {
   box-shadow: -2px 4px 10px #ebebeb; }
 
 .landpage {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  pointer-events: auto;
-  z-index: 40; }
-
-.landpage--hidden {
-  pointer-events: none; }
-  .landpage--hidden .landpage__pic {
-    -webkit-transform: translateY(-100vh);
-    transform: translateY(-100vh); }
-
-.landpage__pic {
   background: url("/images/beauty1.jpg") center center no-repeat;
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  top: 0;
   height: 100vh;
   width: 100vw;
   z-index: 50;
+  pointer-events: auto;
+  overflow: hidden;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 0;
   will-change: transform;
-  pointer-events: auto;
   transition: transform 500ms ease-in; }
-  .landpage__pic .button {
+  .landpage .button {
     background-color: #ff837a;
     font-size: 1.3em;
     font-weight: bold;
     color: #191919;
     padding: 0.7em 1.5em;
     border-radius: 8px; }
-    .landpage__pic .button:hover {
+    .landpage .button:hover {
       background-color: #ff928a; }
-    .landpage__pic .button:active {
+    .landpage .button:active {
       background-color: #ff756b;
       margin-top: 5px; }
+
+.landpage--hidden {
+  pointer-events: none;
+  -webkit-transform: translateY(-100vh);
+  transform: translateY(-100vh); }
 
 a[id="about-us"]:target ~ .landpage {
   display: none; }
@@ -791,11 +782,27 @@ a[id="about-us"]:target ~ .landpage {
   height: 52px;
   width: 100vw;
   top: 0;
-  z-index: 100; }
+  left: 0;
+  z-index: 100;
+  pointer-events: auto;
+  -webkit-transform: none;
+  transform: none;
+  will-change: transform; }
+
+.nav--hidden {
+  -webkit-transform: translateY(-52px);
+  transform: translateY(-52px);
+  pointer-events: none; }
+
+.nav--animatable {
+  transition: all 330ms ease-out; }
+
+.nav--hidden.nav--animatable {
+  transition: all 130ms ease-in; }
 
 .nav__container {
   background-color: #f7f7f7;
-  box-shadow: -2px 4px 10px #ebebeb;
+  border: 1px solid #e8e8e8;
   display: flex;
   align-items: center;
   height: 100%;
@@ -821,8 +828,8 @@ a[id="about-us"]:target ~ .landpage {
   right: 20px;
   border: 1px solid #e8e8e8;
   border-radius: 6px;
-  cursor: pointer;
-  padding: 3px 6px; }
+  padding: 3px 6px;
+  pointer-events: auto; }
   @media screen and (min-width: 670px) {
     .container__hamburger {
       display: none; } }
@@ -832,11 +839,10 @@ a[id="about-us"]:target ~ .landpage {
     height: 2px;
     margin-top: 5px;
     margin-bottom: 5px;
-    transition: all 0.3s ease-out; }
+    will-change: transform;
+    transition: transform 0.3s ease; }
   .container__hamburger:hover {
-    border-color: #ffcbc7;
-    box-shadow: 0 0px 2px #ffcbc7;
-    transition: all 0.3s ease; }
+    border-color: #ffcbc7; }
     .container__hamburger:hover div {
       background-color: #ffcbc7; }
   .container__hamburger.container__hamburger--open .hamburger__one {
@@ -855,13 +861,19 @@ a[id="about-us"]:target ~ .landpage {
     .container__collapse {
       top: 52px;
       display: none;
+      opacity: 0;
       background-color: #f7f7f7;
-      border-top: none;
       width: 200px;
       padding: 10px 0;
       justify-content: center;
       z-index: -1;
-      box-shadow: -2px 4px 10px #ebebeb, 0 0px; } }
+      border: 1px solid #e8e8e8;
+      border-top: none;
+      will-change: opacity; } }
+
+.container__collapse--visible {
+  display: block;
+  opacity: 1; }
 
 .collapse__buttons li {
   float: left; }
@@ -879,8 +891,7 @@ a[id="about-us"]:target ~ .landpage {
       .collapse__buttons li a {
         padding: 5px 15px; } }
     .collapse__buttons li a:hover {
-      color: #ff837a;
-      transition: color 0.2s ease; }
+      color: #ff837a; }
     .collapse__buttons li a.collapse__buttons--current-user {
       color: #4bbeb6; }
 
@@ -896,9 +907,7 @@ a[id="about-us"]:target ~ .landpage {
       padding: 5px 15px; } }
   .collapse__buttons--log-button:hover {
     border-color: #ffcbc7;
-    box-shadow: 0 0px 1px #ff837a;
-    color: #ff837a;
-    transition: all 0.2s ease; }
+    color: #ff837a; }
 
 .collapse__buttons--active {
   color: #ff837a !important; }
