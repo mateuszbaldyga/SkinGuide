@@ -116,7 +116,7 @@
   }
 }
 
-.container__collapse--visible {
+.nav--hidden > .container__collapse--visible {
   display: block;
   opacity: 1;
 

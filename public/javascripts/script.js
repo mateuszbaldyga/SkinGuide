@@ -37,49 +37,43 @@ function init() {
 init();
 
 function navHideShowOnScroll() {
-  let didScroll,
-      lastScrollTop,
-      duration = 200,
-      navbarHeight = defaultNavbar.getBoundingClientRect().bottom;
-      console.log(navbarHeight);
-  $(window).scroll( () => {
-    didScroll = true;
+  let lastScrollTop = 0,
+      nowScrollTop;
+  window.addEventListener('scroll', () => {
+    toggleNav();
   });
-  setInterval( () => {
-    if (didScroll) {
-      hasScrolled();
-      didScroll = false;
-    }
-  }, 300);
-  function hasScrolled() {
-    let st = $(window).scrollTop();
-    if (st > lastScrollTop && st > navbarHeight){
+
+  function toggleNav() {
+    nowScrollTop = window.scrollY;
+    if (nowScrollTop > lastScrollTop){
       defaultNavbar.classList.add('nav--hidden');
       if(!mobileNavIsCollapsed) {
           mobileNavbar.classList.remove('container__collapse--visible');
       }
-      lastScrollTop = st;
-    } else if(st + $(window).height() < $(document).height()) {
+      lastScrollTop = nowScrollTop;
+
+    } else {
       defaultNavbar.classList.remove('nav--hidden');
       if(!mobileNavIsCollapsed) {
         mobileNavbar.classList.add('container__collapse--visible');
       }
-      lastScrollTop = st;
+      lastScrollTop = nowScrollTop;
     }
   }
 }
 
 function collapseMobileNavbarOnClick() {
   var duration = 300;
-  $('#nav__hamburger').click( function() {
-    $(this).toggleClass('container__hamburger--open');
-    if(mobileNavIsCollapsed) {
-      mobileNavbar.classList.add('container__collapse--visible');
-      mobileNavIsCollapsed = false;
-    } else {
-      mobileNavbar.classList.remove('container__collapse--visible');
-      mobileNavIsCollapsed = true;
-    }
+  document.getElementById('nav__hamburger').addEventListener('click', function() {
+    this.classList.toggle('container__hamburger--open');
+    mobileNavbar.classList.toggle('container__collapse--visible');
+    // if(mobileNavIsCollapsed) {
+    //   mobileNavbar.classList.add('container__collapse--visible');
+    //   mobileNavIsCollapsed = false;
+    // } else {
+    //   mobileNavbar.classList.remove('container__collapse--visible');
+    //   mobileNavIsCollapsed = true;
+    // }
   });
 }
 
