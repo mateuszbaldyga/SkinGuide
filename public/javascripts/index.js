@@ -1,28 +1,18 @@
-// import '../css/style.css';
-
 const stars = document.querySelectorAll("#rate span"),
       starsQuantity = stars.length,
       form = $("#comment-form"),
-      landpic = $("#landpic"),
-      main = $('main'),
+      landpage = $("#landpage"),
+      aboutUsButton = document.getElementById('aboutUsButton'),
+      // main = $('main'),
       commentFormWrap = $('#comment-form-wrapper'),
-      defaultNavbar = $('#nav'),
-      mobileNavbar = $('#nav__collapse'),
       months = [ 'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca',
-                 'sierpnia', 'września', 'października', 'listopada', 'grudnia'
+                 'sierpnia', 'września', 'października', 'listopada', 'grudnia',
       ];
 
-var clickedStar = 0,
-    mobileNavIsCollapsed = true,
-    path = window.location.pathname + window.location.search;
+var clickedStar = 0;
 
 function init() {
-  navHideShowOnScroll();
-  collapseMobileNavbarOnClick()
-  setNavigation();
-
-  skipLandingPage();
-  scrollLandingPage();
+  slideLandingPage();
 
   rateComment();
   dateFormat(document);
@@ -33,86 +23,19 @@ function init() {
   addFunctionDestroyComment();
   addFunctionEditComment();
 
-  initMap();
+  // initMap();
 } 
 
 init();
 
-function navHideShowOnScroll() {
-  let didScroll,
-      lastScrollTop,
-      duration = 200,
-      navbarHeight = defaultNavbar.outerHeight();
-  $(window).scroll( () => {
-    didScroll = true;
-  });
-  setInterval( () => {
-    if (didScroll) {
-      hasScrolled();
-      didScroll = false;
-    }
-  }, 300);
-  function hasScrolled() {
-    let st = $(window).scrollTop();
-    if (st > lastScrollTop && st > navbarHeight){
-      defaultNavbar.animate({top: -navbarHeight}, duration);
-      if(!mobileNavIsCollapsed) {
-        mobileNavbar.fadeOut('fast').promise().done(() => {
-          mobileNavbar.removeAttr("style");
-        });
-      }
-      lastScrollTop = st;
-    } else if(st + $(window).height() < $(document).height()) {
-      defaultNavbar.animate({top: '0'}, duration);
-      if(!mobileNavIsCollapsed) {
-        mobileNavbar.fadeIn('fast');
-      }
-      lastScrollTop = st;
-    }
-  }
+function slideLandingPage(){
+  $("#button-getStarted").on("click", hideLandingpage);
+  $(window).one("scroll", hideLandingpage);
 }
 
-function collapseMobileNavbarOnClick() {
-  var duration = 300;
-  $('#nav__hamburger').click( function() {
-    $(this).toggleClass('container__hamburger--open');
-    if(mobileNavIsCollapsed) {
-      mobileNavbar.slideDown(duration);
-      mobileNavIsCollapsed = false;
-    } else {
-      mobileNavbar.slideUp(duration).promise().done(() => {
-        mobileNavbar.removeAttr("style");
-      });
-      mobileNavIsCollapsed = true;
-    }
-  });
-}
-
-function setNavigation() {
-  // $("nav ul li a").each(function () {
-  $("#nav__buttons li a").each(function () {
-      let href = $(this).attr("href");//.split('?')[0];
-      if (path === href) {
-          $(this).addClass('collapse__buttons--active');
-      }
-  });
-}
-
-function skipLandingPage(){
-  if(path === '/?info') {
-    scrollToObjective(main);
-  }
-}
-
-function scrollLandingPage(){
-  $("#button-getStarted").on("click", () => {
-    scrollToObjective(main)
-  });
-   if(path === '/') {
-    $(window).one("scroll", () => {
-      scrollToObjective(main)
-    });
-  }
+function hideLandingpage() {
+  landpage.addClass('landpage--hidden');
+  aboutUsButton.classList.add('collapse__buttons--active')
 }
 
 function rateComment(){
@@ -120,7 +43,7 @@ function rateComment(){
       stars[i].innerHTML = "&#9733;";
       stars[i].classList.add("new-comment-form__rate--hover");
     }
-    for(var i=0; i<starsQuantity; i++){
+    for(let i=0; i<starsQuantity; i++){
         stars[i].addEventListener("click", function(){
             clickedStar = this.getAttribute("value");
             document.querySelector("#rateNum").setAttribute("value", clickedStar);
@@ -172,23 +95,24 @@ function showHideDropdownMenu(objective) {
   commentDropdown.each( function() {
     $(this).off().on('click', () => {
       let thisMenu = $(this).find('.dropdown-wrapper__menu');
-      allDropdownMenus.not(thisMenu).slideUp(duration);
-      thisMenu.slideToggle(duration);
+      allDropdownMenus.not(thisMenu).removeClass('dropdown-wrapper__menu--visible');
+      thisMenu.toggleClass('dropdown-wrapper__menu--visible');
 
     });
   });
   // hide dropdown
   $(document).on('click', (event) => {
     if (!$(event.target).closest('.content__dropdown-wrapper').length) {
-      allDropdownMenus.slideUp(duration);
+      allDropdownMenus.removeClass('dropdown-wrapper__menu--visible');
     }
   });
 }
 
 function addOpinionButtonAction() {
-  $("#button-addOpinion").click(function(){
-    $(this).fadeOut(100);
-    $("#comment-form-wrapper").fadeIn(300);
+  let button = document.getElementById('button-addOpinion');
+  button.addEventListener('click', function() {
+    this.classList.add('button--hidden');
+    document.getElementById('comment-form-wrapper').classList.add('container__new-comment-form-wrapper--visible');
     scrollToObjective(commentFormWrap);
   });
 }
@@ -244,9 +168,7 @@ function displayPostedComment(data) {
   template.getElementsByClassName("content__date")[0].innerText = Date();
   $(template.getElementsByClassName("button-DeleteComment")[0]).parent().attr("data", data.commentId);
   dateFormat(template);
-  $(template.outerHTML).appendTo("#comments-wrapper").hide(0, function(){
-    $(this).show("normal");
-  });
+  $(template.outerHTML).appendTo("#comments-wrapper")
   showHideDropdownMenu(document.querySelectorAll('.content__dropdown-wrapper'));
 }
 
@@ -263,7 +185,7 @@ function addFunctionDestroyComment(){
       data: data,
       type: 'DELETE',
       success: () => {
-        $(this).closest(".comments-wrapper__comment").slideUp(400, function() {$(this).remove();});
+        $(this).closest(".comments-wrapper__comment").remove();
       },
       error: error,
       });
@@ -273,7 +195,7 @@ function addFunctionDestroyComment(){
 
 function addFunctionEditComment(){
   let buttonEditComment = $(".button-EditComment"),
-      btnToggleDropdown = $(document.querySelectorAll('.content__dropdown-wrapper'));
+      btnToggleDropdown = $(document.querySelectorAll('.dropdown-wrapper__button'));
   buttonEditComment.each(function(){
     $(this).on('click', () => {
       let data = {
@@ -291,7 +213,7 @@ function addFunctionEditComment(){
                         </div>
                       </form>`;
       
-      btnToggleDropdown.fadeOut(100);
+      btnToggleDropdown.addClass('dropdown-wrapper__button--hidden');
       textDiv.replaceWith(editForm).promise().done(() => {
         let editForm = commentContent.find('#edit-form');
         //button-accept
@@ -306,14 +228,11 @@ function addFunctionEditComment(){
           if(data.editFormText !== oldCommentText) {
             updateCommentToDatabase(data, dataForDisplay)
           } 
-          // else {
-          //   console.log('no change');
-          // }
         });
         //button-cancel
         commentContent.find('#buttonCancel').on('click', () => {
           editForm.replaceWith(textDiv);
-          btnToggleDropdown.fadeIn(100);
+          btnToggleDropdown.removeClass('dropdown-wrapper__button--hidden');
         });
       });
     });
@@ -337,7 +256,7 @@ function updateCommentToDatabase(data, dataForDisplay) {
 
 function displayEditedComment(dataForDisplay) {
   dataForDisplay.editForm.replaceWith(dataForDisplay.newTextDiv);
-  dataForDisplay.btnToggleDropdown.fadeIn(100);
+  dataForDisplay.btnToggleDropdown.removeClass('dropdown-wrapper__button--hidden');
 }
 
 function error(jqXHR, textStatus, errorThrown) {
@@ -355,16 +274,4 @@ function resetStars(){
       stars[i].innerHTML = "&#9734;";
       stars[i].classList.remove("new-comment-form__rate--hover");
   }
-}
-
-function initMap() {
-  var uluru = {lat: -25.363, lng: 131.044};
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: uluru
-  });
-  var marker = new google.maps.Marker({
-    position: uluru,
-    map: map
-  });
 }

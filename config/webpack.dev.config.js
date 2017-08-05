@@ -42,11 +42,11 @@ module.exports = {
   //     }
     ]
   },
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      // beautify: true,
-      minimize: true,
-      comments: false,
-    }),
-  ],
+  // plugins: [
+  //   new webpack.optimize.UglifyJsPlugin({
+  //     beautify: true,
+  //     minimize: true,
+  //     comments: false,
+  //   }),
+  // ],
 };

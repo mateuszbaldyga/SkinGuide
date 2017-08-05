@@ -4,7 +4,7 @@
 
 /// Regular font family
 /// @type List
-$text-font-stack: 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !default;
+$text-font-stack: 'Lato', 'Helvetica', 'Arial', sans-serif;
 
 /// Code (monospace) font family
 /// @type List
@@ -12,6 +12,7 @@ $code-font-stack: 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono',
 
 /// Navbar height
 $nav-height: 52px;
+$collapsed-nav-height: 220px;
 $collapsed-nav-width: 200px;
 
 

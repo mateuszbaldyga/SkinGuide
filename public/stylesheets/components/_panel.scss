@@ -7,10 +7,10 @@
   @include shadowed-border;
   text-align: left;
   overflow: hidden;
-  @media (max-width: 620px) {
+  @media screen and (max-width: map-get($breakpoints, small)) {
       padding: 10px;
     }
-  @media (max-width: 500px) {
+  @media screen and (max-width: map-get($breakpoints, x-small)) {
     padding: 8px;
   }
 }

@@ -12,7 +12,7 @@
   <p>Duis malesuada metus non ligula efficitur maximus. Donec sit amet fermentum erat. Donec efficitur nec arcu in ullamcorper. Vivamus id sem dui. Nunc ligula massa, convallis eu suscipit id, tincidunt sit amet justo. Morbi scelerisque diam at elit rutrum, vitae ultricies leo blandit. Vestibulum elementum tortor sit amet sem convallis, sed tempor magna elementum. Fusce tortor justo, vehicula quis convallis nec, ultrices non nisi.</p>
 </article>
 
-<div id="commentHiddenTemplate" class="hidden-template">
+<div id="commentHiddenTemplate" class="display--none">
   <% include ./partials/comment_template %>
 </div>
 
@@ -47,11 +47,14 @@
           </button>
         </form>
       <% } else { %>
-        <p class="login-alert"><b>Aby dodać opinię, <a href="/login" class="login-alert-link">zaloguj się</a>.</b></p>
+        <p class="login-alert">Aby dodać opinię, <a href="/login" class="login-alert-link">zaloguj się</a>.</p>
       <% } %>
     </div>
   </div>
 </div>
 </main>
+
+<script type="text/javascript" src="/javascripts/index.js"></script>
+
 <% include ./partials/footer %>
 

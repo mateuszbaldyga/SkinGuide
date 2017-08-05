@@ -1,5 +1,30 @@
 <% include ./partials/header %>
 <% include ./partials/navbar %>
 
-<h1 class="space">GALERIA</h1>
+<main>
+  <div class="panel">
+    <h1 class="page-header">Galeria</h1>
+    <div class="gallery">
+    <% for(var i=0; i<13; i++) {%>
+
+        <div class="gallery__thumbnail gallery__thumbnail--hovered  glyphicon">
+        </div>
+        <div class="gallery__container--hidden">
+          <picture class="container__photo">
+          <!--   <source media="(min-width: 650px)" srcset="img_pink_flowers.jpg">
+            <source media="(min-width: 465px)" srcset="img_white_flower.jpg"> -->
+            <img class="content" src="images/gallery/gallery<%= i %>.jpeg" alt="">
+          </picture>
+          <div class="container__buttons">
+            <button class="buttons__button prevButton glyphicon"></button>
+            <button class="buttons__button nextButton glyphicon"></button>
+          </div>
+        </div>
+    
+    <% } %>
+    </div>
+</main>
+
+<script type="text/javascript" src="/javascripts/gallery.js"></script>
+
 <% include ./partials/footer %>

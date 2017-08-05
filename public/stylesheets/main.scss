@@ -3,10 +3,7 @@
 // 1. Configuration and helpers
 @import
   'abstracts/variables',
-  // 'abstracts/functions',
-  'abstracts/mixins',
-
-  'abstracts/animations/scroll-to';
+  'abstracts/mixins';
 
 // 2. Vendors
 @import
@@ -21,24 +18,33 @@
   'base/typography',
   'base/helpers';
 
-// 4. Layout-related sections
+// 4. Components
+@import
+  'components/body--blacked',
+  'components/button',
+  'components/dropdown-menu',
+  'components/edit-form',
+  'components/gallery-image-close-button',
+  'components/gallery-image',
+  'components/hamburger',
+  'components/map',
+  'components/new-comment-panel',
+  'components/offer-picture',
+  'components/page-header',
+  'components/panel',
+  'components/procedures-list',
+  'components/rate-by-stars';
+
+// 5. Layout-related sections
 @import
   'layout/header',
   'layout/footer',
+  'layout/gallery',
   'layout/landing-page',
   'layout/comments-panel',
-  'layout/new-comment-panel',
   'layout/navbar',
   'layout/sign-form';
 
-// 5. Components
-@import
-  'components/offer-picture',
-  'components/map',
-  'components/button',
-  'components/page-header',
-  'components/panel',
-  'components/procedures-list';
 
 // 6. Page-specific styles
 @import

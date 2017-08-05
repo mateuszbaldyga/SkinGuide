@@ -1,0 +1,11 @@
+.gallery {
+  padding: 20px 0 50px 0;
+
+  @media screen and (max-width: map-get($breakpoints, medium)) {
+    padding: 5px 0 10px 0;
+  }
+
+  @media screen and (max-width: map-get($breakpoints, x-small)) {
+    padding-bottom: 10px;
+  }
+}

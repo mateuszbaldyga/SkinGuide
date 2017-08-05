@@ -18,11 +18,11 @@
 }
 
 .nav--animatable {
-  transition: all 330ms ease-out;
+  transition: transform 0.33s ease-out;
 }
 
 .nav--hidden.nav--animatable {
-  transition: all 130ms ease-in;
+  transition: transform 0.2s ease-in;
 }
 
 .nav__container {
@@ -38,60 +38,13 @@
   display:flex;
   align-items: center;
   z-index: 3;
-  font-size: 1.3em;
+  font-size: 130%;
   color: $tuna;
   float: left;
   padding: 15px 15px;
-  background: 0 0;
 
   &:hover {
     color: $ocean-blue;
-    text-shadow: 0 0 1px $ocean-blue;
-    transition: all 0.3s ease;
-  }
-}
-
-.container__hamburger {
-  background-color: transparent;
-  position: absolute;
-  right: 20px;
-  border: 1px solid $border-grey;
-  border-radius: 6px;
-  padding: 3px 6px;
-  pointer-events: auto;
-  @include mq(medium, min) {
-    display: none;
-  }
-
-  div {
-    $div-margin: 5px;
-    background-color: #B0B0B0;
-    width: 25px;
-    height: 2px;
-    margin-top: $div-margin;
-    margin-bottom: $div-margin;
-    will-change: transform;
-    transition: transform 0.3s ease;
-  }
-
-  &:hover {
-    border-color: lighten($tuna, 15% );
-    div {
-      background-color: lighten($tuna, 15% );
-    }
-  }
-
-  &.container__hamburger--open {
-    $translate: 7px;
-    .hamburger__one {
-        transform: translateY($translate) rotate(45deg);
-    }
-    .hamburger__two {
-        opacity: 0;
-    }
-    .hamburger__three {
-        transform: translateY(-$translate) rotate(-45deg);
-    }
   }
 }
 
@@ -100,42 +53,42 @@
   right: 0;
   display: block;
   padding-right: 15px;
-  @include mq(medium, max) {
-    top: 52px;
-    display: none;
-    opacity: 0;
+  @media screen and (max-width: map-get($breakpoints, medium)) {
+    top: $nav-height - $collapsed-nav-height - 1px; //1px - in order to eliminate possible space between navs
     background-color: $nav-background-beige;
+    height: $collapsed-nav-height;
     width: $collapsed-nav-width;
     padding: 10px 0;
     justify-content:center;
     z-index: -1;
     border: 1px solid $border-grey;
     border-top: none;
-    will-change: opacity;
-    // transition: opacity 2000s;
+    will-change: transform;
+    transition: transform 0.2s ease-in-out;
   }
 }
 
-.nav--hidden > .container__collapse--visible {
-  display: block;
-  opacity: 1;
-
+@media screen and (max-width: map-get($breakpoints, medium)) {
+  .container__hamburger--open + .container__collapse--visible {
+    -webkit-transform: translateY(221px);
+    transform: translateY(221px);
+  }
 }
 
 .collapse__buttons li {
   float: left;
 
-  @include mq(medium, max) {
+  @media screen and (max-width: map-get($breakpoints, medium)) {
     float: initial;
     padding: 2px 0;
     display: flex;
     justify-content:center;
   }
   a {
-    font-size: 0.9em;
+    font-size: 90%;
     color: $font-grey;
     padding: 10px;
-    @include mq(medium, max) {
+    @media screen and (max-width: map-get($breakpoints, medium)) {
       padding: 5px 15px;
     }
     &:hover {
@@ -155,7 +108,7 @@
   color: $font-grey;
   padding: 10px 15px;
 
-  @include mq(medium, max) {
+  @media screen and (max-width: map-get($breakpoints, medium)) {
     margin: 0;
     padding: 5px 15px;
   }

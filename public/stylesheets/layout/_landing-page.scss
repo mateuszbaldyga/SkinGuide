@@ -16,14 +16,13 @@
   -o-background-size: cover;
   background-size: cover;
   will-change: transform;
-  transition: transform 500ms ease-in;
+  transition: transform 0.5s ease-in;
   .button {
     background-color: $tuna;
-    font-size: 1.3em;
+    font-size: 130%;
     font-weight: bold;
-    color: #191919;
-    padding: 0.7em 1.5em;
-    border-radius: 8px;
+    color:  hsl(0, 0%, 15%);
+    padding: 12px 22px;
     &:hover {
       background-color: lighten($tuna, 3%);
     }

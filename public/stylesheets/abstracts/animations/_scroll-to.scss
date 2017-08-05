@@ -1,6 +1,0 @@
-@mixin scroll-to($position) {
-  a[ id= "container__brand" ]:target ~ #main article.panel {
-      -webkit-transform: translateY( $position);
-      transform: translateY( $position );
-  }
-}

@@ -1,9 +1,13 @@
 // -----------------------------------------------------------------------------
 // This file contains all styles related to the footer of the site/application.
 // -----------------------------------------------------------------------------
-.footer {
+footer {
   height: 100px;
+  width: 100%;
   background-color: $nav-background-beige;
   border-top: 1px solid mix(black, $border-grey, 5%);
   box-shadow: $nav-shadow;
+  position: relative;
+  bottom: 0;
+  left: 0;
 }

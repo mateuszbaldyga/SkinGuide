@@ -6,8 +6,11 @@
  * Set up a decent box model on the root element
  */
 html {
+  font-family: $text-font-stack;
+  font-size: 100%;
   box-sizing: border-box;
-  font-family: 'Lato', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 
@@ -18,16 +21,21 @@ body {
 main {
   position: relative;
   top: 0;
-  z-index: 25;
+  // z-index: 25;
   padding-top: $nav-height + 40px;
   margin-left: auto;
   margin-right: auto;
+  min-height: 100vh;
   width: 850px;
+  min-width: 300px;
   overflow: hidden;
 
-  @media (max-width: 878px) {
+  @media screen and (max-width: map-get($breakpoints, large)) {
     width: 97vw;
-    min-width: 310px;
+  }
+
+  @media screen and (max-width: map-get($breakpoints, x-small)) {
+    width: 94vw;
   }
 }
 
@@ -43,28 +51,28 @@ main {
   box-sizing: inherit;
 }
 
-a {
-  text-decoration: none;
-  color: initial;
-}
-
 h3 {
-    font-size: 1.17em;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    font-size: 117%;
+    margin-top: 17px;
+    margin-bottom: 17px;
     margin-left: 0;
     margin-right: 0;
     font-weight: bold;
 }
 
+a {
+  text-decoration: none;
+  color: initial;
+}
+
 textarea {
-  outline: 0;
-  font-family: inherit;
+  font-family: $text-font-stack;
   padding: 8px;
+  outline: 0;
 }
 
 button {
-  outline: 0;
   cursor: pointer;
   border: none;
+  outline: 0;
 }

@@ -1,0 +1,43 @@
+.container__hamburger {
+  background-color: transparent;
+  position: absolute;
+  right: 20px;
+  border: 1px solid $border-grey;
+  border-radius: 6px;
+  padding: 3px 6px;
+  pointer-events: auto;
+  @media screen and (min-width: map-get($breakpoints, medium)) {
+    display: none;
+  }
+
+  div {
+    $div-margin: 5px;
+    background-color: #B0B0B0;
+    width: 25px;
+    height: 2px;
+    margin-top: $div-margin;
+    margin-bottom: $div-margin;
+    will-change: transform;
+    transition: transform 200ms ease;
+  }
+
+  &:hover {
+    border-color: lighten($tuna, 15% );
+    div {
+      background-color: lighten($tuna, 15% );
+    }
+  }
+
+  &.container__hamburger--open {
+    $translate: 7px;
+    .hamburger__one {
+        transform: translateY($translate) rotate(45deg);
+    }
+    .hamburger__two {
+        opacity: 0;
+    }
+    .hamburger__three {
+        transform: translateY(-$translate) rotate(-45deg);
+    }
+  }
+}
