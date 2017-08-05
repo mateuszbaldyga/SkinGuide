@@ -1,36 +1,38 @@
 const smallPhotos = document.getElementsByClassName('gallery__thumbnail'),
+      photosAmount = smallPhotos.length,
       bigPhotos = document.getElementsByClassName('gallery__container--hidden'),
       nextButton = document.getElementsByClassName('nextButton'),
       prevButton = document.getElementsByClassName('prevButton'),
       body = document.body;
 
-var currentPhoto;
-      
+var curPic;
 
 function init() {
   magnifyPhoto();
-  anotherPhotoOnButtonClick(nextButton, 'next');
-  anotherPhotoOnButtonClick(prevButton, 'prev');
 }
 
 init();
 
 function magnifyPhoto() {
-  for(let i=0, len=smallPhotos.length; i<len; i++) {
+  for(let i=0; i<photosAmount; i++) {
     smallPhotos[i].addEventListener("click", function() {
       bigPhotos[i].classList.add('gallery__container--visible');
-      closePhoto(i);
-      currentPhoto = i;
+      curPic = i;
+      // console.log('1', curPic);
+      closePhoto();
+      anotherPhotoOnButtonClick(nextButton, 'next');
+      anotherPhotoOnButtonClick(prevButton, 'prev');
+      anotherPhotoOnKeyPress();
     });
     setBackgroundPhoto(i);
   }
 }
 
-function closePhoto(photoNum) {
+function closePhoto() {
   let container = document.getElementsByClassName('gallery__container--visible')[0];
   container.addEventListener('click', (e) => {
     if (container !== e.target) return;
-    bigPhotos[photoNum].classList.remove('gallery__container--visible');
+    bigPhotos[curPic].classList.remove('gallery__container--visible');
   });
 }
 
@@ -39,36 +41,47 @@ function setBackgroundPhoto(photoNum) {
 }
 
 function anotherPhotoOnButtonClick(button, which) {
-  for(let i=0, len=button.length; i<len; i++) {
-    button[i].addEventListener('click', function() {
-      bigPhotos[i].classList.remove('gallery__container--visible');
-      if(which == 'next') {
-        let photoNum = i+1 >= len ? 0 : i+1;
-        bigPhotos[photoNum].classList.add('gallery__container--visible');
-        closePhoto(photoNum);
-      } else {
-        let photoNum = i-1 <= -1 ? len-1 : i-1;
-        bigPhotos[photoNum].classList.add('gallery__container--visible');
-        closePhoto(photoNum);
-      }
-    });
-  }
+  $(button[curPic]).off().on('click', function() {
+    bigPhotos[curPic].classList.remove('gallery__container--visible');
+    if(which == 'next') {
+      curPic = curPic+1 >= photosAmount ? 0 : curPic+1;
+      // console.log('2', curPic);
+      bigPhotos[curPic].classList.add('gallery__container--visible');
+      closePhoto();
+      anotherPhotoOnButtonClick(nextButton, 'next');
+      anotherPhotoOnButtonClick(prevButton, 'prev');
+    } else {
+      curPic = curPic-1 <= -1 ? photosAmount-1 : curPic-1;
+      // console.log('3', curPic);
+      bigPhotos[curPic].classList.add('gallery__container--visible');
+      closePhoto();
+      anotherPhotoOnButtonClick(nextButton, 'next');
+      anotherPhotoOnButtonClick(prevButton, 'prev');
+    }
+  });
 }
 
-function anotherPhotoOnKeyPress(photoNum, len) {
-document.addEventListener('keydown', (event) => {
-  let keyName = event.key;
-  console.log(keyName);
-  bigPhotos[photoNum].classList.remove('gallery__container--visible');
-  if(keyName === 'ArrowRight') {
-    let newPhotoNum = photoNum+1 >= len ? 0 : photoNum+1;
-        bigPhotos[newPhotoNum].classList.add('gallery__container--visible');
-        anotherPhotoOnKeyPress(newPhotoNum, len);
-  }
-  else if(keyName === 'ArrowLeft') {
-let newPhotoNum = photoNum-1 <= -1 ? len-1 : photoNum-1;
-        bigPhotos[newPhotoNum].classList.add('gallery__container--visible');
-        anotherPhotoOnKeyPress(newPhotoNum, len);
-  }
-});
+function anotherPhotoOnKeyPress() {
+  $(document).off().on('keyup', (event) => {
+    let keyName = event.key;
+    bigPhotos[curPic].classList.remove('gallery__container--visible');
+    if(keyName === 'ArrowRight') {
+      curPic = curPic+1 >= photosAmount ? 0 : curPic+1;
+      // console.log('4', curPic);
+      bigPhotos[curPic].classList.add('gallery__container--visible');
+      closePhoto();
+      anotherPhotoOnButtonClick(nextButton, 'next');
+      anotherPhotoOnButtonClick(prevButton, 'prev');
+      anotherPhotoOnKeyPress()
+    }
+    else if(keyName === 'ArrowLeft') {
+      curPic = curPic-1 <= -1 ? photosAmount-1 : curPic-1;
+      // console.log('5', curPic);
+      bigPhotos[curPic].classList.add('gallery__container--visible');
+      closePhoto();
+      anotherPhotoOnButtonClick(nextButton, 'next');
+      anotherPhotoOnButtonClick(prevButton, 'prev');
+      anotherPhotoOnKeyPress()
+    }
+  });
 }

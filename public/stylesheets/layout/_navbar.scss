@@ -54,12 +54,14 @@
   display: block;
   padding-right: 15px;
   @media screen and (max-width: map-get($breakpoints, medium)) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     top: $nav-height - $collapsed-nav-height - 1px; //1px - in order to eliminate possible space between navs
     background-color: $nav-background-beige;
     height: $collapsed-nav-height;
     width: $collapsed-nav-width;
     padding: 10px 0;
-    justify-content:center;
     z-index: -1;
     border: 1px solid $border-grey;
     border-top: none;
