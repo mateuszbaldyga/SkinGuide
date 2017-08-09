@@ -3,7 +3,10 @@
 // 1. Configuration and helpers
 @import
   'abstracts/variables',
-  'abstracts/mixins';
+  'abstracts/mixins',
+
+  'abstracts/animations/pulse';
+  // 'abstracts/animations/rotate-out';
 
 // 2. Vendors
 @import
@@ -14,34 +17,39 @@
 // 3. Base stuff
 @import
   'base/base',
-  'base/fonts',
-  'base/typography',
+  // 'base/fonts',
+  // 'base/typography',
   'base/helpers';
 
 // 4. Components
 @import
-  'components/body--blacked',
+  // 'components/body--blacked',
   'components/button',
   'components/dropdown-menu',
   'components/edit-form',
-  'components/gallery-image-close-button',
-  'components/gallery-image',
+  'components/gallery-buttons',
+  'components/gallery-fullscreen-photo',
+  'components/gallery-thumbnail',
   'components/hamburger',
-  'components/map',
+  'components/input',
+  // 'components/map',
   'components/new-comment-panel',
-  'components/offer-picture',
+  // 'components/offer-picture',
   'components/page-header',
   'components/panel',
   'components/procedures-list',
-  'components/rate-by-stars';
+  'components/rate-by-stars',
+  'components/socialmedia-icons',
+  'components/textarea';
 
 // 5. Layout-related sections
 @import
-  'layout/header',
+  'layout/comments-panel',
+  'layout/contact-form',
   'layout/footer',
   'layout/gallery',
+  'layout/header',
   'layout/landing-page',
-  'layout/comments-panel',
   'layout/navbar',
   'layout/sign-form';
 

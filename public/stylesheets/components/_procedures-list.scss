@@ -1,12 +1,14 @@
 .procedure-list {
   list-style-type: disc;
   padding-left: 4vw;
-  width: 500px;
+  width: 80%;
   line-height: 1.3;
+
   @media screen and (max-width: map-get($breakpoints, small)) {
     padding-left: 25px;
     width: 86%;
   }
+  
   .procedure-price {
     color: $tuna;
     font-weight: bold;

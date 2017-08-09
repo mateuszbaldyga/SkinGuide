@@ -8,10 +8,10 @@
   background-color: $ocean-blue;
   float: right;
   padding: 9px 18px;
-  color: #ffffff;
+  color: $white;
   border-radius: 4px;
   font-weight: bold;
-  font-size: 80%;
+  font-size: 95%;
   will-change: transform;
 
   &:hover {
@@ -20,23 +20,18 @@
   
   &:active {
     background-color: darken($ocean-blue, 5%);
-    -webkit-transform: translateY(1px);
     transform: translateY(1px);
   }
 }
 
-.button--hidden {
-  visibility: hidden;
-}
-
-.button--visible {
-  visibility: visible;
-}
-  
-.button--accept {
+.smallButton {
   margin-left: 5px;
   font-weight: normal;
   padding: 5px 7px;
+  font-size: 85%;
+}
+
+.button--accept {
   background-color: $btn-green;
 
   &:hover {
@@ -49,9 +44,6 @@
 }
 
 .button--cancel {
-  margin-left: 5px;
-  font-weight: normal;
-  padding: 5px 7px;
   background-color: $btn-red;
 
   &:hover {

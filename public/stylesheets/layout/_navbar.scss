@@ -1,20 +1,34 @@
 .nav {
   position: fixed;
+  width: 100%;
   height: $nav-height;
-  width: 100vw;
+  max-width: $max-width;
   top: 0;
   left: 0;
+  font-size: 105%;
   z-index: 100;
   pointer-events: auto;
-  -webkit-transform: none;
-  transform: none;
   will-change: transform;
+
+  @media screen and (min-width: map-get($breakpoints, x-large)) {
+    $width: 1400px;
+    height: $nav-height-x2;
+    width: $width;
+    max-width: $max-width;
+    left: 50%;
+    margin-left: -$width/2;
+  }
 }
 
 .nav--hidden {
   -webkit-transform: translateY(-$nav-height);
   transform: translateY(-$nav-height);
   pointer-events: none;
+
+  @media screen and (min-width: map-get($breakpoints, x-large)) {
+    -webkit-transform: translateY(-$nav-height-x2);
+    transform: translateY(-$nav-height-x2);
+  }
 }
 
 .nav--animatable {
@@ -26,21 +40,16 @@
 }
 
 .nav__container {
-  background-color: $nav-background-beige;
-  border: 1px solid $border-grey;
+  background-color: $nav-background-gray;
+  border: 1px solid $border-gray;
   display:flex;
   align-items: center;
   height: 100%;
-  z-index: 10;
 }
 
 .container__brand {
-  display:flex;
-  align-items: center;
-  z-index: 3;
   font-size: 130%;
   color: $tuna;
-  float: left;
   padding: 15px 15px;
 
   &:hover {
@@ -52,18 +61,18 @@
   position: absolute;
   right: 0;
   display: block;
-  padding-right: 15px;
+
   @media screen and (max-width: map-get($breakpoints, medium)) {
     display: flex;
     justify-content: center;
     align-items: center;
-    top: $nav-height - $collapsed-nav-height - 1px; //1px - in order to eliminate possible space between navs
-    background-color: $nav-background-beige;
+    top: $nav-height - $collapsed-nav-height - 2px; //2px - in order to eliminate possible space between navs
+    background-color: $nav-background-gray;
     height: $collapsed-nav-height;
     width: $collapsed-nav-width;
     padding: 10px 0;
     z-index: -1;
-    border: 1px solid $border-grey;
+    border: 1px solid $border-gray;
     border-top: none;
     will-change: transform;
     transition: transform 0.2s ease-in-out;
@@ -71,56 +80,66 @@
 }
 
 @media screen and (max-width: map-get($breakpoints, medium)) {
+
   .container__hamburger--open + .container__collapse--visible {
-    -webkit-transform: translateY(221px);
     transform: translateY(221px);
   }
 }
 
-.collapse__buttons li {
-  float: left;
+.collapse__buttons {
+  display: flex;
+  align-items: center;
 
   @media screen and (max-width: map-get($breakpoints, medium)) {
-    float: initial;
-    padding: 2px 0;
-    display: flex;
-    justify-content:center;
+    flex-direction: column;
   }
-  a {
-    font-size: 90%;
-    color: $font-grey;
-    padding: 10px;
-    @media screen and (max-width: map-get($breakpoints, medium)) {
-      padding: 5px 15px;
-    }
-    &:hover {
-      color: $tuna;
-    }
 
-    &.collapse__buttons--current-user {
-      color: $ocean-blue;
+  li {
+    // float: left;
+
+    @media screen and (max-width: map-get($breakpoints, medium)) {
+      
+      // float: none;
+      padding: 2px 0;
+      display: flex;
+      justify-content:center;
+    }
+    a {
+      font-size: 90%;
+      color: $font-gray;
+      padding: 15px 15px 15px 10px;
+
+      @media screen and (max-width: map-get($breakpoints, medium)) {
+        padding: 7px 20px;
+      }
+
+      &:hover {
+        color: $tuna;
+      }
+
+      &.collapse__buttons--current-user {
+        color: $ocean-blue;
+      }
     }
   }
 }
 
-.collapse__buttons--log-button {
-  border: 1px solid $border-grey;
-  border-radius: 6px;
-  margin-left: 4px;
-  color: $font-grey;
-  padding: 10px 15px;
+.buttons__spacer {
+    border-left: 1px solid $border-gray;
+    margin-left: 5px;
+    height: $nav-height;
 
-  @media screen and (max-width: map-get($breakpoints, medium)) {
-    margin: 0;
-    padding: 5px 15px;
-  }
-
-  &:hover {
-    border-color: lighten( $tuna, 15% );
-    color: $tuna;
-  }
+    @media screen and (max-width: map-get($breakpoints, medium)) {
+      height: auto;
+      width: 100%;
+      border-left: none;
+      border-bottom: 1px solid $border-gray;
+      margin-left: 0;
+    }
+  
 }
 
 .collapse__buttons--active {
   color: $tuna !important;
+  border-color: lighten( $tuna, 15% );
 }

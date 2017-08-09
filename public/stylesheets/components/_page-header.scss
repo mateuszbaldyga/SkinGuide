@@ -1,8 +1,7 @@
 .page-header {
   font-size: 200%;
   font-weight: bold;
-  margin-top: 22px;
-  margin-bottom: 28px;
+  margin: 22px 0 28px 0;
   padding-bottom: 10px;
-  border-bottom: 1px solid mix(black, $border-grey, 5%);
+  border-bottom: 1px solid mix(black, $border-gray, 5%);
 }

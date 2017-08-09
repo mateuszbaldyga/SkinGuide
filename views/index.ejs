@@ -2,7 +2,7 @@
 <% include ./partials/navbar %>
 <a id="about-us"></a>
 <div id="landpage" class="landpage">
-  <button id="button-getStarted" class="button">Get Started</button>
+  <button id="button-getStarted" class="button pulse">Wejdź !</button>
 </div>
 <main>
 <article class="panel">
@@ -40,14 +40,13 @@
           <input type="hidden" name="currentuser"  id="currentuser" value='<%= currentUser.username %>'/>
           <input type="hidden" name="avatar"  id="avatar" value='<%= currentUser.avatar %>'/>
           <input type="hidden" name="commentId"  id="commentId" value='<%= currentUser.avatar %>'/>
-          <textarea id='text' class="new-comment-form__textarea" name="text" placeholder="Czy jesteś zadowolona z naszych usług?"></textarea>
-          <!-- because of type="button" page dont reload! -->
+          <textarea id='text' class="textarea" name="text" placeholder="Czy jesteś zadowolona z naszych usług?" required></textarea>
           <button type="button" id="button-sendOpinion" class="button">
             <i class="icon edit"></i> Wyślij Opinię
           </button>
         </form>
       <% } else { %>
-        <p class="login-alert">Aby dodać opinię, <a href="/login" class="login-alert-link">zaloguj się</a>.</p>
+        <div class="login-alert">Aby dodać opinię, <a href="/login" class="login-alert-link">zaloguj się</a>.</div>
       <% } %>
     </div>
   </div>

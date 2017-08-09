@@ -12,27 +12,36 @@ $code-font-stack: 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono',
 
 /// Navbar height
 $nav-height: 52px;
+$nav-height-x2: 65px;
 $collapsed-nav-height: 220px;
 $collapsed-nav-width: 200px;
 
 
 /// Colors
-$white: hsl(0, 0%, 100%);
+$white: hsl(360, 0%, 100%);
+$black: hsl(0, 0%, 0%);
 $beige: hsl(322, 100%, 98%);
 $tuna: hsl(4, 100%, 74%);
 $ocean-blue: hsl(176, 47%, 52%);
 
+$date-gray: hsl(0, 0%, 60%);
+$star-gold: hsl(45, 88%, 67%);
 $btn-green: hsl(97, 62%, 60%);
 $btn-red: hsl(4, 99%, 67%);
-$font-grey: hsl(0, 0%, 36%);
-$border-grey : hsl(0, 0%, 91%);
-$nav-background-beige: hsl(0, 0%, 97%);
+$font-gray: hsl(0, 0%, 36%);
+$border-gray: hsl(0, 0%, 87%);
+$nav-background-gray: hsl(0, 0%, 97%);
+$placeholder-color: hsl(0, 0%, 73%);
 
-$nav-shadow: -2px 4px 10px darken($nav-background-beige, 5%);
+//Gallery colors
+$image-wrap-width: 80%;
+$galleryButton-color: hsla(0, 100%, 100%, 0.3);
+//Gallery colors
+
 
 /// Container's maximum width
 /// @type Length
-$max-width: 1180px !default;
+$max-width: 2000px;
 
 /// Breakpoints map
 /// @prop {String} keys - Keys are identifiers mapped to a given length
@@ -42,4 +51,6 @@ $breakpoints: (
   'small': 620px,
   'medium': 670px,
   'large': 878px,
+  'x-large': 1400px,
+  'xx-large': 2000px,
 );

@@ -1,0 +1,60 @@
+.gallery__container--hidden {
+  position: fixed;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 125;
+  visibility: hidden;
+}
+
+.gallery__container--hidden:before {
+  content: "";
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: hsl(0, 0%, 0%);
+  opacity: 0;
+}
+
+.gallery__container--visible {
+  visibility: visible;
+}
+
+.gallery__container--visible:before {
+  opacity: 0.75;
+}
+
+.container__photo {
+  display: flex;
+  justify-content: center;
+  background-color: $black;
+  width: 80%;
+  max-width: 900px;
+  max-height: 95%;
+  @include aspect-ratio(1.5, 1);
+
+  @media screen and (min-width: map-get($breakpoints, x-large)) {
+    max-width: $max-width;
+    width: 90vw;
+  }
+
+  @media screen and (max-width: map-get($breakpoints, large)) {
+    width: 95%;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.container__photo img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}

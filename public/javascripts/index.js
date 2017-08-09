@@ -3,7 +3,6 @@ const stars = document.querySelectorAll("#rate span"),
       form = $("#comment-form"),
       landpage = $("#landpage"),
       aboutUsButton = document.getElementById('aboutUsButton'),
-      // main = $('main'),
       commentFormWrap = $('#comment-form-wrapper'),
       months = [ 'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca',
                  'sierpnia', 'września', 'października', 'listopada', 'grudnia',
@@ -34,6 +33,7 @@ function slideLandingPage(){
 }
 
 function hideLandingpage() {
+  $(this).removeClass('pulse');
   landpage.addClass('landpage--hidden');
   aboutUsButton.classList.add('collapse__buttons--active')
 }
@@ -95,15 +95,15 @@ function showHideDropdownMenu(objective) {
   commentDropdown.each( function() {
     $(this).off().on('click', () => {
       let thisMenu = $(this).find('.dropdown-wrapper__menu');
-      allDropdownMenus.not(thisMenu).removeClass('dropdown-wrapper__menu--visible');
-      thisMenu.toggleClass('dropdown-wrapper__menu--visible');
+      allDropdownMenus.not(thisMenu).removeClass('visibility--visible');
+      thisMenu.toggleClass('visibility--visible');
 
     });
   });
   // hide dropdown
   $(document).on('click', (event) => {
     if (!$(event.target).closest('.content__dropdown-wrapper').length) {
-      allDropdownMenus.removeClass('dropdown-wrapper__menu--visible');
+      allDropdownMenus.removeClass('visibility--visible');
     }
   });
 }
@@ -111,7 +111,7 @@ function showHideDropdownMenu(objective) {
 function addOpinionButtonAction() {
   let button = document.getElementById('button-addOpinion');
   button.addEventListener('click', function() {
-    this.classList.add('button--hidden');
+    this.classList.add('visibility--hidden');
     document.getElementById('comment-form-wrapper').classList.add('container__new-comment-form-wrapper--visible');
     scrollToObjective(commentFormWrap);
   });
@@ -208,12 +208,12 @@ function addFunctionEditComment(){
           editForm = `<form id="edit-form" class="content__edit-form">
                         <textarea id="text-area" class="edit-form__textarea">${oldCommentText}</textarea>
                         <div class='edit-form__buttons-container'>
-                          <button type="button" id="buttonAccept" class="button button--accept">Zatwierdź</button>
-                          <button type="button" id="buttonCancel" class="button button--cancel">Anuluj</button>
+                          <button type="button" id="buttonAccept" class="button smallButton button--accept">Zatwierdź</button>
+                          <button type="button" id="buttonCancel" class="button smallButton button--cancel">Anuluj</button>
                         </div>
                       </form>`;
       
-      btnToggleDropdown.addClass('dropdown-wrapper__button--hidden');
+      btnToggleDropdown.addClass('display--none');
       textDiv.replaceWith(editForm).promise().done(() => {
         let editForm = commentContent.find('#edit-form');
         //button-accept
@@ -232,7 +232,7 @@ function addFunctionEditComment(){
         //button-cancel
         commentContent.find('#buttonCancel').on('click', () => {
           editForm.replaceWith(textDiv);
-          btnToggleDropdown.removeClass('dropdown-wrapper__button--hidden');
+          btnToggleDropdown.removeClass('display--none');
         });
       });
     });
@@ -256,7 +256,7 @@ function updateCommentToDatabase(data, dataForDisplay) {
 
 function displayEditedComment(dataForDisplay) {
   dataForDisplay.editForm.replaceWith(dataForDisplay.newTextDiv);
-  dataForDisplay.btnToggleDropdown.removeClass('dropdown-wrapper__button--hidden');
+  dataForDisplay.btnToggleDropdown.removeClass('display--none');
 }
 
 function error(jqXHR, textStatus, errorThrown) {

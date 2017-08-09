@@ -2,12 +2,35 @@
 // This file contains all styles related to the footer of the site/application.
 // -----------------------------------------------------------------------------
 footer {
-  height: 100px;
+  height: 180px;
+  font-size: 90%;
   width: 100%;
-  background-color: $nav-background-beige;
-  border-top: 1px solid mix(black, $border-grey, 5%);
-  box-shadow: $nav-shadow;
+  background-color: $nav-background-gray;
+  border-top: 1px solid mix(black, $border-gray, 5%);
   position: relative;
   bottom: 0;
   left: 0;
+  color: darken($font-gray, 5%);
+}
+
+.footText {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  margin: 10px 0;
+  text-align: center;
+  font-variant: small-caps;
+  text-transform: capitalize;
+  font-size: 90%;
+}
+
+.adress {
+  line-height: 1.4;
+  position: absolute;
+  top: 20px;
+  left: 5%;
+}
+
+.adress__header {
+  line-height: 1.7;
 }

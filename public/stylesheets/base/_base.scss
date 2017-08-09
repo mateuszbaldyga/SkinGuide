@@ -9,8 +9,10 @@ html {
   font-family: $text-font-stack;
   font-size: 100%;
   box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+  @media screen and (min-width: map-get($breakpoints, x-large)) {
+    font-size: 115%;
+  }
 }
 
 
@@ -21,14 +23,17 @@ body {
 main {
   position: relative;
   top: 0;
-  // z-index: 25;
-  padding-top: $nav-height + 40px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: $nav-height + 40px auto 40px auto;
   min-height: 100vh;
+  overflow: hidden;
   width: 850px;
   min-width: 300px;
-  overflow: hidden;
+
+  @media screen and (min-width: map-get($breakpoints, x-large)) {
+    width: 1000px;
+    max-width: $max-width;
+    margin-top: $nav-height-x2 + 40px;
+  }
 
   @media screen and (max-width: map-get($breakpoints, large)) {
     width: 97vw;
@@ -51,28 +56,24 @@ main {
   box-sizing: inherit;
 }
 
-h3 {
-    font-size: 117%;
-    margin-top: 17px;
-    margin-bottom: 17px;
-    margin-left: 0;
-    margin-right: 0;
-    font-weight: bold;
-}
-
 a {
   text-decoration: none;
-  color: initial;
 }
 
-textarea {
+textarea, input {
   font-family: $text-font-stack;
   padding: 8px;
-  outline: 0;
+
+  &:focus {
+    outline: 0;
+  }
 }
 
 button {
   cursor: pointer;
   border: none;
-  outline: 0;
+  
+  &:focus {
+    outline: 0;
+  }
 }

@@ -9,22 +9,19 @@
 .dropdown-wrapper__button {
   border: none;
   background-color: transparent;
-  color: #9ccecb;
+  color: desaturate( $ocean-blue, 15% );
+
   .icon-down:before {
     font-size: 90%;
-    background-color: #ffffff;
+    background-color: $white;
     content: "\e259";
   }
-}
-
-.dropdown-wrapper__button--hidden {
-  display: none;
 }
 
 .dropdown-wrapper__menu {
   visibility: hidden;
   opacity: 0;
-  background-color: #ffffff;
+  background-color: $white;
   position: absolute;
   @include shadowed-border;
   padding: 5px 5px;
@@ -35,15 +32,11 @@
   transition: opacity 0.3s ease;
 }
 
-.dropdown-wrapper__menu--visible {
-  visibility: visible;
-  opacity: 1;
-}
-
 .menu__button {
   display: block;
   background-color: transparent;
-  font-size: 80%;
+  font-size: 85%;
+
   &:hover {
     color: $tuna;
   }

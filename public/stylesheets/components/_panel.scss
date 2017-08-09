@@ -7,10 +7,19 @@
   @include shadowed-border;
   text-align: left;
   overflow: hidden;
+
   @media screen and (max-width: map-get($breakpoints, small)) {
-      padding: 10px;
-    }
+    padding: 10px;
+  }
+
   @media screen and (max-width: map-get($breakpoints, x-small)) {
     padding: 8px;
+  }
+
+  p {
+    text-indent: 30px;
+    line-height: 1.25;
+    text-align: justify;
+    padding-bottom: 8px;
   }
 }

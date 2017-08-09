@@ -1,9 +1,9 @@
 .new-comment-form__rate {
   line-height: 1.5;
-  font-size: 21px;
+  font-size: 130%;
 }
 
 .new-comment-form__rate--hover {
-  color: #F5D061;
+  color: $star-gold;
   cursor: pointer;
 }

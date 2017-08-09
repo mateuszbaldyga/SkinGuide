@@ -1,6 +1,7 @@
 .login-alert-link {
   color: $ocean-blue;
   font-weight: bold;
+
   &:hover {
     color: lighten($ocean-blue, 10%);
   }
@@ -17,21 +18,4 @@
 
 .container__new-comment-form-wrapper--visible {
   display: block;
-}
-
-.new-comment-form__textarea {
-  display: block;
-  border: 1px solid $border-grey;
-  border-radius: 4px;
-  font-size: 80%;
-  width: 100%;
-  max-width: 100%;
-  height: 200px;
-  max-height: 400px;
-  margin-top: 2px;
-  margin-bottom: 15px;
-  &:focus {
-    @include input-focus(20%);
-  }
-  @include placeholder-color();
 }

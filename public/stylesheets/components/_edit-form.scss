@@ -1,14 +1,15 @@
 .edit-form__textarea {
-  color: $font-grey;
+  color: $font-gray;
   display: block;
-  border: 1px solid $border-grey;
+  border: 1px solid $border-gray;
   border-radius: 4px;
   width: 100%;
   max-width: 100%;
   max-height: 200px;
   margin: 15px 0 10px 0;
+  
   &:focus {
-    @include input-focus(30%);
+    @include inputFocus-border(30%);
   }
 }
 
