@@ -1,9 +1,9 @@
 const smallPhotos = document.getElementsByClassName('gallery__thumbnail'),
       photosAmount = smallPhotos.length,
       bigPhotos = document.getElementsByClassName('gallery__container--hidden'),
-      nextButton = document.getElementsByClassName('nextButton'),
-      prevButton = document.getElementsByClassName('prevButton'),
-      closeButton = document.getElementsByClassName('container__closeButton'),
+      nextButton = document.getElementsByClassName('next-button'),
+      prevButton = document.getElementsByClassName('prev-button'),
+      closeButton = document.getElementsByClassName('container__close-button'),
       body = document.body;
 
 var curPic,
