@@ -1,22 +1,22 @@
 <div class="comments-wrapper__comment">
-  <a href="#" class="comment__avatar">
+  <div href="#" class="comment__avatar">
     <img alt="User's avatar." src="
     <% if(typeof comment != 'undefined'){ %>
       <%= comment.author.avatar %>
     <% } %>
     ">
-  </a>
+  </div>
   <div class="comment__content">
     <div class='content__rate'>
       <% if(typeof comment != 'undefined'){ %>
           <%- '&#9733;'.repeat(comment.rating) %> 
       <% } %>
     </div>
-    <a href="#" class="content__author">
+    <div class="content__author">
       <% if(typeof comment != 'undefined'){ %>
         <%= comment.author.username %>
       <% } %>
-    </a>
+    </div>
     <span class="content__date">
       <% if(typeof comment != 'undefined'){ %>
         <%= comment.date %>

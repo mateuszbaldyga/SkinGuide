@@ -208,8 +208,8 @@ function addFunctionEditComment(){
           editForm = `<form id="edit-form" class="content__edit-form">
                         <textarea id="text-area" class="edit-form__textarea">${oldCommentText}</textarea>
                         <div class='edit-form__buttons-container'>
-                          <button type="button" id="buttonAccept" class="button smallButton button--accept">Zatwierdź</button>
-                          <button type="button" id="buttonCancel" class="button smallButton button--cancel">Anuluj</button>
+                          <button type="button" id="buttonAccept" class="button button--small button--accept">Zatwierdź</button>
+                          <button type="button" id="buttonCancel" class="button button--small button--cancel">Anuluj</button>
                         </div>
                       </form>`;
       

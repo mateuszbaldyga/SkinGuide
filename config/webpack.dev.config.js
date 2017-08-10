@@ -2,11 +2,11 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: [
-    './public/javascripts/script.js',
+    './public/javascripts/main.js',
   ],
   output: {
     path: '/',
-    filename: 'script-es6.js',
+    filename: 'main-es6.js',
     publicPath: 'http://localhost:3000/scripts/',
   },
   module: {

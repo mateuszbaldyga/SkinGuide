@@ -127,18 +127,17 @@
 }
 
 .buttons__spacer {
-    border-left: 1px solid lighten( $border-gray, 3% );
-    margin-left: 5px;
-    height: $nav-height;
+  border-left: 1px solid lighten( $border-gray, 3% );
+  margin-left: 5px;
+  height: $nav-height;
 
-    @media screen and (max-width: map-get($breakpoints, medium)) {
-      height: auto;
-      width: 100%;
-      border-left: none;
-      border-bottom: 1px solid $border-gray;
-      margin-left: 0;
-    }
-  
+  @media screen and (max-width: map-get($breakpoints, medium)) {
+    height: auto;
+    width: 100%;
+    border-left: none;
+    border-bottom: 1px solid $border-gray;
+    margin-left: 0;
+  }
 }
 
 .collapse__buttons--active {
