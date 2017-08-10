@@ -95,37 +95,39 @@
   }
 
   li {
-    // float: left;
+    color: $font-gray;
 
     @media screen and (max-width: map-get($breakpoints, medium)) {
-      
-      // float: none;
       padding: 2px 0;
       display: flex;
       justify-content:center;
     }
+
     a {
       font-size: 90%;
-      color: $font-gray;
       padding: 15px 15px 15px 10px;
-
-      @media screen and (max-width: map-get($breakpoints, medium)) {
-        padding: 7px 20px;
-      }
 
       &:hover {
         color: $tuna;
       }
 
-      &.collapse__buttons--current-user {
-        color: $ocean-blue;
+      @media screen and (max-width: map-get($breakpoints, medium)) {
+        padding: 7px 20px;
       }
     }
+  }
+
+  .collapse__buttons--current-user {
+    color: $ocean-blue;
+    text-align: center;
+    font-size: 95%;
+    max-width: 132px;
+    font-weight: 600;
   }
 }
 
 .buttons__spacer {
-    border-left: 1px solid $border-gray;
+    border-left: 1px solid lighten( $border-gray, 3% );
     margin-left: 5px;
     height: $nav-height;
 

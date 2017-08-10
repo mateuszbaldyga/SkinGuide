@@ -30,7 +30,7 @@ if(req.isAuthenticated()){
     }
     });
   } else {
-      // req.flash("error", "You need to be logged in to do that");
+      req.flash("error", "You need to be logged in to do that");
       res.redirect("back");
   }
 }

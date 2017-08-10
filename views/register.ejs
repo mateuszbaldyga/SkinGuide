@@ -2,11 +2,16 @@
 <% include ./partials/navbar %>
 
 <main>
-  <form class="sign-form" action="/login" method="POST">
-    <input type="text" class="input" name="username" placeholder="Username" required>
-    <input type="password" class="input" name="password" placeholder="Password" required>
+  <% include ./partials/flash-messages %>
+  <form class="sign-form" action="/register" method="POST">
+    <input type="text" class="input" name="username" placeholder="Nazwa użytkowanika" title='Maksymalna długość: 15 znaków' maxlength="15" required>
+    <input type="password" class="input" name="password" placeholder="Hasło" title='Hasło musi składać się z kombinacji co najmniej 6 znaków w tym przynajmniej 1 litery i 1 cyfry' required pattern="(?=.*\d)(?=.*[a-z]).{6,}">  
+    <input type="password" class="input" name="confirmPass" placeholder="Potwierdź hasło" title="Potwierdź hasło" required pattern="(?=.*\d)(?=.*[a-z]).{6,}">
     <button class="button" type="submit">Utwórz konto</button>
   </form>
 </main>
 
 <% include ./partials/footer %>
+<% include ./partials/scripts %>
+</body>
+</html>

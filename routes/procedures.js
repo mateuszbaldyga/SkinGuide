@@ -8,7 +8,7 @@ router.get('/procedures', function(req, res) {
     if (!err) {
       console.log('znaleziono wszystkie grupy');
     };
-    res.render("procedures/show", {
+    res.render("procedures", {
       groups: allGroups
     });
   })

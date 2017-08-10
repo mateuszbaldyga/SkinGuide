@@ -19,7 +19,7 @@
           <li><a href="/register"">Rejestracja</a></li>
           <li><a href="/login">Logowanie</a></li>
         <% } else { %>
-          <li><a class="collapse__buttons--current-user" href="#">Signed in as <%= currentUser.username %></a></li>
+          <li class="collapse__buttons--current-user"><a href="#"><%= currentUser.username %></a></li>
           <li><a href="/logout">Wyloguj się</a></li>
         <% } %>
       </ul>

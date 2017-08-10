@@ -1,0 +1,10 @@
+<% if(success && success.length>0) { %>
+  <div class="flash-message flash-message--success">
+    <%= success %>
+  </div>
+<% } %>
+<% if(error && error.length>0) { %>
+<div class="flash-message flash-message--error">
+  <%= error %>
+</div>
+<% } %>
