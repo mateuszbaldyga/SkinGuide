@@ -2,11 +2,6 @@ var express = require('express'),
     app = express(),
     cookieSession = require('cookie-session'),
 
-    webpack = require('webpack'),
-    webpackDevMiddleware = require('webpack-dev-middleware'),
-    config = require('./config/webpack.dev.config'),
-    compiler = webpack(config)
-
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     flash = require('connect-flash'),
@@ -69,12 +64,6 @@ app.use(proceduresRoutes);
 app.use(contactRoutes);
 app.use(offersRoutes);
 app.use(galleryRoutes);
-
-
-app.use(webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath,
-    stats: {colors: true}
-}));
 
 app.listen(3000, function() {
   console.log('The SkinGuide Server Has Started!');

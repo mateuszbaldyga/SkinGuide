@@ -2,6 +2,11 @@ var express = require('express'),
     app = express(),
     cookieSession = require('cookie-session'),
 
+    webpack = require('webpack'),
+    webpackDevMiddleware = require('webpack-dev-middleware'),
+    config = require('./config/webpack.dev.config'),
+    compiler = webpack(config)
+
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     flash = require('connect-flash'),
@@ -21,7 +26,9 @@ var authRoutes = require('./routes/auth'),
     offersRoutes = require('./routes/offers');
     galleryRoutes = require('./routes/gallery');
 
-mongoose.connect('mongodb://admin:Admin47@ds141232.mlab.com:41232/skinguide');
+mongoose.connect('mongodb://localhost/skin_guide', {
+  useMongoClient: true,
+});
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -30,7 +37,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public')),
 app.use(flash());
 
-seedDB();
+// seedDB()
 
 //==========
 // PASSPORT CONFIG
@@ -62,6 +69,12 @@ app.use(proceduresRoutes);
 app.use(contactRoutes);
 app.use(offersRoutes);
 app.use(galleryRoutes);
+
+
+app.use(webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+    stats: {colors: true}
+}));
 
 app.listen(3000, function() {
   console.log('The SkinGuide Server Has Started!');
