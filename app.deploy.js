@@ -8,7 +8,6 @@ var express = require('express'),
     passport = require('passport'),
     LocalStrategy = require('passport-local'),
     passportLocalMongoose = require('passport-local-mongoose'),
-    nodemailer = require('nodemailer'),
 
     User = require('./models/user'),
 
