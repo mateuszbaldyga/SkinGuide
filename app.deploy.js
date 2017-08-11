@@ -62,6 +62,4 @@ app.use(contactRoutes);
 app.use(offersRoutes);
 app.use(galleryRoutes);
 
-app.listen(3000, function() {
-  console.log('The SkinGuide Server Has Started!');
-});
+app.listen(process.env.PORT || 5000);
