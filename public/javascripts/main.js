@@ -3,7 +3,7 @@ const defaultNavbar = document.getElementById('nav'),
       
 
 var mobileNavIsCollapsed = true,
-    landpageIsHidden = false;
+    landpageIsHidden = true;
     
 
 function init() {

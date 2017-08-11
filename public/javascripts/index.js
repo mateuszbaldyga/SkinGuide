@@ -9,11 +9,13 @@ const stars = document.querySelectorAll('#rate span'),
       ];
 
 var clickedStar = 0;
+landpageIsHidden = false;
 
 function init() {
   setNavigationForAboutUsButton();
 
   hideLandingPage();
+  landpageIsHiddenIsTRUE();
 
   rateComment();
   dateFormat(document);
@@ -45,6 +47,12 @@ function hideLandingPage(){
     landpage.classList.add('landpage--hidden');
     aboutUsButton.classList.add('collapse__buttons--active');
   });
+}
+
+function landpageIsHiddenIsTRUE() {
+  if(window.location.hash === '#about-us') {
+    landpageIsHidden = true;
+  }
 }
 
 function rateComment(){
