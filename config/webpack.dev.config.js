@@ -21,32 +21,12 @@ module.exports = {
           }
         }
       },
-  //     {
-  //       test: /\.css$/,
-  //       use: [ 'style-loader', 'css-loader' ]
-  //     },
-  //     {
-  //     test: /\.scss$/,
-  //     use: [ 'style-loader', 'css-loader', 'sass-loader' ]
-  //     },
-  //     {
-  //     test: /\.(png|jpg|gif)$/,
-  //     use: [
-  //         {
-  //           loader: 'url-loader',
-  //           options: {
-  //             limit: 8192
-  //           }
-  //         }
-  //       ]
-  //     }
     ]
   },
-  // plugins: [
-  //   new webpack.optimize.UglifyJsPlugin({
-  //     beautify: true,
-  //     minimize: true,
-  //     comments: false,
-  //   }),
-  // ],
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      minimize: true,
+      comments: false,
+    }),
+  ],
 };

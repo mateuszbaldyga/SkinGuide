@@ -3,11 +3,10 @@ const smallPhotos = document.getElementsByClassName('gallery__thumbnail'),
       bigPhotos = document.getElementsByClassName('gallery__container--hidden'),
       nextButton = document.getElementsByClassName('next-button'),
       prevButton = document.getElementsByClassName('prev-button'),
-      closeButton = document.getElementsByClassName('container__close-button'),
-      body = document.body;
+      closeButton = document.getElementsByClassName('container__close-button');
 
 var curPic,
-    mobileViewport = window.matchMedia("screen and (max-width: 500px)");
+    mobileViewport = window.matchMedia('screen and (max-width: 500px)');
 
 function init() {
   setBackgroundPhoto();
@@ -38,7 +37,7 @@ function setBackgroundPhoto(photoNum) {
 
 function magnifyPhoto() {
   for(let i=0; i<photosAmount; i++) {
-    smallPhotos[i].addEventListener("click", function() {
+    smallPhotos[i].addEventListener('click', function() {
       bigPhotos[i].classList.add('gallery__container--visible');
       curPic = i;
       setUpFunctionality();
@@ -53,6 +52,7 @@ function setUpFunctionality() {
   anotherPhotoOnButtonClick(nextButton, 'next');
   anotherPhotoOnButtonClick(prevButton, 'prev');
   anotherPhotoOnKeyPress();
+  // console.log('SET UP');
 }
 
 function closePhotoByOutsideClick() {

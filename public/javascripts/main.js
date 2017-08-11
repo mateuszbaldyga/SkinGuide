@@ -2,14 +2,13 @@ const defaultNavbar = document.getElementById('nav'),
       mobileNavbar = document.getElementById('nav__collapse');
       
 
-var mobileNavIsCollapsed = true,
-    path = window.location.pathname + window.location.hash;
+var mobileNavIsCollapsed = true;
+    
 
 function init() {
   navHideShowOnScroll();
   collapseMobileNavbarOnClick()
   setNavigation();
-  setNavigationForAboutUsButton();
 } 
 
 init();
@@ -48,29 +47,11 @@ function collapseMobileNavbarOnClick() {
 }
 
 function setNavigation() {
-  $("#nav__buttons li a").each(function () {
+  $('#nav__buttons li a').each(function () {
       let path = window.location.pathname + window.location.hash,
-          href = $(this).attr("href");
+          href = $(this).attr('href');
       if (path == href) {
           $(this).addClass('collapse__buttons--active');
       }
-  });
-}
-
-function setNavigationForAboutUsButton() {
-  aboutUsButton.addEventListener('click', function() {
-    this.classList.add('collapse__buttons--active')
-  });
-}
-
-function initMap() {
-  var uluru = {lat: -25.363, lng: 131.044};
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: uluru
-  });
-  var marker = new google.maps.Marker({
-    position: uluru,
-    map: map
   });
 }

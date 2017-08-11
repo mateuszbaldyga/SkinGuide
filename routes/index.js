@@ -1,9 +1,9 @@
-var express = require("express"),
+var express = require('express'),
     router = express.Router(),
 
-    Comment = require("../models/comment"),
+    Comment = require('../models/comment'),
 
-    middleware = require("../middleware");
+    middleware = require('../middleware');
 
 router.get('/', function(req, res) {
   Comment.find({}, function(err, allComments) {
@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
       res.sendStatus(404);
     } else {
       console.log('Get route: SUCCESS!');
-      res.render("index", { comments: allComments });
+      res.render('index', { comments: allComments });
     }
   });
 });
@@ -41,7 +41,7 @@ router.put('/', middleware.checkCommentOwnership, function(req, res) {
   Comment.findByIdAndUpdate(req.body.commentId, { text: req.body.editFormText },function(err) {
     if(err){
       console.log('Update route: ERROR');
-      res.redirect("back");
+      res.redirect('back');
     } else {
       console.log('Update route: SUCCESS!');
       res.sendStatus(200);

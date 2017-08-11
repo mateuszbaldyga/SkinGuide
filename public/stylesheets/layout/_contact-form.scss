@@ -2,6 +2,15 @@
   width: 70%;
   margin: 30px auto;
 
+  @media screen and (max-width: map-get($breakpoints, medium)) {
+    width: 100%;
+  }
+
+  .textarea {
+    padding: 10px 15px;
+    font-size: 90%;
+  }
+
   .button {
     float: none;
   }
