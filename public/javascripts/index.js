@@ -29,6 +29,8 @@ init();
 
 function setNavigationForAboutUsButton() {
   aboutUsButton.addEventListener('click', function() {
+    landpage.remove();
+    landpageIsHidden = true;
     this.classList.add('collapse__buttons--active')
   });
 }
@@ -36,6 +38,7 @@ function setNavigationForAboutUsButton() {
 function hideLandingPage(){
   landpage.addEventListener("transitionend", function() {
     this.remove();
+    landpageIsHidden = true;
   });
   $('#button-getStarted').one('click', function() {
     $(this).removeClass('pulse');

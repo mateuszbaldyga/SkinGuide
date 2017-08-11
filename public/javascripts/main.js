@@ -2,7 +2,8 @@ const defaultNavbar = document.getElementById('nav'),
       mobileNavbar = document.getElementById('nav__collapse');
       
 
-var mobileNavIsCollapsed = true;
+var mobileNavIsCollapsed = true,
+    landpageIsHidden = false;
     
 
 function init() {
@@ -16,18 +17,18 @@ init();
 function navHideShowOnScroll() {
   let lastScrollTop = 0,
       nowScrollTop;
-  window.addEventListener('scroll', () => {
-    toggleNav();
-  });
+    window.addEventListener('scroll', () => {
+      if(mobileNavIsCollapsed && landpageIsHidden) {
+        toggleNav();
+      }
+    });
 
   function toggleNav() {
     nowScrollTop = window.scrollY;
     if (nowScrollTop > lastScrollTop){
       defaultNavbar.classList.add('nav--hidden');
-      mobileNavbar.classList.remove('container__collapse--visible');
     } else {
       defaultNavbar.classList.remove('nav--hidden');
-      mobileNavbar.classList.add('container__collapse--visible');
     }
     lastScrollTop = nowScrollTop;
   }

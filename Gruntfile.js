@@ -42,7 +42,7 @@ module.exports = function(grunt) {
         files: [{
         expand: true,
         src: ['public/javascripts/*.js', '!public/javascripts/*.min.js'],
-        dest: 'public',
+        dest: '.',
         cwd: '.',
         rename: function (dst, src) {
           return src.replace('.js', '.min.js');
@@ -52,6 +52,7 @@ module.exports = function(grunt) {
     },
     uglify: {
       options: {
+        mangle: true,
         // nameCache: 'public/javascripts/.tmp/grunt-uglify-cache.json',
         // mangle: {
         //   toplevel: true,
@@ -61,7 +62,7 @@ module.exports = function(grunt) {
         files: [{
         expand: true,
         src: ['public/javascripts/*.min.js'],
-        dest: 'public',
+        dest: '.',
         cwd: '.',
         // rename: function (dst, src) {
         //   return src.replace('.js', '.min.js');
