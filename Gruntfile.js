@@ -11,7 +11,7 @@ module.exports = function(grunt) {
       },
       js: {
         files: ['public/javascripts/*.js', '!public/javascripts/*.min.js'],
-        tasks: ['uglify']
+        tasks: ['babel', 'uglify']
         },
       },
 
@@ -33,14 +33,12 @@ module.exports = function(grunt) {
         }
       }
     },
-    uglify: {
+    babel: {
       options: {
-        // nameCache: 'public/javascripts/.tmp/grunt-uglify-cache.json',
-        // mangle: {
-        //   toplevel: true,
-        // },
+        sourceMap: false,
+        presets: ['env']
       },
-      my_target: {
+      dist: {
         files: [{
         expand: true,
         src: ['public/javascripts/*.js', '!public/javascripts/*.min.js'],
@@ -51,11 +49,31 @@ module.exports = function(grunt) {
         }
         }]
       }
+    },
+    uglify: {
+      options: {
+        // nameCache: 'public/javascripts/.tmp/grunt-uglify-cache.json',
+        // mangle: {
+        //   toplevel: true,
+        // },
+      },
+      my_target: {
+        files: [{
+        expand: true,
+        src: ['public/javascripts/*.min.js'],
+        dest: 'public',
+        cwd: '.',
+        // rename: function (dst, src) {
+        //   return src.replace('.js', '.min.js');
+        // }
+        }]
+      }
     }
   });
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-babel');
   grunt.registerTask('default',['watch']);
 }

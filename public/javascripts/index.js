@@ -1,9 +1,8 @@
 const stars = document.querySelectorAll('#rate span'),
       starsQuantity = stars.length,
       form = $('#comment-form'),
-      landpage = $('#landpage'),
+      landpage = document.getElementById('landpage'),
       aboutUsButton = document.getElementById('aboutUsButton'),
-      getStartedButton = $('#button-getStarted'),
       commentFormWrap = $('#comment-form-wrapper'),
       months = [ 'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca',
                  'sierpnia', 'września', 'października', 'listopada', 'grudnia',
@@ -14,7 +13,7 @@ var clickedStar = 0;
 function init() {
   setNavigationForAboutUsButton();
 
-  slideLandingPage();
+  hideLandingPage();
 
   rateComment();
   dateFormat(document);
@@ -34,15 +33,15 @@ function setNavigationForAboutUsButton() {
   });
 }
 
-function slideLandingPage(){
-  getStartedButton.on('click', hideLandingpage);
-  $(window).one('scroll', hideLandingpage);
-}
-
-function hideLandingpage() {
-  getStartedButton.removeClass('pulse');
-  landpage.addClass('landpage--hidden');
-  aboutUsButton.classList.add('collapse__buttons--active')
+function hideLandingPage(){
+  landpage.addEventListener("transitionend", function() {
+    this.remove();
+  });
+  $('#button-getStarted').one('click', function() {
+    $(this).removeClass('pulse');
+    landpage.classList.add('landpage--hidden');
+    aboutUsButton.classList.add('collapse__buttons--active');
+  });
 }
 
 function rateComment(){
@@ -141,7 +140,8 @@ function addFunctionPostComment() {
 function postCommentToDatabase(data) {
   $.ajax({
     type: 'POST',
-    url: 'http://localhost:3000/',
+    // url: 'http://localhost:3000/',
+    url: 'https://evening-hamlet-47726.herokuapp.com/',
     data: data,
     headers: {
       'X-Requested-With': 'XMLHttpRequest'
@@ -187,7 +187,8 @@ function addFunctionDestroyComment(){
     };
     // console.log('commentId: ', commentId);
     $.ajax({
-      url: 'http://localhost:3000/',
+      // url: 'http://localhost:3000/',
+      url: 'https://evening-hamlet-47726.herokuapp.com',
       data: data,
       type: 'DELETE',
       success: () => {
@@ -248,7 +249,8 @@ function addFunctionEditComment(){
 function updateCommentToDatabase(data, dataForDisplay) {
   $.ajax({
   type: 'PUT',
-  url: 'http://localhost:3000/',
+  // url: 'http://localhost:3000/',
+  url: 'https://evening-hamlet-47726.herokuapp.com',
   data: data,
   headers: {
     'X-Requested-With': 'XMLHttpRequest'
