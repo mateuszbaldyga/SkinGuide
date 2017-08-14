@@ -7,7 +7,6 @@
   left: 0;
   font-size: 105%;
   z-index: 100;
-  pointer-events: auto;
   will-change: transform;
 
   @media screen and (min-width: map-get($breakpoints, x-large)) {
@@ -23,7 +22,6 @@
 .nav--hidden {
   -webkit-transform: translateY(-$nav-height);
   transform: translateY(-$nav-height);
-  pointer-events: none;
 
   @media screen and (min-width: map-get($breakpoints, x-large)) {
     -webkit-transform: translateY(-$nav-height-x2);
@@ -32,11 +30,11 @@
 }
 
 .nav--animatable {
-  transition: transform 0.33s ease-out;
+  transition: transform 0.22s ease-out;
 }
 
 .nav--hidden.nav--animatable {
-  transition: transform 0.2s ease-in;
+  transition: transform 0.1s ease-in;
 }
 
 .nav__container {
@@ -48,13 +46,21 @@
 }
 
 .container__brand {
-  font-size: 130%;
-  color: $tuna;
-  padding: 15px 15px;
+  position: absolute;
+  font-size: 200%;
+  margin-left: 15px;
+}
 
-  &:hover {
-    color: $ocean-blue;
-  }
+.container__brand--on {
+  background-color: $nav-background-gray;
+  text-shadow: 0 0 3px $salmon;
+  -webkit-text-stroke: 1px $salmon;
+  color: $white;
+}
+
+.container__brand--off {
+  -webkit-text-stroke: 1px lighten(desaturate($salmon, 60%), 8%);
+  color: $nav-background-gray;
 }
 
 .container__collapse {
@@ -62,7 +68,7 @@
   right: 0;
   display: block;
 
-  @media screen and (max-width: map-get($breakpoints, medium)) {
+  @media screen and (max-width: map-get($breakpoints, x-medium)) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -79,10 +85,10 @@
   }
 }
 
-@media screen and (max-width: map-get($breakpoints, medium)) {
+@media screen and (max-width: map-get($breakpoints, x-medium)) {
 
   .container__hamburger--open + .container__collapse--visible {
-    transform: translateY(221px);
+    transform: translateY($collapsed-nav-height);
   }
 }
 
@@ -90,14 +96,14 @@
   display: flex;
   align-items: center;
 
-  @media screen and (max-width: map-get($breakpoints, medium)) {
+  @media screen and (max-width: map-get($breakpoints, x-medium)) {
     flex-direction: column;
   }
 
   li {
     color: $font-gray;
 
-    @media screen and (max-width: map-get($breakpoints, medium)) {
+    @media screen and (max-width: map-get($breakpoints, x-medium)) {
       padding: 2px 0;
       display: flex;
       justify-content:center;
@@ -105,14 +111,16 @@
 
     a {
       font-size: 90%;
-      padding: 15px 15px 15px 10px;
-
-      &:hover {
-        color: $tuna;
+      padding: 10px 15px 10px 10px;
+      
+      @media screen and (max-width: map-get($breakpoints, x-medium)) {
+        padding: 8px 30px;
       }
 
-      @media screen and (max-width: map-get($breakpoints, medium)) {
-        padding: 7px 20px;
+      @media screen and (min-width: map-get($breakpoints, x-small)) {
+        &:hover {
+          color: $salmon;
+        }
       }
     }
   }
@@ -131,7 +139,7 @@
   margin-left: 5px;
   height: $nav-height;
 
-  @media screen and (max-width: map-get($breakpoints, medium)) {
+  @media screen and (max-width: map-get($breakpoints, x-medium)) {
     height: auto;
     width: 100%;
     border-left: none;
@@ -141,6 +149,6 @@
 }
 
 .collapse__buttons--active {
-  color: $tuna !important;
-  border-color: lighten( $tuna, 15% );
+  color: $salmon !important;
+  border-color: lighten( $salmon, 15% );
 }

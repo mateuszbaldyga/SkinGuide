@@ -1,0 +1,33 @@
+.login-alert {
+  position: absolute;
+  // visibility: hidden;
+  // opacity: 0;
+}
+
+.login-alert-link {
+  color: $ocean-blue;
+  font-weight: bold;
+
+  &:hover {
+    color: lighten($ocean-blue, 10%);
+  }
+}
+
+.form-new-comment--wrapper {
+  display: none;
+  position: relative;
+}
+
+
+
+.form-new-comment {
+  margin-top: 50px;
+
+  .button {
+    float: right;
+  }
+}
+
+.form-new-comment--wrapper--visible {
+  display: block;
+}

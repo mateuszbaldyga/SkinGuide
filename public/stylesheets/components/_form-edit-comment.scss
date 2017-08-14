@@ -1,3 +1,7 @@
+.content__edit-form {
+  position: relative;
+}
+
 .edit-form__textarea {
   color: $font-gray;
   display: block;
@@ -7,7 +11,7 @@
   max-width: 100%;
   max-height: 200px;
   margin: 15px 0 10px 0;
-  
+
   &:focus {
     @include inputFocus-border(30%);
   }

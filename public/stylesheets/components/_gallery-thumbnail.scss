@@ -7,6 +7,7 @@
   float: left;
   margin: 1px;
   border-radius: 6px;
+  pointer-events: none;
   @include aspect-ratio(4, 3);
 
   @media screen and (max-width: map-get($breakpoints, medium)) {
@@ -33,9 +34,10 @@
     width: 100%;
     opacity: 0;
     transition: opacity 0.4s ease-out;
+    pointer-events: all;
   }
 
   .gallery__thumbnail--hovered:hover:after {
-      opacity: 0.5;
+    opacity: 0.5;
   }
 }

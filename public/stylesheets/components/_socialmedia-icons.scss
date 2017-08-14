@@ -2,20 +2,17 @@
   position: absolute;
   top: 10px;
   right: 3%;
-
-  a {
-    width: 26px;
-    height: 26px;
-  }
 }
 
 .social__icon {
-  fill: $tuna;
+  fill: $salmon;
   width: 26px;
   height: 26px;
   margin: 3px;
 
-  &:hover {
-    fill: lighten($tuna, 5%);
+  @media screen and (min-width: map-get($breakpoints, x-small)) {
+    &:hover {
+      fill: lighten($salmon, 5%);
+    }
   }
 }

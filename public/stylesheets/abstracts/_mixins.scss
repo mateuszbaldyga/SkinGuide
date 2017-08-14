@@ -7,10 +7,10 @@
   box-shadow: 0 0 6px lighten($ocean-blue, $percent);
 }
 
-@mixin shadowed-border($color: $border-gray) {
+@mixin shadowed-border($color: lighten($border-gray, 5%)) {
   border: 1px solid $color;
   border-radius: 4px;
-  box-shadow: 0 0px 20px $color;
+  box-shadow: 0 0px 10px $color;
 }
 
 @mixin aspect-ratio($width, $height) {

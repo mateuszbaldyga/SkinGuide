@@ -10,19 +10,19 @@
   height: 100vh;
   width: 100vw;
   z-index: 50;
-  pointer-events: auto;
   overflow: hidden;
   will-change: transform;
   transition: transform 0.5s ease-in;
 
   .button {
+    $size: 150px;
     background-color: $ocean-blue;
-    font-size: 140%;
+    font-size: 180%;
     font-weight: 200;
     color: $white;
-    height: 120px;
-    width: 120px;
-    border-radius: 60px;
+    height: $size;
+    width: $size;
+    border-radius: $size/2;
 
     &:hover {
       background-color: lighten($ocean-blue, 3%);
@@ -36,7 +36,6 @@
 }
 
 .landpage--hidden {
-  pointer-events: none;
   -webkit-transform: translateY(-100vh);
   transform: translateY(-100vh);
 }

@@ -5,7 +5,8 @@
   'abstracts/variables',
   'abstracts/mixins',
 
-  'abstracts/animations/pulse';
+  'abstracts/animations/pulse',
+  'abstracts/animations/glow';
   // 'abstracts/animations/rotate-out';
 
 // 2. Vendors
@@ -25,16 +26,17 @@
 @import
   // 'components/body--blacked',
   'components/button',
+  'components/comment',
   'components/dropdown-menu',
-  'components/edit-form',
   'components/flash-message',
+  'components/form-edit-comment',
+  'components/form-new-comment',
   'components/gallery-buttons',
   'components/gallery-fullscreen-photo',
   'components/gallery-thumbnail',
   'components/hamburger',
   'components/input',
   // 'components/map',
-  'components/new-comment-panel',
   // 'components/offer-picture',
   'components/page-header',
   'components/panel',

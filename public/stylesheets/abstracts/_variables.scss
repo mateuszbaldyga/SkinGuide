@@ -13,7 +13,7 @@ $code-font-stack: 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono',
 /// Navbar height
 $nav-height: 52px;
 $nav-height-x2: 65px;
-$collapsed-nav-height: 220px;
+$collapsed-nav-height: 235px;
 $collapsed-nav-width: 200px;
 
 
@@ -21,7 +21,7 @@ $collapsed-nav-width: 200px;
 $white: hsl(360, 0%, 100%);
 $black: hsl(0, 0%, 0%);
 $beige: hsl(322, 100%, 98%);
-$tuna: hsl(4, 100%, 74%);
+$salmon: hsl(4, 100%, 74%);
 $ocean-blue: hsl(176, 47%, 52%);
 
 $date-gray: hsl(0, 0%, 60%);
@@ -30,8 +30,10 @@ $btn-green: hsl(97, 62%, 60%);
 $btn-red: hsl(4, 99%, 67%);
 $font-gray: hsl(0, 0%, 36%);
 $border-gray: hsl(0, 0%, 85%);
+$brand-gray: hsl(0, 0%, 93%);
 $nav-background-gray: hsl(0, 0%, 97%);
 $placeholder-color: hsl(0, 0%, 73%);
+
 
 $flash-green: hsl(99, 53%, 63%);
 $flash-red: hsl(356, 95%, 66%);
@@ -53,6 +55,7 @@ $breakpoints: (
   'x-small': 500px,
   'small': 620px,
   'medium': 670px,
+  'x-medium': 780px,
   'large': 878px,
   'x-large': 1400px,
   'xx-large': 2000px,

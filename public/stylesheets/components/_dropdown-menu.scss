@@ -1,20 +1,23 @@
 .content__dropdown-wrapper {
-  width: 0;
-  position: relative;
-  right: 20px;
-  top: -53px; //magic value
+  width: 16px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
   float: right;
 }
 
 .dropdown-wrapper__button {
   border: none;
   background-color: transparent;
-  color: desaturate( $ocean-blue, 15% );
+  padding: 0;
+  width: 30px;
+  height: 30px;
 
-  .icon-down:before {
-    font-size: 90%;
-    background-color: $white;
-    content: "\e259";
+  .button__dropdown-svg {
+    fill: lighten($salmon, 10%);
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 }
 
@@ -23,11 +26,11 @@
   opacity: 0;
   background-color: $white;
   position: absolute;
-  @include shadowed-border;
-  padding: 5px 5px;
+  top: 12px;
+  right: 0;
   z-index: 1;
-  top: 21px;
-  left: -37px;
+  @include shadowed-border;
+  padding: 3px 5px;
   will-change: opacity;
   transition: opacity 0.3s ease;
 }
@@ -36,8 +39,10 @@
   display: block;
   background-color: transparent;
   font-size: 85%;
+  padding-bottom: 2px;
+  padding-top: 2px;
 
   &:hover {
-    color: $tuna;
+    color: $salmon;
   }
 }

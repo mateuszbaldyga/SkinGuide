@@ -11,3 +11,13 @@
     float: none;
   }
 }
+
+.input-condition {
+  position: relative;
+  top: 10px;
+  font-size: 75%;
+  width: 95%;
+  margin: 5px auto;
+  color: $font-gray;
+  text-align: justify;
+}

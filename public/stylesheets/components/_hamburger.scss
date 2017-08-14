@@ -5,16 +5,15 @@
   border: 1px solid $border-gray;
   border-radius: 6px;
   padding: 3px 6px;
-  pointer-events: auto;
 
-  @media screen and (min-width: map-get($breakpoints, medium)) {
+  @media screen and (min-width: map-get($breakpoints, x-medium)) {
     display: none;
   }
 
   div {
-    $div-margin: 5px;
+    $div-margin: 6px;
     background-color: #B0B0B0;
-    width: 25px;
+    width: 28px;
     height: 2px;
     margin-top: $div-margin;
     margin-bottom: $div-margin;
@@ -22,16 +21,18 @@
     transition: transform 200ms ease;
   }
 
-  &:hover {
-    border-color: lighten($tuna, 15% );
+  @media screen and (min-width: map-get($breakpoints, x-small)) {
+    &:hover {
+      border-color: lighten($salmon, 15% );
 
-    div {
-      background-color: lighten($tuna, 15% );
+      div {
+        background-color: lighten($salmon, 15% );
+      }
     }
   }
 
   &.container__hamburger--open {
-    $translate: 7px;
+    $translate: 8px;
 
     .hamburger__one {
         transform: translateY($translate) rotate(45deg);

@@ -23,10 +23,10 @@ main {
   position: relative;
   top: 0;
   margin: 0 auto 0 auto;
-  padding: $nav-height + 40px 0 40px 0;
+  padding: $nav-height + 40px 10px 40px 10px;
   min-height: 100vh;
   overflow: hidden;
-  width: 850px;
+  width: 870px;
   min-width: 300px;
 
   @media screen and (min-width: map-get($breakpoints, x-large)) {
@@ -41,6 +41,8 @@ main {
 
   @media screen and (max-width: map-get($breakpoints, x-small)) {
     width: 94vw;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 

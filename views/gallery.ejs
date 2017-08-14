@@ -6,24 +6,17 @@
     <h1 class="page-header">Galeria</h1>
     <div class="gallery">
     <% for(var i=0; i<12; i++) {%>
-
-        <picture class="gallery__thumbnail gallery__thumbnail--hovered  glyphicon">
-            <source media="(min-width: 650px)" srcset="gallery<%= i %>_.jpeg.jpg">
-            <source media="(min-width: 465px)" srcset="img_white_flower.jpg">
-        </picture>
-        <div class="gallery__container--hidden">
-          <div class="container__photo">
-            <div class="content">
-              <img class="" src="images/gallery/gallery<%= i %>.jpeg" alt="">
-            </div>
-            <div class="container__buttons">
+        <div class="gallery__thumbnail gallery__thumbnail--hovered glyphicon" style="background-image: url('/images/gallery/gallery<%=i%>-450w-compressor.jpeg');">
+        </div>
+        <div class="gallery__fullphoto">
+          <div class="fullphoto__image" style="background-image: url('/images/gallery/gallery<%=i%>.jpeg');">
+            <button class="image__close-button glyphicon"></button>
+            <div class="image__buttons">
               <button class="buttons__button prev-button glyphicon"></button>
               <button class="buttons__button next-button glyphicon"></button>
             </div>
-            <button class="container__close-button glyphicon"></button>
           </div>
         </div>
-    
     <% } %>
     </div>
 </main>

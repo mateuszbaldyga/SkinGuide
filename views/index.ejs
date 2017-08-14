@@ -20,37 +20,36 @@
 
 <!-- SHOW -->
 <div class="panel panel--comments">
-  <div id="comments-wrapper" class="panel--comments__comments-wrapper">
+  <div id="commentsWrapper" class="panel--comments__comments-wrapper">
     <h3>Opinie klientów</h3>
     <% comments.forEach(function(comment) { %>
       <% include ./partials/comment_template %>
     <% }) %>
   </div>
+
 <!-- New   -->
-  <div class="panel--comments__container">
-    <button id="button-addOpinion" class="button">
-      Dodaj Opinię
-    </button>
-    <div id='comment-form-wrapper' class='container__new-comment-form-wrapper'>
-      <% if(currentUser){ %>
-        <form name="comment-form" id="comment-form" action="/skinguide" method="POST">
-          Ocena:
-          <div id="rate" class='new-comment-form__rate'>
-            <span value='1'>&#9734;</span><span value='2'>&#9734;</span><span value='3'>&#9734;</span><span value='4'>&#9734;</span><span value='5'>&#9734;</span>
-          </div>
-          <input type="hidden" name="rateValue" id='rateNum'/>
-          <input type="hidden" name="currentuser"  id="currentuser" value='<%= currentUser.username %>'/>
-          <input type="hidden" name="avatar"  id="avatar" value='<%= currentUser.avatar %>'/>
-          <input type="hidden" name="commentId"  id="commentId" value='<%= currentUser.avatar %>'/>
-          <textarea id='text' class="textarea" name="text" placeholder="Czy jesteś zadowolona z naszych usług?" required></textarea>
-          <button type="button" id="button-sendOpinion" class="button">
-            <i class="icon edit"></i> Wyślij Opinię
-          </button>
-        </form>
-      <% } else { %>
-        <div class="login-alert">Aby dodać opinię, <a href="/login" class="login-alert-link">zaloguj się</a>.</div>
-      <% } %>
-    </div>
+  <button id="button-addOpinion" class="button">
+    Dodaj Opinię
+  </button>
+  <div id="formNewCommentWrapper" class="form-new-comment--wrapper">
+    <% if(currentUser){ %>
+      <form name="form-new-comment" id="formNewComment" class="form-new-comment" action="/skinguide" method="POST">
+        Ocena:
+        <div id="rate" class='rate-by-stars'>
+          <span value='1'>&#9734;</span><span value='2'>&#9734;</span><span value='3'>&#9734;</span><span value='4'>&#9734;</span><span value='5'>&#9734;</span>
+        </div>
+        <input type="hidden" name="rateValue" id='rateNum'/>
+        <input type="hidden" name="currentuser"  id="currentuser" value='<%= currentUser.username %>'/>
+        <input type="hidden" name="avatar"  id="avatar" value='<%= currentUser.avatar %>'/>
+        <input type="hidden" name="commentId"  id="commentId" value='<%= currentUser.avatar %>'/>
+        <textarea id='text' class="textarea" name="text" placeholder="Czy jesteś zadowolona z naszych usług?" required></textarea>
+        <button type="button" id="button-sendOpinion" class="button">
+          <i class="icon edit"></i> Wyślij Opinię
+        </button>
+      </form>
+    <% } else { %>
+      <div class="login-alert" id="loginAlert">Aby dodać opinię, <a href="/login" class="login-alert-link">zaloguj się</a>.</div>
+    <% } %>
   </div>
 </div>
 </main>

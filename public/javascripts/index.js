@@ -1,12 +1,20 @@
 const stars = document.querySelectorAll('#rate span'),
       starsQuantity = stars.length,
-      form = $('#comment-form'),
+      // form = $('#comment-form'),
       landpage = document.getElementById('landpage'),
       aboutUsButton = document.getElementById('aboutUsButton'),
-      commentFormWrap = $('#comment-form-wrapper'),
+      loginAlert = document.getElementById('loginAlert'),
+      formNewComment = $('#formNewComment'),
+      formNewCommentWrapper = document.getElementById('formNewCommentWrapper'),
       months = [ 'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca',
                  'sierpnia', 'września', 'października', 'listopada', 'grudnia',
-      ];
+      ],
+
+      //class_names:
+      formNewCommentWrapperVisible = 'form-new-comment--wrapper--visible',
+      rateByStars = 'rate-by-stars',
+      rateByStarsHover = 'rate-by-stars--hover';
+
 
 var clickedStar = 0;
 landpageIsHidden = false;
@@ -58,7 +66,7 @@ function landpageIsHiddenIsTRUE() {
 function rateComment(){
     function piceofCode(i){
       stars[i].innerHTML = '&#9733;';
-      stars[i].classList.add('new-comment-form__rate--hover');
+      stars[i].classList.add(rateByStarsHover);
     }
     for(let i=0; i<starsQuantity; i++){
         stars[i].addEventListener('click', function(){
@@ -113,7 +121,6 @@ function showHideDropdownMenu(objective) {
       let thisMenu = $(this).find('.dropdown-wrapper__menu');
       allDropdownMenus.not(thisMenu).removeClass('visibility--visible');
       thisMenu.toggleClass('visibility--visible');
-
     });
   });
   // hide dropdown
@@ -128,18 +135,17 @@ function addOpinionButtonAction() {
   let button = document.getElementById('button-addOpinion');
   button.addEventListener('click', function() {
     this.classList.add('visibility--hidden');
-    document.getElementById('comment-form-wrapper').classList.add('container__new-comment-form-wrapper--visible');
-    scrollToObjective(commentFormWrap);
+    formNewCommentWrapper.classList.add(formNewCommentWrapperVisible);
   });
 }
 
 function addFunctionPostComment() {
   $('#button-sendOpinion').click(() => {
     let data = {
-        'numOfStars': form.find('#rateNum').val(),
-        'commentText': form.find('#text').val(),
-        'commentAvatar': form.find('#avatar').val(),
-        'commentAuthor': form.find('#currentuser').val()
+        'numOfStars': formNewComment.find('#rateNum').val(),
+        'commentText': formNewComment.find('#text').val(),
+        'commentAvatar': formNewComment.find('#avatar').val(),
+        'commentAuthor': formNewComment.find('#currentuser').val()
         };
       // console.log(data);
     if(data.numOfStars && data.commentText){
@@ -159,11 +165,10 @@ function postCommentToDatabase(data) {
     },
     success: (commentId) => {
                data.commentId = commentId;
-               form[0].reset();
+               formNewComment[0].reset();
                resetStars();
                clickedStar = 0;
                displayPostedComment(data);
-               scrollToObjective(commentFormWrap);
                addFunctionDestroyComment();
                addFunctionEditComment();
              },
@@ -185,7 +190,7 @@ function displayPostedComment(data) {
   template.getElementsByClassName('content__date')[0].innerText = Date();
   $(template.getElementsByClassName('button-DeleteComment')[0]).parent().attr('data', data.commentId);
   dateFormat(template);
-  $(template.outerHTML).appendTo('#comments-wrapper')
+  $(template.outerHTML).appendTo('#commentsWrapper')
   showHideDropdownMenu(document.querySelectorAll('.content__dropdown-wrapper'));
 }
 
@@ -211,16 +216,16 @@ function addFunctionDestroyComment(){
   });
 }
 
-function addFunctionEditComment(){
+function addFunctionEditComment() {
   let buttonEditComment = $('.button-EditComment'),
       btnToggleDropdown = $(document.querySelectorAll('.dropdown-wrapper__button'));
+
   buttonEditComment.each(function(){
     $(this).on('click', () => {
       let data = {
-            'commentId': $.trim($(this).parent().attr('data'))
+            'commentId': $(this).parent().attr('data')
           },
-
-          commentContent = $(this).closest('div.comment__content'),
+          commentContent = $(this).closest('div.comments-wrapper__comment'),
           textDiv = commentContent.find('div.content__text'),
           oldCommentText = textDiv.text().trim(),
           editForm = `<form id='edit-form' class='content__edit-form'>
@@ -230,9 +235,9 @@ function addFunctionEditComment(){
                           <button type='button' id='buttonCancel' class='button button--small button--cancel'>Anuluj</button>
                         </div>
                       </form>`;
-      
+                      
       btnToggleDropdown.addClass('display--none');
-      textDiv.replaceWith(editForm).promise().done(() => {
+      textDiv.replaceWith(editForm).promise().done( () => {
         let editForm = commentContent.find('#edit-form');
         //button-accept
         commentContent.find('#buttonAccept').on('click', () => {
@@ -282,15 +287,9 @@ function error(jqXHR, textStatus, errorThrown) {
   console.log('Error');
 }
   
-function scrollToObjective(objective, duration=800){
-  $('body,html').animate({
-    scrollTop: objective.offset().top
-    }, duration);
-}
-
 function resetStars(){
   for(let i=0; i<starsQuantity; i++){
       stars[i].innerHTML = '&#9734;';
-      stars[i].classList.remove('new-comment-form__rate--hover');
+      stars[i].classList.remove(rateByStarsHover);
   }
 }

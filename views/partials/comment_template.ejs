@@ -22,29 +22,23 @@
         <%= comment.date %>
       <% } %>
     </span>           
-    <% if((typeof comment === 'undefined') || (currentUser && comment.author.id.equals(currentUser._id))){ %>
-      <div class="content__dropdown-wrapper">
-        <button class="dropdown-wrapper__button">
-          <i class="glyphicon icon-down"></i>
-        </button>
-        <div class="dropdown-wrapper__menu" data="
-            <% if(typeof comment != 'undefined'){ %>
-              <%=comment._id %>
-            <% } %>">
-          <button type="button" class="menu__button button-EditComment" href="#">
-            Edytuj
-          </button>
-          <button type="button" class="menu__button button-DeleteComment" href="#">
-            Usuń
-          </button>
-        </div>
-      </div>
-    <% } %>
-    
-    <div class="content__text">
-      <% if(typeof comment != 'undefined'){ %>
-        <%= comment.text %>
-      <% } %>    
-    </div>
+    <div class="content__text"><% if(typeof comment != 'undefined'){ %><%= comment.text %><% } %></div>
   </div>
+  <% if((typeof comment === 'undefined') || (currentUser && comment.author.id.equals(currentUser._id))){ %>
+    <div class="content__dropdown-wrapper">
+      <button class="dropdown-wrapper__button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="16" height="16" class="button__dropdown-svg">
+          <polygon points="0,0 200,200 400,0 "/>
+        </svg>
+      </button>
+      <div class="dropdown-wrapper__menu" data="<% if(typeof comment != 'undefined'){ %><%=comment._id %><% } %>">
+        <button type="button" class="menu__button button-EditComment">
+          Edytuj
+        </button>
+        <button type="button" class="menu__button button-DeleteComment">
+          Usuń
+        </button>
+      </div>
+    </div>
+  <% } %>
 </div>
