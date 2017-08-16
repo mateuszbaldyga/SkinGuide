@@ -47,8 +47,17 @@
 
 .container__brand {
   position: absolute;
+  margin-top: 1px;
+  top: 0;
+  left: 0;
   font-size: 200%;
   margin-left: 15px;
+  line-height: $nav-height - 2px;
+
+  @media screen and (min-width: map-get($breakpoints, x-large)) {
+    line-height: $nav-height-x2 - 2px;
+  }
+
 }
 
 .container__brand--on {
@@ -65,6 +74,7 @@
 
 .container__collapse {
   position: absolute;
+  top: 0;
   right: 0;
   display: block;
 
