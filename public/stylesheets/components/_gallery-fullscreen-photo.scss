@@ -19,6 +19,7 @@
 }
 
 .fullphoto__image {
+  position: relative;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -26,8 +27,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 95%;
+  width: 95vw;
+  height: 59vw;
   max-width: 900px;
-  max-height: 95%;
-  @include aspect-ratio(1.5, 1);
+  max-height: 600px;
+  // @include aspect-ratio(1.5, 1);
 }

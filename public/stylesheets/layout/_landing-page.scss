@@ -24,17 +24,18 @@ a[id="about-us"]:target ~ #landpage {
   transition: transform 0.5s ease-in;
 
   .button {
+    $size: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
-    $size: 150px;
     background-color: $ocean-blue;
     color: $white;
     width: $size;
-    border-radius: $size/2;
+    height: $size;
     max-width: 40vh;
+    max-height: 40vh;
+    border-radius: $size/2;
     padding: 0;
-    @include aspect-ratio(1, 1);
 
     &:hover {
       background-color: lighten($ocean-blue, 3%);
