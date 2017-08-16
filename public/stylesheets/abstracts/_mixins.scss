@@ -23,3 +23,10 @@
   > .content {
   }
 }
+
+@mixin viewport-ratio($width, $height, $fill) {
+  width: $fill*1vw;
+  height: $height * $fill*1vw / $width;
+  max-width: $width / $height * $fill*1vh;
+  max-height: $fill*1vh;
+}
