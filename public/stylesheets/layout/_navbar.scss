@@ -47,15 +47,15 @@
 
 .container__brand {
   position: absolute;
-  margin-top: 1px;
+  margin-top: 2px;
   top: 0;
   left: 0;
   font-size: 200%;
   margin-left: 15px;
-  line-height: $nav-height - 2px;
+  line-height: $nav-height - 4px;
 
   @media screen and (min-width: map-get($breakpoints, x-large)) {
-    line-height: $nav-height-x2 - 2px;
+    line-height: $nav-height-x2 - 4px;
   }
 
 }
