@@ -1,17 +1,19 @@
 @keyframes glow { 
+  $X: 65%;
+  
   0%, 22% { opacity: 1; } 
   23%, 25% { opacity: 0; } 
   26%, 33% { opacity: 1; } 
-  34%, 42% { opacity: 0; } 
-  43%, 53% { opacity: 1; } 
-  54%, 56% { opacity: 0; } 
-  57%, 58% { opacity: 1; } 
-  59%, 60% { opacity: 0; } 
-  61%, 100% { opacity: 1; }
+  34%, 46% { opacity: 0; } 
+  46.5%, #{$X} { opacity: 1; } 
+  #{$X+1%/3}, #{$X+2%/3} { opacity: 0; } 
+  #{$X+3%/3}, #{$X+5%/4} { opacity: 1; } 
+  #{$X+5%/3}, #{$X+6%/3} { opacity: 0; } 
+  #{$X+7%/3}, 100% { opacity: 1; }
 }
 
 .glow { 
-    animation-duration: 10s; 
+    animation-duration: 12s; 
     animation-fill-mode: both; 
     animation-iteration-count:infinite; 
     animation-name: glow; 

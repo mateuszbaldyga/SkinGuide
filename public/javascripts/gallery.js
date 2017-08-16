@@ -2,9 +2,9 @@ const smallPhotos = document.getElementsByClassName('gallery__thumbnail'),
       photosAmount = smallPhotos.length,
       bigPhotos = document.getElementsByClassName('gallery__fullphoto'),
       bigPhotoVisible = 'gallery__fullphoto--visible',
-      nextButton = document.getElementsByClassName('next-button'),
-      prevButton = document.getElementsByClassName('prev-button'),
-      closeButton = document.getElementsByClassName('image__close-button');
+      nextButton = document.getElementsByClassName('buttons__next-btn'),
+      prevButton = document.getElementsByClassName('buttons__prev-btn'),
+      closeButton = document.getElementsByClassName('image__close-btn');
 
 var curPic;
 
@@ -68,7 +68,7 @@ function anotherPhotoOnButtonClick(button, which) {
 }
 
 function anotherPhotoOnKeyPress() {
-  $(document).off().on('keyup', (event) => {
+  $(document).off().on('keydown', (event) => {
     let keyName = event.key;
     bigPhotos[curPic].classList.remove(bigPhotoVisible);
     if(keyName === 'ArrowRight') {

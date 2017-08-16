@@ -1,5 +1,16 @@
-$font-size: 300%;
-$font-size--small: 280%;
+$font-size: 280%;
+$font-size--small: 200%;
+
+.fullphoto-btn {
+  background: none;
+  font-size: $font-size;
+  color: $galleryButton-color;
+  padding: 10px;
+
+  @media screen and (max-width: map-get($breakpoints, large)) {
+    font-size: $font-size--small;
+  }
+}
 
 .image__buttons {
   display: flex;
@@ -8,37 +19,20 @@ $font-size--small: 280%;
   width: 100%;
 }
 
-.buttons__button {
-  background: none;
-  font-size: $font-size;
-  color: $galleryButton-color;
+.image__close-btn {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
 
-  @media screen and (max-width: map-get($breakpoints, small)) {
-    font-size: $font-size--small;
-  }
-}  
+.image__close-btn:before {
+  content:"\e014";
+}
 
-.next-button:before {
+.buttons__next-btn:before {
   content:"\e080";
 }
 
-.prev-button:before {
+.buttons__prev-btn:before {
   content:"\e079";
-}
-
-.image__close-button {
-  font-size: $font-size - 20%;
-  background: none;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: $galleryButton-color;
-
-  @media screen and (max-width: map-get($breakpoints, small)) {
-    font-size: $font-size--small - 20%;
-  }
-}
-
-.image__close-button:before {
-  content:"\e014";
 }
