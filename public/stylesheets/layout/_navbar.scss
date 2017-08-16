@@ -46,25 +46,24 @@
   height: 100%;
 }
 
+.brand-wrap {
+  position: relative;
+  height: 2em;
+}
+
 .container__brand {
   position: absolute;
-  margin-top: 2px;
   top: 0;
   left: 0;
-  font-size: 200%;
+  font-size: 2em;
   margin-left: 15px;
-  line-height: $nav-height - 4px;
-
-  @media screen and (min-width: map-get($breakpoints, x-large)) {
-    line-height: $nav-height-x2 - 4px;
-  }
 }
 
 .container__brand--on {
   background-color: $nav-background-gray;
   text-shadow: 0 0 3px $salmon;
   -webkit-text-stroke: 1px $salmon;
-  color: $white;
+  color: $nav-background-gray;
 }
 
 .container__brand--off {
