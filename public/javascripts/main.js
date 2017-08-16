@@ -18,13 +18,16 @@ function navHideShowOnScroll() {
   let lastScrollTop = 0,
       nowScrollTop;
     window.addEventListener('scroll', () => {
+      // console.log('scrolled');
       if(mobileNavIsCollapsed && landpageIsHidden) {
         toggleNav();
       }
     });
 
   function toggleNav() {
-    nowScrollTop = window.scrollY;
+    // nowScrollTop = window.scrollY; //IE don't support
+    nowScrollTop = window.pageYOffset;
+    // console.log(nowScrollTop);
     if (nowScrollTop > lastScrollTop){
       defaultNavbar.classList.add('nav--hidden');
     } else {

@@ -70,18 +70,21 @@ function anotherPhotoOnButtonClick(button, which) {
 function anotherPhotoOnKeyPress() {
   $(document).off().on('keydown', (event) => {
     let keyName = event.key;
+    // console.log(keyName);
     bigPhotos[curPic].classList.remove(bigPhotoVisible);
-    if(keyName === 'ArrowRight') {
+    if(keyName === 'ArrowRight' || keyName === 'Right') {
       // console.log('4', curPic);
       curPic = curPic+1 >= photosAmount ? 0 : curPic+1;
       bigPhotos[curPic].classList.add(bigPhotoVisible);
       setUpFunctionality();
     }
-    else if(keyName === 'ArrowLeft') {
+    else if(keyName === 'ArrowLeft' || keyName === 'Left') {
       // console.log('5', curPic);
       curPic = curPic-1 <= -1 ? photosAmount-1 : curPic-1;
       bigPhotos[curPic].classList.add(bigPhotoVisible);
       setUpFunctionality();
+    } else {
+      return;
     }
   });
 }
