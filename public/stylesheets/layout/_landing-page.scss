@@ -5,24 +5,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  left: 0;
-  top: 0;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   z-index: 50;
   overflow: hidden;
   will-change: transform;
   transition: transform 0.5s ease-in;
 
   .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     $size: 150px;
     background-color: $ocean-blue;
-    font-size: 180%;
-    font-weight: 200;
     color: $white;
-    height: $size;
     width: $size;
     border-radius: $size/2;
+    max-width: 40vh;
+    padding: 0;
+    @include aspect-ratio(1, 1);
 
     &:hover {
       background-color: lighten($ocean-blue, 3%);
@@ -32,6 +33,16 @@
       background-color: darken($ocean-blue, 3%);
       margin-top: 5px;
     }
+
+    .content {
+      position: absolute;
+      font-size: 180%;
+      font-weight: 200;
+
+      @media screen and (max-height: 290px) {
+        font-size: 10vh;
+      }
+    }
   }
 }
 
@@ -40,7 +51,23 @@
   transform: translateY(-100vh);
 }
 
+// .landpage ~ main {
+//   visibility: hidden;
+//   opacity: 0;
+// }
+
+// .landpage ~ footer {
+//   visibility: hidden;
+//   opacity: 0;
+// }
+
 //Skip Landing Page
-a[id="about-us"]:target ~ .landpage {
+a[id="about-us"]:target ~ #landpage {
   display: none;
+  opacity: 0;
+
+  button {
+    display: none;
+    opacity: 0
+  }
 }
