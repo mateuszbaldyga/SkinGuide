@@ -4,7 +4,14 @@ var express = require('express'),
 
     Comment = require('../models/comment'),
 
-    middleware = require('../middleware');
+    middleware = require('../middleware'),
+
+    corsOptions = {
+      origin: ['https://evening-hamlet-47726.herokuapp.com', 'http://localhost:3000'],
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      credentials: true,
+      optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
+    };
 
 router.get('/', function(req, res) {
   Comment.find({}, function(err, allComments) {
@@ -17,7 +24,7 @@ router.get('/', function(req, res) {
   });
 });
 
-router.post('/', cors(), middleware.isLoggedIn, function(req, res) {
+router.post('/', cors(corsOptions), middleware.isLoggedIn, function(req, res) {
   var newComment = {
         text: req.body.commentText,
         author: {
@@ -38,7 +45,7 @@ router.post('/', cors(), middleware.isLoggedIn, function(req, res) {
     });
 });
 
-router.put('/', cors(), middleware.checkCommentOwnership, function(req, res) {
+router.put('/', cors(corsOptions), middleware.checkCommentOwnership, function(req, res) {
   Comment.findByIdAndUpdate(req.body.commentId, { text: req.body.editFormText },function(err) {
     if(err){
       console.log('Update route: ERROR');
@@ -50,7 +57,7 @@ router.put('/', cors(), middleware.checkCommentOwnership, function(req, res) {
   });
 });
 
-router.delete('/', cors(), middleware.checkCommentOwnership, function(req, res) {
+router.delete('/', cors(corsOptions), middleware.checkCommentOwnership, function(req, res) {
   Comment.findByIdAndRemove(req.body.commentId, function(err){
       if(err){
         console.log('Delete route: ERROR');

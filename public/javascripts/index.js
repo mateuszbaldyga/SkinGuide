@@ -162,8 +162,9 @@ var initIndex = (function() {
       type: 'POST',
       url: url,
       data: data,
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
+      crossDomain: true,
+      xhrFields: {
+        withCredentials: true
       },
       success: (commentId) => {
                  data.commentId = commentId;
@@ -205,9 +206,13 @@ var initIndex = (function() {
       };
       // console.log('commentId: ', commentId);
       $.ajax({
+        type: 'DELETE',
         url: url,
         data: data,
-        type: 'DELETE',
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
         success: () => {
           $(this).closest('.comments-wrapper__comment').remove();
         },
@@ -225,17 +230,17 @@ var initIndex = (function() {
       $(this).on('click', () => {
         let data = {
               'commentId': $(this).parent().attr('data')
-            },
-            commentContent = $(this).closest('div.comments-wrapper__comment'),
-            textDiv = commentContent.find('div.content__text'),
-            oldCommentText = textDiv.text().trim(),
-            editForm = `<form id='edit-form' class='content__edit-form'>
-                          <textarea id='text-area' class='edit-form__textarea'>${oldCommentText}</textarea>
-                          <div class='edit-form__buttons-container'>
-                            <button type='button' id='buttonAccept' class='button button--small button--accept'>Zatwierdź</button>
-                            <button type='button' id='buttonCancel' class='button button--small button--cancel'>Anuluj</button>
-                          </div>
-                        </form>`;
+            };
+        const commentContent = $(this).closest('div.comments-wrapper__comment'),
+              textDiv = commentContent.find('div.content__text'),
+              oldCommentText = textDiv.text().trim(),
+              editForm = `<form id='edit-form' class='content__edit-form'>
+                            <textarea id='text-area' class='edit-form__textarea'>${oldCommentText}</textarea>
+                            <div class='edit-form__buttons-container'>
+                              <button type='button' id='buttonAccept' class='button button--small button--accept'>Zatwierdź</button>
+                              <button type='button' id='buttonCancel' class='button button--small button--cancel'>Anuluj</button>
+                            </div>
+                          </form>`;
                         
         btnToggleDropdown.addClass('display--none');
         textDiv.replaceWith(editForm).promise().done( () => {
@@ -268,8 +273,9 @@ var initIndex = (function() {
     type: 'PUT',
     url: url,
     data: data,
-    headers: {
-      'X-Requested-With': 'XMLHttpRequest'
+    crossDomain: true,
+    xhrFields: {
+      withCredentials: true
     },
     success: () => {
       displayEditedComment(dataForDisplay);
