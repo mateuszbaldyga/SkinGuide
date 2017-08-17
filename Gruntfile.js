@@ -53,10 +53,7 @@ module.exports = function(grunt) {
     uglify: {
       options: {
         mangle: true,
-        // nameCache: 'public/javascripts/.tmp/grunt-uglify-cache.json',
-        // mangle: {
-        //   toplevel: true,
-        // },
+        // beautify: true,
       },
       my_target: {
         files: [{
