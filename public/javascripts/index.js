@@ -282,7 +282,7 @@ var initIndex = (function() {
   }
 
   function error(jqXHR, textStatus, errorThrown) {
-    console.log('Error');
+    console.log('Error', jqXHR, textStatus, errorThrown);
   }
     
   function resetStars(){
