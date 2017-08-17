@@ -155,8 +155,8 @@ var initIndex = (function() {
   function postCommentToDatabase(data) {
     $.ajax({
       type: 'POST',
-      url: 'http://localhost:3000/',
-      // url: 'https://evening-hamlet-47726.herokuapp.com/',
+      // url: 'http://localhost:3000/',
+      url: 'https://evening-hamlet-47726.herokuapp.com/',
       data: data,
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
@@ -201,8 +201,8 @@ var initIndex = (function() {
       };
       // console.log('commentId: ', commentId);
       $.ajax({
-        url: 'http://localhost:3000/',
-        // url: 'https://evening-hamlet-47726.herokuapp.com',
+        // url: 'http://localhost:3000/',
+        url: 'https://evening-hamlet-47726.herokuapp.com',
         data: data,
         type: 'DELETE',
         success: () => {
@@ -263,8 +263,8 @@ var initIndex = (function() {
   function updateCommentToDatabase(data, dataForDisplay) {
     $.ajax({
     type: 'PUT',
-    url: 'http://localhost:3000/',
-    // url: 'https://evening-hamlet-47726.herokuapp.com',
+    // url: 'http://localhost:3000/',
+    url: 'https://evening-hamlet-47726.herokuapp.com',
     data: data,
     headers: {
       'X-Requested-With': 'XMLHttpRequest'
