@@ -1,4 +1,5 @@
 var express = require('express'),
+    cors = require('cors'),
     router = express.Router(),
 
     Comment = require('../models/comment'),
@@ -16,7 +17,7 @@ router.get('/', function(req, res) {
   });
 });
 
-router.post('/', middleware.isLoggedIn, function(req, res) {
+router.post('/', middleware.isLoggedIn, cors(), function(req, res) {
   var newComment = {
         text: req.body.commentText,
         author: {
@@ -37,7 +38,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
     });
 });
 
-router.put('/', middleware.checkCommentOwnership, function(req, res) {
+router.put('/', middleware.checkCommentOwnership, cors(), function(req, res) {
   Comment.findByIdAndUpdate(req.body.commentId, { text: req.body.editFormText },function(err) {
     if(err){
       console.log('Update route: ERROR');
@@ -49,7 +50,7 @@ router.put('/', middleware.checkCommentOwnership, function(req, res) {
   });
 });
 
-router.delete('/', middleware.checkCommentOwnership, function(req, res) {
+router.delete('/', middleware.checkCommentOwnership, cors(), function(req, res) {
   Comment.findByIdAndRemove(req.body.commentId, function(err){
       if(err){
         console.log('Delete route: ERROR');
