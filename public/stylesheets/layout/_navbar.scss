@@ -46,29 +46,23 @@
   height: 100%;
 }
 
-.brand-wrap {
+.container__brand {
+  $font-size: 2.4em;
   position: relative;
-  height: 2em;
+  font-family: 'Logo';
+  font-size: $font-size;
+  height: $font-size / 3.52941176; //Magic value
+  margin-left: 15px;
+  color: lighten(desaturate($salmon, 60%), 8%);
 }
 
-.container__brand {
+.container__brand:after {
+  content: 'SkinGuide.';
   position: absolute;
   top: 0;
   left: 0;
-  font-size: 2em;
-  margin-left: 15px;
-}
-
-.container__brand--on {
-  background-color: $nav-background-gray;
-  text-shadow: 0 0 3px $salmon;
-  -webkit-text-stroke: 1px $salmon;
-  color: $nav-background-gray;
-}
-
-.container__brand--off {
-  -webkit-text-stroke: 1px lighten(desaturate($salmon, 60%), 8%);
-  color: $nav-background-gray;
+  text-shadow: 0 0 20px $salmon;
+  color: $salmon;
 }
 
 .container__collapse {

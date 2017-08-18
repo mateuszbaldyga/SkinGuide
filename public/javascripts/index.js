@@ -46,6 +46,7 @@ var initIndex = (function() {
 
   function hideLandingPage(){
     if(window.location.hash === '#about-us') {
+      landpage.classList.remove('landpage--visible');
       landpage.remove();
     }
 
