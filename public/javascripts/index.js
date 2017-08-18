@@ -45,13 +45,17 @@ var initIndex = (function() {
   }
 
   function hideLandingPage(){
+    if(window.location.hash === '#about-us') {
+      landpage.remove();
+    }
+
     landpage.addEventListener("transitionend", function() {
       this.remove();
     });
+
     $('#button-getStarted').one('click', function() {
-      $('main').addClass('display--block');
-      $('footer').addClass('display--block');
       $(this).removeClass('pulse');
+      landpage.classList.remove('landpage--visible');
       landpage.classList.add('landpage--hidden');
       aboutUsButton.classList.add('collapse__buttons--active');
     });

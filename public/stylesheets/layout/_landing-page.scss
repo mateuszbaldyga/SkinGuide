@@ -1,13 +1,13 @@
 //Skip Landing Page
-a[id="about-us"]:target ~ .landpage {
-  display: none;
-  opacity: 0;
+// a[id="about-us"]:target ~ .landpage {
+//   display: none;
+//   opacity: 0;
 
-  button {
-    display: none;
-    opacity: 0
-  }
-}
+//   button {
+//     display: none;
+//     opacity: 0
+//   }
+// }
 
 .landpage {
   background: url('/images/beauty1.jpg') center center no-repeat;
@@ -57,15 +57,16 @@ a[id="about-us"]:target ~ .landpage {
   }
 }
 
+.landpage--visible {
+  ~ main {
+    display: none;
+  }
+  ~ footer {
+    display: none;
+  }
+}
+
 .landpage--hidden {
   -webkit-transform: translateY(-100vh);
   transform: translateY(-100vh);
-}
-
-a[id="about-us"]:not(:target) ~ main {
-  display: none;
-}
-
-a[id="about-us"]:not(:target) ~ footer {
-  display: none;
 }
