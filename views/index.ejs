@@ -19,16 +19,26 @@
 </article>
 
 <div id="commentHiddenTemplate" class="display--none">
-  <% include ./partials/comment_template %>
+  <div class="comments-wrapper__comment">
+    <% include ./partials/comment_template %>
+  </div>
 </div>
 
 <!-- SHOW -->
 <div class="panel panel--comments">
+  <h3>Opinie klientów</h3>
   <div id="commentsWrapper" class="panel--comments__comments-wrapper">
-    <h3>Opinie klientów</h3>
-    <% comments.forEach(function(comment) { %>
-      <% include ./partials/comment_template %>
-    <% }) %>
+    <% for(var len=comments.length, i=len-1; i>0; i--) { %>
+      <% if(i>len-5) { %>
+        <div class="comments-wrapper__comment <%= i %>">
+          <% include ./partials/comment_template %>
+        </div>
+      <% } else { %>
+        <div class="comments-wrapper__comment display--none <%= i %>">
+          <% include ./partials/comment_template %>
+        </div>
+      <% } %>
+    <% } %>
   </div>
 
 <!-- New   -->
