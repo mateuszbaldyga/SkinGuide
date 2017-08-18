@@ -1,5 +1,3 @@
-landpageIsHidden = false;
-
 var initIndex = (function() {
   //INIT VARIABLES
   const stars = document.querySelectorAll('#rate span'),
@@ -29,7 +27,6 @@ var initIndex = (function() {
   setNavigationForAboutUsButton();
 
   hideLandingPage();
-  landpageIsHiddenIsTRUE();
 
   rateComment();
   dateFormat(document);
@@ -43,7 +40,6 @@ var initIndex = (function() {
   function setNavigationForAboutUsButton() {
     aboutUsButton.addEventListener('click', function() {
       landpage.remove();
-      landpageIsHidden = true;
       this.classList.add('collapse__buttons--active')
     });
   }
@@ -51,19 +47,14 @@ var initIndex = (function() {
   function hideLandingPage(){
     landpage.addEventListener("transitionend", function() {
       this.remove();
-      landpageIsHidden = true;
     });
     $('#button-getStarted').one('click', function() {
+      $('main').addClass('display--block');
+      $('footer').addClass('display--block');
       $(this).removeClass('pulse');
       landpage.classList.add('landpage--hidden');
       aboutUsButton.classList.add('collapse__buttons--active');
     });
-  }
-
-  function landpageIsHiddenIsTRUE() {
-    if(window.location.hash === '#about-us') {
-      landpageIsHidden = true;
-    }
   }
 
   function rateComment(){
@@ -162,10 +153,10 @@ var initIndex = (function() {
       type: 'POST',
       url: url,
       data: data,
-      crossDomain: true,
-      xhrFields: {
-        withCredentials: true
-      },
+      // crossDomain: true,
+      // xhrFields: {
+      //   withCredentials: true
+      // },
       success: (commentId) => {
                  data.commentId = commentId;
                  formNewComment[0].reset();
@@ -209,10 +200,10 @@ var initIndex = (function() {
         type: 'DELETE',
         url: url,
         data: data,
-        crossDomain: true,
-        xhrFields: {
-          withCredentials: true
-        },
+        // crossDomain: true,
+        // xhrFields: {
+        //   withCredentials: true
+        // },
         success: () => {
           $(this).closest('.comments-wrapper__comment').remove();
         },
@@ -273,10 +264,10 @@ var initIndex = (function() {
     type: 'PUT',
     url: url,
     data: data,
-    crossDomain: true,
-    xhrFields: {
-      withCredentials: true
-    },
+    // crossDomain: true,
+    // xhrFields: {
+    //   withCredentials: true
+    // },
     success: () => {
       displayEditedComment(dataForDisplay);
     },

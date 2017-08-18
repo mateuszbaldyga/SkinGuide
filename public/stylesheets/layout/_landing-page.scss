@@ -1,5 +1,5 @@
 //Skip Landing Page
-a[id="about-us"]:target ~ #landpage {
+a[id="about-us"]:target ~ .landpage {
   display: none;
   opacity: 0;
 
@@ -62,12 +62,10 @@ a[id="about-us"]:target ~ #landpage {
   transform: translateY(-100vh);
 }
 
-// .landpage ~ main {
-//   visibility: hidden;
-//   opacity: 0;
-// }
+a[id="about-us"]:not(:target) ~ main {
+  display: none;
+}
 
-// .landpage ~ footer {
-//   visibility: hidden;
-//   opacity: 0;
-// }
+a[id="about-us"]:not(:target) ~ footer {
+  display: none;
+}

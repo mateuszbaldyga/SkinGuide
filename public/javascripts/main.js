@@ -1,5 +1,3 @@
-var landpageIsHidden = true;
-
 var initMain = (function() {
   //INIT VARIABLES
   const defaultNavbar = document.getElementById('nav'),
@@ -17,7 +15,7 @@ var initMain = (function() {
         nowScrollTop;
       window.addEventListener('scroll', () => {
         // console.log('scrolled');
-        if(mobileNavIsCollapsed && landpageIsHidden) {
+        if(mobileNavIsCollapsed) {
           toggleNav();
         }
       });
