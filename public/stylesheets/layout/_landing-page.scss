@@ -1,13 +1,13 @@
-//Skip Landing Page
-// a[id="about-us"]:target ~ .landpage {
-//   display: none;
-//   opacity: 0;
+// Skip Landing Page
+a[id="about-us"]:target ~ .landpage {
+  display: none;
+  opacity: 0;
 
-//   button {
-//     display: none;
-//     opacity: 0
-//   }
-// }
+  button {
+    display: none;
+    opacity: 0
+  }
+}
 
 .landpage {
   background: url('/images/beauty1.jpg') center center no-repeat;
