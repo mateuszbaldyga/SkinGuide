@@ -1,52 +1,107 @@
-var initIndex = (function() {
-  //INIT VARIABLES
+var initIndex = (() => {
+  
+//Variables
+  //Immutable
+        //DOM Elements
   const stars = document.querySelectorAll('#rate span'),
-        starsQuantity = stars.length,
-        // form = $('#comment-form'),
         landpage = document.getElementById('landpage'),
         aboutUsButton = document.getElementById('aboutUsButton'),
         loginAlert = document.getElementById('loginAlert'),
         formNewComment = $('#formNewComment'),
         formNewCommentWrapper = document.getElementById('formNewCommentWrapper'),
-        months = [ 'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca',
-                   'sierpnia', 'września', 'października', 'listopada', 'grudnia',
-        ],
-        //class_names:
+        allComments = document.getElementsByClassName('comments-wrapper__comment'),
+        
+        //CSS Class names
+        displayNone = 'display--none',
+        visibilityVisible = 'visibility--visible',
         formNewCommentWrapperVisible = 'form-new-comment--wrapper--visible',
         rateByStars = 'rate-by-stars',
-        rateByStarsHover = 'rate-by-stars--hover';
+        rateByStarsHover = 'rate-by-stars--hover',
+        halfVisibleComment = 'comments-wrapper__comment--half-visible',
+        buttonActive = 'collapse__buttons--active',
+        landpageVisible = 'landpage--visible',
+        dropdownWrap = '.content__dropdown-wrapper',
+        dropdownContent = '.dropdown-wrapper__menu',
+        
+        //Values
+        months = [ '0', 'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca',
+                   'sierpnia', 'września', 'października', 'listopada', 'grudnia',
+        ],
+        starsQuantity = stars.length,
+        amountOfVisibleComments = 4;
 
+  //Mutable
   let clickedStar = 0,
+      commentsExpanded = false,
       url = 'https://evening-hamlet-47726.herokuapp.com';
 
+      //Dev or Deploy? check
       if(/^http\:\/\/localhost/.test(window.location.href)){
         url = 'http://localhost:3000';
       }
 
-  //INIT FUNCTIONS
+//Classes
+  class dateNow {
+    constructor() {
+      this.today = new Date();
+      this.dd = this.today.getDate();
+      this.mm = this.today.getMonth()+1;//January is 0!
+      this.yyyy = this.today.getFullYear();
+    }
+    getDay() {
+      if(this.dd<10) {
+        this.dd = '0'+this.dd;
+      }
+      return this.dd;
+    }
+    getMonth() {
+      if(this.mm<10) {
+        this.mm = '0'+this.mm;
+      }
+      return this.mm;
+    }
+    getYear() {
+      return this.yyyy;
+    }
+  }
+
+//Functions Call
+  showAllComments();
   setNavigationForAboutUsButton();
-
   hideLandingPage();
-
   rateComment();
   dateFormat(document);
   showHideDropdownMenu();
+  showNewCommentForm();
+  postNewComment();
+  destroyComment();
+  editComment();
 
-  addOpinionButtonAction();
-  addFunctionPostComment();
-  addFunctionDestroyComment();
-  addFunctionEditComment();
+//Functions
+  function showAllComments() {
+    if(allComments.length > amountOfVisibleComments) {
+      document.getElementById('showAllComments').addEventListener('click', function() {
+        commentsExpanded = true;
+        this.classList.add(displayNone);
+
+        allComments[amountOfVisibleComments+1].classList.remove(halfVisibleComment);
+        for(let i=amountOfVisibleComments+2, len=allComments.length; i<len; i++) {
+          allComments[i].classList.remove(displayNone);
+        }
+      });
+    }
+  }
 
   function setNavigationForAboutUsButton() {
     aboutUsButton.addEventListener('click', function() {
       landpage.remove();
-      this.classList.add('collapse__buttons--active')
+      this.classList.add(buttonActive)
     });
   }
 
-  function hideLandingPage(){
+  function hideLandingPage() {
     if(window.location.hash === '#about-us') {
-      landpage.classList.remove('landpage--visible');
+      landpage.classList.remove(landpageVisible);
       landpage.remove();
     }
 
@@ -56,13 +111,13 @@ var initIndex = (function() {
 
     $('#button-getStarted').one('click', function() {
       $(this).removeClass('pulse');
-      landpage.classList.remove('landpage--visible');
+      landpage.classList.remove(landpageVisible);
       landpage.classList.add('landpage--hidden');
-      aboutUsButton.classList.add('collapse__buttons--active');
+      aboutUsButton.classList.add(buttonActive);
     });
   }
 
-  function rateComment(){
+  function rateComment() {
       function piceofCode(i){
         stars[i].innerHTML = '&#9733;';
         stars[i].classList.add(rateByStarsHover);
@@ -85,27 +140,36 @@ var initIndex = (function() {
       }
   }
 
-  function dateFormat(objective){
+  function dateFormat(objective) {
     let dateFields = objective.querySelectorAll('.content__date'),
-        timestampNow = Date.now(),
-        divider = 1000*60*60*24;
-    for(let i=0, len = dateFields.length; i<len; i++){
-      let commentDate = new Date(dateFields[i].innerText),
-          commentMinutes = commentDate.getMinutes(),
-          commentTime = `${commentDate.getHours()}:${commentMinutes<10?'0':''}${commentMinutes}`,
-          commentTimestamp = commentDate.getTime(),
-          dateComparison = Math.floor((timestampNow-commentTimestamp)/divider);
-      if(dateComparison <= 1){
-        dateFields[i].innerText = `Dziś o ${commentTime}`;
-      }
-      else if(dateComparison <= 2){
-        dateFields[i].innerText = `Wczoraj o ${commentTime}`;
-      }
-      else if (dateComparison <= 30) {
-        dateFields[i].innerText = `${dateComparison} dni temu`;
-      }
-      else {
-        dateFields[i].innerText = `${commentDate.getDate()} ${months[commentDate.getMonth()]}`;
+        //today
+        toDate = new dateNow(),
+        toDay = toDate.getDay(),
+        toMonth = toDate.getMonth(),
+        toYear = toDate.getYear();
+
+    for(let i=0, len = dateFields.length; i<len; i++) {
+      let comDate = new Date(dateFields[i].innerText),
+          comMinutes = comDate.getMinutes(),
+          comDay = comDate.getDate(),
+          comMonth = comDate.getMonth() + 1,
+          comYear = comDate.getFullYear(),
+          dayComparison = toDay - comDay,
+          comTime = `${comDate.getHours()}:${comMinutes<10?'0':''}${comMinutes}`;
+      if(toYear == comYear) {
+        if(toMonth == comMonth) {
+          if(dayComparison === 0){
+            dateFields[i].innerText = `Dziś o ${comTime}`;
+          } else if(dayComparison === 1){
+            dateFields[i].innerText = `Wczoraj o ${comTime}`;
+          } else {
+            dateFields[i].innerText = `${dayComparison} dni temu`;
+          }
+        } else {
+          dateFields[i].innerText = `${comDay} ${months[comMonth]}`;
+        }
+      } else {
+        dateFields[i].innerText = `${comDay} ${months[comMonth]} ${comYear} roku`;
       }
       $(dateFields[i]).show(0);
     }
@@ -113,24 +177,24 @@ var initIndex = (function() {
 
   function showHideDropdownMenu(objective) {
     // show dropdown
-    let commentDropdown = (!objective) ? $(document.querySelectorAll('.content__dropdown-wrapper')):$(objective),
-        allDropdownMenus = commentDropdown.find('.dropdown-wrapper__menu');
+    let commentDropdown = (!objective) ? $(document.querySelectorAll(dropdownWrap)):$(objective),
+        allDropdownMenus = commentDropdown.find(dropdownContent);
     commentDropdown.each( function() {
       $(this).off().on('click', () => {
-        let thisMenu = $(this).find('.dropdown-wrapper__menu');
-        allDropdownMenus.not(thisMenu).removeClass('visibility--visible');
-        thisMenu.toggleClass('visibility--visible');
+        let thisMenu = $(this).find(dropdownContent);
+        allDropdownMenus.not(thisMenu).removeClass(visibilityVisible);
+        thisMenu.toggleClass(visibilityVisible);
       });
     });
     // hide dropdown
     $(document).on('click', (event) => {
-      if (!$(event.target).closest('.content__dropdown-wrapper').length) {
-        allDropdownMenus.removeClass('visibility--visible');
+      if (!$(event.target).closest(dropdownWrap).length) {
+        allDropdownMenus.removeClass(visibilityVisible);
       }
     });
   }
 
-  function addOpinionButtonAction() {
+  function showNewCommentForm() {
     let button = document.getElementById('button-addOpinion');
     button.addEventListener('click', function() {
       this.classList.add('visibility--hidden');
@@ -138,7 +202,7 @@ var initIndex = (function() {
     });
   }
 
-  function addFunctionPostComment() {
+  function postNewComment() {
     $('#button-sendOpinion').click(() => {
       let data = {
           'numOfStars': formNewComment.find('#rateNum').val(),
@@ -168,8 +232,8 @@ var initIndex = (function() {
                  resetStars();
                  clickedStar = 0;
                  displayPostedComment(data);
-                 addFunctionDestroyComment();
-                 addFunctionEditComment();
+                 destroyComment();
+                 editComment();
                },
       error: error,
     });
@@ -178,10 +242,13 @@ var initIndex = (function() {
   function displayPostedComment(data) {
     // console.log('dataL!!!!!', data);
     let commentRating = '',
-        template = $('#commentHiddenTemplate').children().clone()[0];
+        template = $('#commentHiddenTemplate').children().clone()[0],
+        yellowBackground = 'comment__content--new',
+        jsNewCommentClass = 'js-new-comment';
     for(let i=0; i<data.numOfStars; i++) {
       commentRating += '&#9733;';
     }
+    template.getElementsByClassName('comment__content')[0].classList.add(yellowBackground, jsNewCommentClass);
     template.getElementsByTagName('img')[0].setAttribute('src', data.commentAvatar);
     template.getElementsByClassName('content__author')[0].innerText = data.commentAuthor;
     template.getElementsByClassName('content__rate')[0].innerHTML = commentRating;
@@ -189,11 +256,19 @@ var initIndex = (function() {
     template.getElementsByClassName('content__date')[0].innerText = Date();
     $(template.getElementsByClassName('button-DeleteComment')[0]).parent().attr('data', data.commentId);
     dateFormat(template);
-    $(template.outerHTML).appendTo('#commentsWrapper')
-    showHideDropdownMenu(document.querySelectorAll('.content__dropdown-wrapper'));
+
+    $(template.outerHTML).prependTo('#commentsWrapper').promise().done( () => {
+      //removes yellow background after couple of seconds
+      setTimeout(() => {
+        let jsNewCommentElement = document.getElementsByClassName(jsNewCommentClass);
+        jsNewCommentElement[jsNewCommentElement.length-1].classList.remove(yellowBackground, jsNewCommentClass);
+      }, 10000);
+    });
+
+    showHideDropdownMenu(document.querySelectorAll(dropdownWrap));
   }
 
-  function addFunctionDestroyComment(){
+  function destroyComment() {
     let buttonDeleteComment = $('.button-DeleteComment');
     buttonDeleteComment.each(function(){
       $(this).on('click', () => {
@@ -209,16 +284,30 @@ var initIndex = (function() {
         // xhrFields: {
         //   withCredentials: true
         // },
-        success: () => {
-          $(this).closest('.comments-wrapper__comment').remove();
-        },
+        success: displayForDestroyComment($(this)),
         error: error,
         });
       });
     });
   }
 
-  function addFunctionEditComment() {
+  function displayForDestroyComment(objective) {
+    //delete comment from DOM
+    objective.closest('.comments-wrapper__comment').remove();
+
+    //display hidden comment
+    if(!commentsExpanded) {
+      if(amountOfVisibleComments < allComments.length) {
+        allComments[amountOfVisibleComments].classList.remove(halfVisibleComment);
+      }
+      if(amountOfVisibleComments+1 < allComments.length) {
+        allComments[amountOfVisibleComments+1].classList.remove(displayNone);
+        allComments[amountOfVisibleComments+1].classList.add(halfVisibleComment);
+      }
+    }
+  }
+
+  function editComment() {
     let buttonEditComment = $('.button-EditComment'),
         btnToggleDropdown = $(document.querySelectorAll('.dropdown-wrapper__button'));
 
@@ -238,7 +327,7 @@ var initIndex = (function() {
                             </div>
                           </form>`;
                         
-        btnToggleDropdown.addClass('display--none');
+        btnToggleDropdown.addClass(displayNone);
         textDiv.replaceWith(editForm).promise().done( () => {
           let editForm = commentContent.find('#edit-form');
           //button-accept
@@ -257,7 +346,7 @@ var initIndex = (function() {
           //button-cancel
           commentContent.find('#buttonCancel').on('click', () => {
             editForm.replaceWith(textDiv);
-            btnToggleDropdown.removeClass('display--none');
+            btnToggleDropdown.removeClass(displayNone);
           });
         });
       });
@@ -266,23 +355,23 @@ var initIndex = (function() {
 
   function updateCommentToDatabase(data, dataForDisplay) {
     $.ajax({
-    type: 'PUT',
-    url: url,
-    data: data,
-    // crossDomain: true,
-    // xhrFields: {
-    //   withCredentials: true
-    // },
-    success: () => {
-      displayEditedComment(dataForDisplay);
-    },
-    error: error,
-  });
+      type: 'PUT',
+      url: url,
+      data: data,
+      // crossDomain: true,
+      // xhrFields: {
+      //   withCredentials: true
+      // },
+      success: () => {
+        displayEditedComment(dataForDisplay);
+      },
+      error: error,
+    });
   }
 
   function displayEditedComment(dataForDisplay) {
     dataForDisplay.editForm.replaceWith(dataForDisplay.newTextDiv);
-    dataForDisplay.btnToggleDropdown.removeClass('display--none');
+    dataForDisplay.btnToggleDropdown.removeClass(displayNone);
   }
 
   function error(jqXHR, textStatus, errorThrown) {

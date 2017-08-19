@@ -28,9 +28,13 @@
 <div class="panel panel--comments">
   <h3>Opinie klientów</h3>
   <div id="commentsWrapper" class="panel--comments__comments-wrapper">
-    <% for(var len=comments.length, i=len-1; i>0; i--) { %>
+    <% for(var len=comments.length, i=len-1; i>=0; i--) { %>
       <% if(i>len-5) { %>
         <div class="comments-wrapper__comment <%= i %>">
+          <% include ./partials/comment_template %>
+        </div>
+      <% } else if(i===len-5) { %>
+        <div class="comments-wrapper__comment comments-wrapper__comment--half-visible <%= i %>">
           <% include ./partials/comment_template %>
         </div>
       <% } else { %>
@@ -39,6 +43,7 @@
         </div>
       <% } %>
     <% } %>
+    <button id="showAllComments" class="comments-wrapper__show-all">Wszystkie komentarze...</button>
   </div>
 
 <!-- New   -->
@@ -70,6 +75,6 @@
 
 <% include ./partials/footer %>
 <% include ./partials/scripts %>
-<script type="text/javascript" src="/javascripts/index.min.js" defer></script>
+<script type="text/javascript" src="/javascripts/index.js" defer></script>
 </body>
 </html>

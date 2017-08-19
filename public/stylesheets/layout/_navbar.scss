@@ -20,11 +20,9 @@
 }
 
 .nav--hidden {
-  -webkit-transform: translateY(-$nav-height);
   transform: translateY(-$nav-height);
 
   @media screen and (min-width: map-get($breakpoints, x-large)) {
-    -webkit-transform: translateY(-$nav-height-x2);
     transform: translateY(-$nav-height-x2);
   }
 }
@@ -67,7 +65,7 @@
 
 .container__collapse {
   position: absolute;
-  top: 0;
+  bottom: 0;
   right: 0;
   height: 100%;
   display: flex;
@@ -77,7 +75,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    top: $nav-height - $collapsed-nav-height - 2px; //2px - in order to eliminate possible space between navs
     background-color: $nav-background-gray;
     height: $collapsed-nav-height;
     width: $collapsed-nav-width;

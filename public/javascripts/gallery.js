@@ -1,16 +1,27 @@
 var initGallery = (function() {
+
+//Variables
+  //Immutable
+        //DOM Elements
   const smallPhotos = document.getElementsByClassName('gallery__thumbnail'),
-        photosAmount = smallPhotos.length,
         bigPhotos = document.getElementsByClassName('gallery__fullphoto'),
-        bigPhotoVisible = 'gallery__fullphoto--visible',
         nextButton = document.getElementsByClassName('buttons__next-btn'),
         prevButton = document.getElementsByClassName('buttons__prev-btn'),
-        closeButton = document.getElementsByClassName('image__close-btn');
+        closeButton = document.getElementsByClassName('image__close-btn'),
+        
+        //CSS Class names
+        bigPhotoVisible = 'gallery__fullphoto--visible',
 
+        //Values
+        photosAmount = smallPhotos.length;
+        
+  //Mutable
   let curPic;
 
+//Functions Call
   magnifyPhoto();
 
+//Functions
   function magnifyPhoto() {
     for(let i=0; i<photosAmount; i++) {
       smallPhotos[i].addEventListener('click', function() {
@@ -28,7 +39,7 @@ var initGallery = (function() {
     anotherPhotoOnButtonClick(nextButton, 'next');
     anotherPhotoOnButtonClick(prevButton, 'prev');
     anotherPhotoOnKeyPress();
-    // console.log('SET UP');
+    // console.log('SETTED UP');
   }
 
   function closePhotoByOutsideClick() {

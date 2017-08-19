@@ -1,7 +1,5 @@
 .login-alert {
   position: absolute;
-  // visibility: hidden;
-  // opacity: 0;
 }
 
 .login-alert-link {
@@ -14,18 +12,13 @@
 }
 
 .form-new-comment--wrapper {
-  display: none;
   position: relative;
+  top: -10px;
+  display: none;
 }
 
-
-
-.form-new-comment {
-  margin-top: 50px;
-
-  .button {
-    float: right;
-  }
+.form-new-comment .button {
+  float: right;
 }
 
 .form-new-comment--wrapper--visible {

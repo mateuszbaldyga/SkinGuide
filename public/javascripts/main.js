@@ -1,15 +1,23 @@
 var initMain = (function() {
-  //INIT VARIABLES
+//Variables
+  //Immutable
+        //DOM Elements
   const defaultNavbar = document.getElementById('nav'),
-        mobileNavbar = document.getElementById('nav__collapse');
+        mobileNavbar = document.getElementById('nav__collapse'),
         
-  var mobileNavIsCollapsed = true;
-      
-  //INIT FUNCTIONS
+        //CSS Class names
+        navHidden = 'nav--hidden',
+        mobileNavVisible = 'container__collapse--visible';
+
+  //Mutable
+  let mobileNavIsCollapsed = true;
+
+//Functions Call
   navHideShowOnScroll();
-  collapseMobileNavbarOnClick()
+  collapseMobileNavbarOnClick();
   setNavigation();
 
+//Functions
   function navHideShowOnScroll() {
     let lastScrollTop = 0,
         nowScrollTop;
@@ -25,9 +33,9 @@ var initMain = (function() {
       nowScrollTop = window.pageYOffset;
       // console.log(nowScrollTop);
       if (nowScrollTop > lastScrollTop){
-        defaultNavbar.classList.add('nav--hidden');
+        defaultNavbar.classList.add(navHidden);
       } else {
-        defaultNavbar.classList.remove('nav--hidden');
+        defaultNavbar.classList.remove(navHidden);
       }
       lastScrollTop = nowScrollTop;
     }
@@ -37,10 +45,10 @@ var initMain = (function() {
     document.getElementById('nav__hamburger').addEventListener('click', function() {
       this.classList.toggle('container__hamburger--open');
       if(mobileNavIsCollapsed) {
-        mobileNavbar.classList.add('container__collapse--visible');
+        mobileNavbar.classList.add(mobileNavVisible);
         mobileNavIsCollapsed = false;
       } else {
-        mobileNavbar.classList.remove('container__collapse--visible');
+        mobileNavbar.classList.remove(mobileNavVisible);
         mobileNavIsCollapsed = true;
       }
     });

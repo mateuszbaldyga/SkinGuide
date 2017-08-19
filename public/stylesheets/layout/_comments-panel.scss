@@ -5,6 +5,10 @@
 
   @media screen and (max-width: map-get($breakpoints, small)) {
     width: 85%;
+  } 
+
+  @media screen and (max-width: map-get($breakpoints, x-small)) {
+    width: 100%;
   }
 
   .button {

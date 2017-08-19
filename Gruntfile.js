@@ -52,7 +52,7 @@ module.exports = function(grunt) {
     },
     uglify: {
       options: {
-        mangle: true,
+        // mangle: false,
         // beautify: true,
       },
       my_target: {
