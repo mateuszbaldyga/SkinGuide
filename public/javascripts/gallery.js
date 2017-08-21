@@ -39,7 +39,6 @@ var initGallery = (function() {
     anotherPhotoOnButtonClick(nextButton, 'next');
     anotherPhotoOnButtonClick(prevButton, 'prev');
     anotherPhotoOnKeyPress();
-    // console.log('SETTED UP');
   }
 
   function closePhotoByOutsideClick() {
@@ -81,13 +80,13 @@ var initGallery = (function() {
       // console.log(keyName);
       bigPhotos[curPic].classList.remove(bigPhotoVisible);
       if(keyName === 'ArrowRight' || keyName === 'Right') {
-        console.log('4', curPic);
+        // console.log('4', curPic);
         curPic = curPic+1 >= photosAmount ? 0 : curPic+1;
         bigPhotos[curPic].classList.add(bigPhotoVisible);
         setUpFunctionality();
       }
       else if(keyName === 'ArrowLeft' || keyName === 'Left') {
-        console.log('5', curPic);
+        // console.log('5', curPic);
         curPic = curPic-1 <= -1 ? photosAmount-1 : curPic-1;
         bigPhotos[curPic].classList.add(bigPhotoVisible);
         setUpFunctionality();

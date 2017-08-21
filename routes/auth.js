@@ -18,7 +18,7 @@ router.post('/register', function(req, res) {
       if (err) {
         console.log(err);
         req.flash('error', 'Podana nazwa użytkownika istnieje.');
-        return res.redirect('/register');
+        res.redirect('/register');
       }
       passport.authenticate('local')(req, res, function() {
         res.redirect('/');

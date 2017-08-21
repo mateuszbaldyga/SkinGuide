@@ -181,6 +181,7 @@ var initIndex = (() => {
         allDropdownMenus = commentDropdown.find(dropdownContent);
     commentDropdown.each( function() {
       $(this).off().on('click', () => {
+        // console.log('Dropdown - Click!')
         let thisMenu = $(this).find(dropdownContent);
         allDropdownMenus.not(thisMenu).removeClass(visibilityVisible);
         thisMenu.toggleClass(visibilityVisible);
@@ -275,23 +276,26 @@ var initIndex = (() => {
   function destroyComment() {
     let buttonDeleteComment = $('.button-DeleteComment');
     buttonDeleteComment.each(function(){
-      $(this).on('click', () => {
-      let data = {
-        'commentId': $.trim($(this).parent().attr('data'))
-      };
-      // console.log('commentId: ', commentId);
-      $.ajax({
-        type: 'DELETE',
-        url: url,
-        data: data,
-        // crossDomain: true,
-        // xhrFields: {
-        //   withCredentials: true
-        // },
-        success: displayForDestroyComment($(this)),
-        error: error,
+      if(getEventCount(this, 'click') === 0) {
+        $(this).on('click', () => {
+        // console.log('Delete button - Click!', getEventCount(this));
+        let data = {
+          'commentId': $.trim($(this).parent().attr('data'))
+        };
+        // console.log('commentId: ', commentId);
+        $.ajax({
+          type: 'DELETE',
+          url: url,
+          data: data,
+          // crossDomain: true,
+          // xhrFields: {
+          //   withCredentials: true
+          // },
+          success: displayForDestroyComment($(this)),
+          error: error,
+          });
         });
-      });
+      }
     });
   }
 
@@ -318,44 +322,47 @@ var initIndex = (() => {
         btnToggleDropdown = $(document.querySelectorAll('.dropdown-wrapper__button'));
 
     buttonEditComment.each(function(){
-      $(this).on('click', () => {
-        let data = {
-              'commentId': $(this).parent().attr('data')
-            };
-        const commentContent = $(this).closest('div.comments-wrapper__comment'),
-              textDiv = commentContent.find('div.content__text'),
-              oldCommentText = textDiv.text().trim(),
-              editForm = `<form id='edit-form' class='content__edit-form'>
-                            <textarea id='text-area' class='edit-form__textarea'>${oldCommentText}</textarea>
-                            <div class='edit-form__buttons-container'>
-                              <button type='button' id='buttonAccept' class='button button--small button--accept'>Zatwierdź</button>
-                              <button type='button' id='buttonCancel' class='button button--small button--cancel'>Anuluj</button>
-                            </div>
-                          </form>`;
-                        
-        btnToggleDropdown.addClass(displayNone);
-        textDiv.replaceWith(editForm).promise().done( () => {
-          let editForm = commentContent.find('#edit-form');
-          //button-accept
-          commentContent.find('#buttonAccept').on('click', () => {
-            data.editFormText = editForm.find('#text-area').val();
-            let newTextDiv = textDiv.text(data.editFormText),
-                dataForDisplay = {
-                  'editForm': editForm,
-                  'newTextDiv': newTextDiv,
-                  'btnToggleDropdown': btnToggleDropdown,
-                };
-            if(data.editFormText !== oldCommentText) {
-              updateCommentToDatabase(data, dataForDisplay)
-            } 
-          });
-          //button-cancel
-          commentContent.find('#buttonCancel').on('click', () => {
-            editForm.replaceWith(textDiv);
-            btnToggleDropdown.removeClass(displayNone);
+      if(getEventCount(this, 'click') === 0) {
+        $(this).on('click', () => {
+          // console.log('Edit button - Click!', getEventCount(this, 'click'));
+          let data = {
+                'commentId': $(this).parent().attr('data')
+              };
+          const commentContent = $(this).closest('div.comments-wrapper__comment'),
+                textDiv = commentContent.find('div.content__text'),
+                oldCommentText = textDiv.text().trim(),
+                editForm = `<form id='edit-form' class='content__edit-form'>
+                              <textarea id='text-area' class='edit-form__textarea'>${oldCommentText}</textarea>
+                              <div class='edit-form__buttons-container'>
+                                <button type='button' id='buttonAccept' class='button button--small button--accept'>Zatwierdź</button>
+                                <button type='button' id='buttonCancel' class='button button--small button--cancel'>Anuluj</button>
+                              </div>
+                            </form>`;
+                          
+          btnToggleDropdown.addClass(displayNone);
+          textDiv.replaceWith(editForm).promise().done( () => {
+            let editForm = commentContent.find('#edit-form');
+            //button-accept
+            commentContent.find('#buttonAccept').on('click', () => {
+              data.editFormText = editForm.find('#text-area').val();
+              let newTextDiv = textDiv.text(data.editFormText),
+                  dataForDisplay = {
+                    'editForm': editForm,
+                    'newTextDiv': newTextDiv,
+                    'btnToggleDropdown': btnToggleDropdown,
+                  };
+              if(data.editFormText !== oldCommentText) {
+                updateCommentToDatabase(data, dataForDisplay)
+              } 
+            });
+            //button-cancel
+            commentContent.find('#buttonCancel').on('click', () => {
+              editForm.replaceWith(textDiv);
+              btnToggleDropdown.removeClass(displayNone);
+            });
           });
         });
-      });
+      }
     });
   }
 
@@ -381,13 +388,22 @@ var initIndex = (() => {
   }
 
   function error(jqXHR, textStatus, errorThrown) {
-    console.log('Error', jqXHR, textStatus, errorThrown);
+    // console.log('Error', jqXHR, textStatus, errorThrown);
   }
     
   function resetStars(){
     for(let i=0; i<starsQuantity; i++){
         stars[i].innerHTML = '&#9734;';
         stars[i].classList.remove(rateByStarsHover);
+    }
+  }
+
+  function getEventCount(element, event) {
+    let eventDict = $._data($(element).get(0), 'events');
+    if(typeof eventDict === 'undefined') {
+      return 0;
+    } else {
+      return eventDict[event].length;
     }
   }
 })();

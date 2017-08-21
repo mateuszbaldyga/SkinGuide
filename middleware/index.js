@@ -15,18 +15,11 @@ if(req.isAuthenticated()){
       res.redirect("back");
     }  
     else {
-        // does user own the comment?
-      try {
-        var check = foundComment.author.id.equals(req.user._id);
-      } catch(err) {
-        return;
-      }
-      if(check) {
+      if(foundComment.author.id.equals(req.user._id)) {
         return next();
       } else {
-        return;
-        // req.flash("error", "You don't have permission to do that");
-        // res.redirect("back");
+        req.flash("error", "You don't have permission to do that");
+        res.redirect("back");
       }
     }
     });
