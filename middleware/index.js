@@ -19,13 +19,14 @@ if(req.isAuthenticated()){
       try {
         var check = foundComment.author.id.equals(req.user._id);
       } catch(err) {
-        // console.log(err);
+        return;
       }
       if(check) {
-        next();
+        return next();
       } else {
+        return;
         // req.flash("error", "You don't have permission to do that");
-        res.redirect("back");
+        // res.redirect("back");
       }
     }
     });

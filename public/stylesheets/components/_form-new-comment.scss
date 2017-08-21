@@ -13,12 +13,21 @@
 
 .form-new-comment--wrapper {
   position: relative;
-  top: -10px;
   display: none;
 }
 
-.form-new-comment .button {
-  float: right;
+.form-new-comment {
+  position: relative;
+  top: 15px;
+  padding-bottom: 30px;
+  margin-bottom: 20px;
+
+  .button {
+    float: none;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
 }
 
 .form-new-comment--wrapper--visible {

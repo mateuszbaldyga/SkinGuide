@@ -27,11 +27,11 @@ var initIndex = (() => {
         months = [ '0', 'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca',
                    'sierpnia', 'września', 'października', 'listopada', 'grudnia',
         ],
-        starsQuantity = stars.length,
-        amountOfVisibleComments = 4;
+        starsQuantity = stars.length;
 
   //Mutable
   let clickedStar = 0,
+      amountOfVisibleComments = 4,
       commentsExpanded = false,
       url = 'https://evening-hamlet-47726.herokuapp.com';
 
@@ -80,10 +80,10 @@ var initIndex = (() => {
 //Functions
   function showAllComments() {
     if(allComments.length > amountOfVisibleComments) {
-      document.getElementById('showAllComments').addEventListener('click', function() {
+      $(allComments[amountOfVisibleComments]).off();
+      $(allComments[amountOfVisibleComments+1]).on('click', function() {
+        // console.log('showAll - Click!');
         commentsExpanded = true;
-        this.classList.add(displayNone);
-
         allComments[amountOfVisibleComments+1].classList.remove(halfVisibleComment);
         for(let i=amountOfVisibleComments+2, len=allComments.length; i<len; i++) {
           allComments[i].classList.remove(displayNone);
@@ -169,7 +169,7 @@ var initIndex = (() => {
           dateFields[i].innerText = `${comDay} ${months[comMonth]}`;
         }
       } else {
-        dateFields[i].innerText = `${comDay} ${months[comMonth]} ${comYear} roku`;
+        dateFields[i].innerText = `${comDay} ${months[comMonth]} ${comYear}`;
       }
       $(dateFields[i]).show(0);
     }
@@ -234,6 +234,7 @@ var initIndex = (() => {
                  displayPostedComment(data);
                  destroyComment();
                  editComment();
+                 amountOfVisibleComments++;
                },
       error: error,
     });
@@ -261,7 +262,10 @@ var initIndex = (() => {
       //removes yellow background after couple of seconds
       setTimeout(() => {
         let jsNewCommentElement = document.getElementsByClassName(jsNewCommentClass);
-        jsNewCommentElement[jsNewCommentElement.length-1].classList.remove(yellowBackground, jsNewCommentClass);
+        // console.log(jsNewCommentElement);
+        if(jsNewCommentElement.length > 0) {
+          jsNewCommentElement[jsNewCommentElement.length-1].classList.remove(yellowBackground, jsNewCommentClass);
+        }
       }, 10000);
     });
 
@@ -303,8 +307,10 @@ var initIndex = (() => {
       if(amountOfVisibleComments+1 < allComments.length) {
         allComments[amountOfVisibleComments+1].classList.remove(displayNone);
         allComments[amountOfVisibleComments+1].classList.add(halfVisibleComment);
+        showAllComments();
       }
     }
+
   }
 
   function editComment() {

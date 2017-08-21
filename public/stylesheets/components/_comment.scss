@@ -1,5 +1,5 @@
 .panel--comments__comments-wrapper {
-  margin-bottom: 35px;
+  margin-bottom: 10px;
 }
 
 .comments-wrapper__comment {
@@ -10,10 +10,11 @@
 
   &:last-of-type {
     border-bottom: none;
+    padding-bottom: 15px;
   }
 }
 
-$half-visible-height: 50px;
+$half-visible-height: 76px;
 .comments-wrapper__comment--half-visible {
   position: relative;
   height: $half-visible-height;
@@ -29,32 +30,19 @@ $half-visible-height: 50px;
 .comments-wrapper__comment--half-visible:after {
   content: '';
   position: absolute;
-  top: 0;
+  top: -40%;
   left: 0;
-  height: 100%;
+  height: 150%;
   width: 100%;
-  background-image:linear-gradient(transparent 0%, $white 80%);
-  transition: transform 0.4s ease-out;
+  background-image: linear-gradient(transparent -30%, #fff 80%);
+  transition: transform 0.4s ease-in;
   pointer-events: auto;
   z-index: 3;
+  cursor: pointer;
 }
 
 .comments-wrapper__comment--half-visible:hover:after {
-  transform: translateY($half-visible-height - $half-visible-height/1.25);
-}
-
-.comments-wrapper__show-all {
-  display: none;
-}
-
-.comments-wrapper__comment--half-visible ~ .comments-wrapper__show-all {
-  display: block;
-  position: absolute;
-  color: $font-gray;
-  font-size: 80%;
-  width: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  transform: translateY($half-visible-height - $half-visible-height/2);
 }
 
 .comment__avatar img {
@@ -115,14 +103,4 @@ $half-visible-height: 50px;
   word-wrap: break-word;
   color: $black;
   line-height: 1.3;
-
-  // &:before {
-  //   content: '';
-  //   position: absolute;
-  //   top: 0;
-  //   right: 0;
-  //   width: 100%;
-  //   height: 100%;
-  //   background-color: red;
-  // }
 }

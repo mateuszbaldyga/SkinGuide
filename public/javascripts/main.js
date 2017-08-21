@@ -20,6 +20,7 @@ var initMain = (function() {
 //Functions
   function navHideShowOnScroll() {
     let lastScrollTop = 0,
+        delta = 10,
         nowScrollTop;
       window.addEventListener('scroll', () => {
         // console.log('scrolled');
@@ -29,10 +30,12 @@ var initMain = (function() {
       });
 
     function toggleNav() {
-      // nowScrollTop = window.scrollY; //IE don't support
       nowScrollTop = window.pageYOffset;
+      if(Math.abs(lastScrollTop - nowScrollTop) <= delta) {
+        return;
+      }
       // console.log(nowScrollTop);
-      if (nowScrollTop > lastScrollTop){
+      if (nowScrollTop - delta > lastScrollTop){
         defaultNavbar.classList.add(navHidden);
       } else {
         defaultNavbar.classList.remove(navHidden);

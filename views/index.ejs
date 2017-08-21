@@ -34,7 +34,7 @@
           <% include ./partials/comment_template %>
         </div>
       <% } else if(i===len-5) { %>
-        <div class="comments-wrapper__comment comments-wrapper__comment--half-visible <%= i %>">
+        <div id="showAllComments" class="comments-wrapper__comment comments-wrapper__comment--half-visible <%= i %>">
           <% include ./partials/comment_template %>
         </div>
       <% } else { %>
@@ -43,7 +43,6 @@
         </div>
       <% } %>
     <% } %>
-    <button id="showAllComments" class="comments-wrapper__show-all">Wszystkie komentarze...</button>
   </div>
 
 <!-- New   -->
@@ -75,6 +74,6 @@
 
 <% include ./partials/footer %>
 <% include ./partials/scripts %>
-<script type="text/javascript" src="/javascripts/index.js" defer></script>
+<script type="text/javascript" src="/javascripts/index.min.js" defer></script>
 </body>
 </html>
