@@ -58,9 +58,11 @@ a[id="about-us"]:target ~ .landpage {
 }
 
 .landpage--visible {
+
   ~ main {
     display: none;
   }
+  
   ~ footer {
     display: none;
   }

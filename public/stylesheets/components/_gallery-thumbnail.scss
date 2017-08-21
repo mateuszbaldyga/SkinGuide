@@ -18,27 +18,27 @@
   }
 }
 
-  .gallery__thumbnail--hovered {
-    cursor: pointer;
-    cursor: hand;
-  }
+.gallery__thumbnail--hovered {
+  cursor: pointer;
+  cursor: hand;
+}
 
-  .gallery__thumbnail--hovered:after {
-    position: absolute;
-    top: 0;
-    display: flex;
-    background-color: $white;
-    color: $font-gray;
-    content:"\e003";
-    align-items: center; 
-    justify-content: center;
-    font-size: 300%;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    transition: opacity 0.4s ease-out;
-    pointer-events: all;
-  }
+.gallery__thumbnail--hovered:after {
+  position: absolute;
+  top: 0;
+  display: flex;
+  background-color: $white;
+  color: $font-gray;
+  content:"\e003";
+  align-items: center; 
+  justify-content: center;
+  font-size: 300%;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+  pointer-events: all;
+}
 
 @media screen and (min-width: map-get($breakpoints, x-small)) {
   .gallery__thumbnail--hovered:hover:after {

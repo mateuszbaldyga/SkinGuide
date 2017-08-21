@@ -8,7 +8,7 @@ $text-font-stack: 'Lato', 'Helvetica', 'Arial', sans-serif;
 
 /// Code (monospace) font family
 /// @type List
-$code-font-stack: 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', monospace !default;
+// $code-font-stack: 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', monospace !default;
 
 /// Navbar height
 $nav-height: 52px;
@@ -34,16 +34,12 @@ $border-gray: hsl(0, 0%, 85%);
 $brand-gray: hsl(0, 0%, 93%);
 $nav-background-gray: hsl(0, 0%, 97%);
 $placeholder-color: hsl(0, 0%, 73%);
-
-
 $flash-green: hsl(99, 53%, 63%);
 $flash-red: hsl(356, 95%, 66%);
-
 //Gallery colors
 $image-wrap-width: 80%;
 $galleryButton-color: hsla(0, 100%, 100%, 0.3);
 //Gallery colors
-
 
 /// Container's maximum width
 /// @type Length

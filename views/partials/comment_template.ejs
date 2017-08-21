@@ -1,27 +1,27 @@
 <div href="#" class="comment__avatar">
   <img alt="User's avatar." src="
-  <% if(typeof comments[i] != 'undefined'){ %>
+  <% if(typeof comments[i] !== 'undefined'){ %>
     <%= comments[i].author.avatar %>
   <% } %>
   ">
 </div>
 <div class="comment__content">
   <div class='content__rate'>
-    <% if(typeof comments[i] != 'undefined'){ %>
+    <% if(typeof comments[i] !== 'undefined'){ %>
         <%- '&#9733;'.repeat(comments[i].rating) %> 
     <% } %>
   </div>
   <div class="content__author">
-    <% if(typeof comments[i] != 'undefined'){ %>
+    <% if(typeof comments[i] !== 'undefined'){ %>
       <%= comments[i].author.username %>
     <% } %>
   </div>
   <span class="content__date">
-    <% if(typeof comments[i] != 'undefined'){ %>
+    <% if(typeof comments[i] !== 'undefined'){ %>
       <%= comments[i].date %>
     <% } %>
   </span>           
-  <div class="content__text"><% if(typeof comments[i] != 'undefined'){ %><%= comments[i].text %><% } %></div>
+  <div class="content__text"><% if(typeof comments[i] !== 'undefined'){ %><%= comments[i].text %><% } %></div>
 </div>
 <% if((typeof comments[i] === 'undefined') || (currentUser && comments[i].author.id.equals(currentUser._id))){ %>
   <div class="content__dropdown-wrapper">
@@ -30,7 +30,7 @@
         <polygon points="0,0 200,200 400,0 "/>
       </svg>
     </button>
-    <div class="dropdown-wrapper__menu" data="<% if(typeof comments[i] != 'undefined'){ %><%=comments[i]._id %><% } %>">
+    <div class="dropdown-wrapper__menu" data="<% if(typeof comments[i] !== 'undefined'){ %><%=comments[i]._id %><% } %>">
       <button type="button" class="menu__button button-EditComment">
         Edytuj
       </button>
