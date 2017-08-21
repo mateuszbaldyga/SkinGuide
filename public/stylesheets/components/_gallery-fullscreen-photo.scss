@@ -12,10 +12,8 @@
   justify-content: center;
 }
 
-@media screen and (min-width: map-get($breakpoints, x-small)) {
-  .gallery__fullphoto--visible {
-    visibility: visible;
-  }
+.gallery__fullphoto--visible {
+  visibility: visible;
 }
 
 .fullphoto__image {

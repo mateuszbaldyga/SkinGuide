@@ -18,7 +18,6 @@
   }
 }
 
-@media screen and (min-width: map-get($breakpoints, x-small)) {
   .gallery__thumbnail--hovered {
     cursor: pointer;
     cursor: hand;
@@ -41,6 +40,7 @@
     pointer-events: all;
   }
 
+@media screen and (min-width: map-get($breakpoints, x-small)) {
   .gallery__thumbnail--hovered:hover:after {
     opacity: 0.5;
   }
