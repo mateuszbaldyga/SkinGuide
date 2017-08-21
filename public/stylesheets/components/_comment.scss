@@ -10,7 +10,6 @@
 
   &:last-of-type {
     border-bottom: none;
-    padding-bottom: 15px;
   }
 }
 
@@ -21,6 +20,7 @@ $half-visible-height: 68px;
   overflow: hidden;
   border-bottom: none;
   pointer-events: none;
+  margin-bottom: 17px;
 
   .content__dropdown-wrapper {
     display: none;
