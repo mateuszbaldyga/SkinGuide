@@ -8,6 +8,7 @@ const express = require('express'),
       passport = require('passport'),
       LocalStrategy = require('passport-local'),
       passportLocalMongoose = require('passport-local-mongoose'),
+      throng = require('throng');
 
       User = require('./models/user'),
 
@@ -61,5 +62,27 @@ app.use(proceduresRoutes);
 app.use(contactRoutes);
 app.use(offersRoutes);
 app.use(galleryRoutes);
+
+throng({
+  workers: 1,
+  master: startMaster,
+  start: startWorker
+});
+
+// This will only be called once
+function startMaster() {
+  console.log('Started master');
+}
+
+// This will be called four times
+function startWorker(id) {
+  console.log(`Started worker ${ id }`);
+
+  process.on('SIGTERM', () => {
+    console.log(`Worker ${ id } exiting...`);
+    console.log('(cleanup would happen here)');
+    process.exit();
+  });
+}
 
 app.listen(process.env.PORT || 3000);
