@@ -1,25 +1,27 @@
-const express = require('express'),
-      app = express(),
-      cookieSession = require('cookie-session'),
+var express = require('express'),
+    app = express(),
+    cookieSession = require('cookie-session'),
 
-      bodyParser = require('body-parser'),
-      mongoose = require('mongoose'),
-      flash = require('connect-flash'),
-      passport = require('passport'),
-      LocalStrategy = require('passport-local'),
-      passportLocalMongoose = require('passport-local-mongoose'),
-      throng = require('throng');
+    bodyParser = require('body-parser'),
+    mongoose = require('mongoose'),
+    flash = require('connect-flash'),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local'),
+    passportLocalMongoose = require('passport-local-mongoose'),
 
-      User = require('./models/user'),
+    throng = require('throng'),
+    WORKERS = process.env.WEB_CONCURRENCY || 1,
 
-      seedDB = require('./seed');
+    User = require('./models/user'),
 
-const authRoutes = require('./routes/auth'),
-      indexRoutes = require('./routes/index'),
-      proceduresRoutes = require('./routes/procedures'),
-      contactRoutes = require('./routes/contact');
-      offersRoutes = require('./routes/offers');
-      galleryRoutes = require('./routes/gallery');
+    seedDB = require('./seed'),
+
+    authRoutes = require('./routes/auth'),
+    indexRoutes = require('./routes/index'),
+    proceduresRoutes = require('./routes/procedures'),
+    contactRoutes = require('./routes/contact'),
+    offersRoutes = require('./routes/offers'),
+    galleryRoutes = require('./routes/gallery');
 
 mongoose.connect(process.env.DATABASEURL);
 
@@ -64,7 +66,8 @@ app.use(offersRoutes);
 app.use(galleryRoutes);
 
 throng({
-  workers: 1,
+  workers: WORKERS,
+  lifetime: Infinity,
   master: startMaster,
   start: startWorker
 });
