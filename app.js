@@ -8,7 +8,6 @@ var express = require('express'),
     passport = require('passport'),
     LocalStrategy = require('passport-local'),
     passportLocalMongoose = require('passport-local-mongoose'),
-    nodemailer = require('nodemailer'),
 
     User = require('./models/user'),
 
@@ -21,9 +20,7 @@ var authRoutes = require('./routes/auth'),
     offersRoutes = require('./routes/offers');
     galleryRoutes = require('./routes/gallery');
 
-mongoose.connect('mongodb://localhost/skin_guide', {
-  useMongoClient: true,
-});
+mongoose.connect(process.env.DATABASEURL);
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -32,7 +29,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public')),
 app.use(flash());
 
-// seedDB()
+// seedDB();
 
 //==========
 // PASSPORT CONFIG
@@ -65,6 +62,4 @@ app.use(contactRoutes);
 app.use(offersRoutes);
 app.use(galleryRoutes);
 
-app.listen(3000, function() {
-  console.log('The SkinGuide Server Has Started!');
-});
+app.listen(process.env.PORT || 3000);
