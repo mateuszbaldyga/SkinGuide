@@ -1,6 +1,6 @@
 var express = require('express'),
-    router = express.Router();
-    gmailTransporter = require('../config/gmail.transporter'),
+    router = express.Router(),
+    gmailTransporter = require('../config/gmail.transporter');
 
 router.get('/contact', function(req, res) {
   res.render('contact');
