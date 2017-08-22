@@ -345,7 +345,7 @@ var initIndex = (() => {
               };
           const commentContent = $(this).closest('div.comments-wrapper__comment'),
                 textDiv = commentContent.find('div.content__text'),
-                oldCommentText = textDiv.text().trim(),
+                oldCommentText = commentContent.find('div.wholeText').text().trim(),
                 editForm = `<form id='edit-form' class='content__edit-form'>
                               <textarea id='text-area' class='edit-form__textarea'>${oldCommentText}</textarea>
                               <div class='edit-form__buttons-container'>
