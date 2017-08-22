@@ -94,7 +94,7 @@ var initIndex = (() => {
 
   function setNavigationForAboutUsButton() {
     aboutUsButton.addEventListener('click', function() {
-      landpage.remove();
+      $(landpage).remove();
       this.classList.add(buttonActive)
     });
   }
@@ -102,11 +102,11 @@ var initIndex = (() => {
   function hideLandingPage() {
     if(window.location.hash === '#about-us') {
       landpage.classList.remove(landpageVisible);
-      landpage.remove();
+      $(landpage).remove();
     }
 
     landpage.addEventListener("transitionend", function() {
-      this.remove();
+      $(landpage).remove();
     });
 
     $('#button-getStarted').one('click', function() {

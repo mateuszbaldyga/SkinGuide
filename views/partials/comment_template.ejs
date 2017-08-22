@@ -21,7 +21,11 @@
       <%= comments[i].date %>
     <% } %>
   </span>           
-  <div class="content__text"><% if(typeof comments[i] !== 'undefined'){ %><%= comments[i].text %><% } %></div>
+  <div class="content__text">
+    <% if(typeof comments[i] !== 'undefined'){ %>
+      <%= comments[i].text %>
+    <% } %>
+  </div>
 </div>
 <% if((typeof comments[i] === 'undefined') || (currentUser && comments[i].author.id.equals(currentUser._id))){ %>
   <div class="content__dropdown-wrapper">
