@@ -269,7 +269,7 @@ var initIndex = (() => {
     template.getElementsByTagName('img')[0].setAttribute('src', data.commentAvatar);
     template.getElementsByClassName('content__author')[0].innerText = data.commentAuthor;
     template.getElementsByClassName('content__rate')[0].innerHTML = commentRating;
-    template.getElementsByClassName('content__text')[0].innerText = data.commentText;
+    template.getElementsByClassName('wholeText')[0].innerText = data.commentText;
     template.getElementsByClassName('content__date')[0].innerText = Date();
     $(template.getElementsByClassName('button-DeleteComment')[0]).parent().attr('data', data.commentId);
     dateFormat(template);
