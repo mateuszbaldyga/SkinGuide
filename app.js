@@ -1,24 +1,24 @@
-var express = require('express'),
-    app = express(),
-    cookieSession = require('cookie-session'),
+const express = require('express'),
+      app = express(),
+      cookieSession = require('cookie-session'),
 
-    bodyParser = require('body-parser'),
-    mongoose = require('mongoose'),
-    flash = require('connect-flash'),
-    passport = require('passport'),
-    LocalStrategy = require('passport-local'),
-    passportLocalMongoose = require('passport-local-mongoose'),
+      bodyParser = require('body-parser'),
+      mongoose = require('mongoose'),
+      flash = require('connect-flash'),
+      passport = require('passport'),
+      LocalStrategy = require('passport-local'),
+      passportLocalMongoose = require('passport-local-mongoose'),
 
-    User = require('./models/user'),
+      User = require('./models/user'),
 
-    seedDB = require('./seed');
+      seedDB = require('./seed');
 
-var authRoutes = require('./routes/auth'),
-    indexRoutes = require('./routes/index'),
-    proceduresRoutes = require('./routes/procedures'),
-    contactRoutes = require('./routes/contact');
-    offersRoutes = require('./routes/offers');
-    galleryRoutes = require('./routes/gallery');
+const authRoutes = require('./routes/auth'),
+      indexRoutes = require('./routes/index'),
+      proceduresRoutes = require('./routes/procedures'),
+      contactRoutes = require('./routes/contact');
+      offersRoutes = require('./routes/offers');
+      galleryRoutes = require('./routes/gallery');
 
 mongoose.connect(process.env.DATABASEURL);
 
