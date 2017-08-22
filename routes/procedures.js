@@ -7,11 +7,11 @@ router.get('/procedures', function(req, res) {
   Group.find({}, function(err, allGroups) {
     if (!err) {
       console.log('znaleziono wszystkie grupy');
-    };
+    }
     res.render('procedures', {
       groups: allGroups
     });
-  })
+  });
 });
 
 module.exports = router;
