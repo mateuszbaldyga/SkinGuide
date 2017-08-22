@@ -1,6 +1,7 @@
 var express = require('express'),
-    cors = require('cors'),
     router = express.Router(),
+    cors = require('cors'),
+    gmailTransporter = require('../config/gmail.transporter'),
 
     Comment = require('../models/comment'),
 
@@ -33,7 +34,23 @@ router.post('/', middleware.isLoggedIn, cors(corsOptions), function(req, res) {
           avatar: req.user.avatar
         },
       rating: req.body.numOfStars,
-      }
+      },
+      notify = {
+        from: 'moja.web.aplikacja@gmail.com',
+        to: 'matbaldyga@gmail.com',
+        subject: `!Nowy Komentarz od ${req.user.username}!`,
+        text: req.body.commentText
+      };
+
+      gmailTransporter.sendMail(notify, function(error, response) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(response);
+        }
+        gmailTransporter.close();
+      });
+      
     Comment.create(newComment, function(err, newComment) {
       if(err) {
         console.log('Post route: ERROR!');
