@@ -67,6 +67,7 @@ var initIndex = (() => {
 
 //Functions Call
   showAllComments();
+  showWholeText();
   setNavigationForAboutUsButton();
   hideLandingPage();
   rateComment();
@@ -88,6 +89,20 @@ var initIndex = (() => {
         for(let i=amountOfVisibleComments+2, len=allComments.length; i<len; i++) {
           allComments[i].classList.remove(displayNone);
         }
+      });
+    }
+  }
+
+  function showWholeText() {
+    let button = document.getElementsByClassName('show-whole-text'),
+        partText = document.getElementsByClassName('PartText'),
+        wholeText = document.getElementsByClassName('wholeText');
+
+    for(let i=0, len=button.length; i<len; i++) {
+      button[i].addEventListener('click', function() {
+        // console.log('show more - click!');
+        partText[i].classList.add(displayNone);
+        wholeText[i].classList.remove(displayNone);
       });
     }
   }
