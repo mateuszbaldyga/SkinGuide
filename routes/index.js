@@ -27,10 +27,12 @@ router.get('/', function(req, res) {
 
 router.post('/', middleware.isLoggedIn, cors(corsOptions), function(req, res) {
   var newComment = {
-        text: req.body.commentText,
+        // text: req.body.commentText,
+        text: 'Komentarz testowy. Możliwość zapisywania własnego tekstu do bazy danych została celowo zablokowana. Twój nick również nie zostanie wyświetlony. Lala lalala Lala lalala Lala lalala Lala lala lalalala Lala lalalalalala Lala lalala. Fusce tortor justo, vehicula quis convallis nec, ultrices non nisi.',
         author: {
           id: req.user._id,
-          username: req.user.username,
+          // username: req.user.username,
+          username: 'test.user',
           avatar: req.user.avatar
         },
       rating: req.body.numOfStars,
