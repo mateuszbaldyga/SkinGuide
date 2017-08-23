@@ -67,7 +67,7 @@ var initIndex = (() => {
 
 //Functions Call
   showAllComments();
-  showWholeText();
+  // showWholeText();
   setNavigationForAboutUsButton();
   hideLandingPage();
   rateComment();
@@ -269,7 +269,7 @@ var initIndex = (() => {
     template.getElementsByTagName('img')[0].setAttribute('src', data.commentAvatar);
     template.getElementsByClassName('content__author')[0].innerText = data.commentAuthor;
     template.getElementsByClassName('content__rate')[0].innerHTML = commentRating;
-    template.getElementsByClassName('wholeText')[0].innerText = data.commentText;
+    template.getElementsByClassName('content__text')[0].innerText = data.commentText;
     template.getElementsByClassName('content__date')[0].innerText = Date();
     $(template.getElementsByClassName('button-DeleteComment')[0]).parent().attr('data', data.commentId);
     dateFormat(template);
@@ -345,7 +345,7 @@ var initIndex = (() => {
               };
           const commentContent = $(this).closest('div.comments-wrapper__comment'),
                 textDiv = commentContent.find('div.content__text'),
-                oldCommentText = commentContent.find('div.wholeText').text().trim(),
+                oldCommentText = textDiv.text().trim(),
                 editForm = `<form id='edit-form' class='content__edit-form'>
                               <textarea id='text-area' class='edit-form__textarea'>${oldCommentText}</textarea>
                               <div class='edit-form__buttons-container'>

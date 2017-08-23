@@ -23,22 +23,7 @@
   </span>           
   <div class="content__text">
     <% if(typeof comments[i] !== 'undefined'){ %>
-      <% if((comments[i].text).length > 200) { %>
-        <div class="PartText">
-          <%= (comments[i].text).slice(0, 200) -%>(..)
-          <button class="show-whole-text">...zobacz więcej</button>
-        </div>
-        <div class="wholeText display--none">
-          <%= comments[i].text %>
-        </div>
-      <% } else { %>
-        <div class="wholeText">
-          <%= comments[i].text %>
-        </div>
-      <% } %>
-    <% } else { %>
-      <div class="wholeText">
-      </div>
+      <%= comments[i].text %>
     <% } %>
   </div>
 </div>
