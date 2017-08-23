@@ -3,9 +3,15 @@
 
 <main>
   <% include ./partials/flash-messages %>
-  <form class="sign-form" action="/login" method="POST">
-    <input type="text" class="input" name="username" placeholder="Nazwa użytkownika" required>
-    <input type="password" class="input" name="password" placeholder="Hasło" required>
+  <form class="panel sign-form" action="/login" method="POST">
+    <div class="sign-input">
+      <input type="text" name="username" required>
+      <label for="username">Nazwa użytkownika</label>
+    </div>
+    <div class="sign-input">
+      <input type="password" name="password" required>
+      <label for="password">Hasło</label>
+    </div>
     <button class="button" type="submit">Zaloguj się</button>
   </form>
 </main>

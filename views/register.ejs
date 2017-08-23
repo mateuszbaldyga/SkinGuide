@@ -3,11 +3,19 @@
 
 <main>
   <% include ./partials/flash-messages %>
-  <form class="sign-form" action="/register" method="POST">
-  
-    <input type="text" class="input" name="username" placeholder="Nazwa użytkownika" title='Maksymalna długość: 15 znaków' maxlength="15" required pattern="[A-Za-z0-9]\S{0,15}">
-    <input type="password" class="input" name="password" placeholder="Hasło" title='Hasło musi składać się z kombinacji co najmniej 6 znaków w tym przynajmniej 1 litery i 1 cyfry' required pattern="(?=.*\d)(?=.*[a-z]).{6,}">
-    <input type="password" class="input" name="confirmPass" placeholder="Potwierdź hasło" title="Potwierdź hasło" required pattern="(?=.*\d)(?=.*[a-z]).{6,}">
+  <form class="panel sign-form" action="/register" method="POST">
+    <div class="sign-input">
+      <input type="text" name="username" title='Maksymalna długość: 15 znaków' maxlength="15" required>
+      <label for="username">Nazwa użytkownika</label>
+    </div>
+    <div class="sign-input">
+      <input type="password" name="password" title='Hasło musi składać się z kombinacji co najmniej 6 znaków w tym przynajmniej 1 litery i 1 cyfry' required>
+      <label for="password">Hasło</label>
+    </div>
+    <div class="sign-input">
+      <input type="password" name="confirmPass" title="Potwierdź hasło" required>
+      <label for="confirmPass">Potwierdź hasło</label>
+    </div>
     <button class="button" type="submit">Utwórz konto</button>
     <p class="input-condition">Maksymalna długość nazwy użytkownika: 15 znaków.
     </p>

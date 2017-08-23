@@ -1,13 +1,15 @@
 .sign-form {
-  width: 260px;
+  $width: 400px;
+  width: $width;
   margin: 3% auto 0 auto;
+  padding: 40px 20px;
 
-  .input {
-    @include shadowed-border;
+  @media screen and (max-width: $width) {
+    width: 100%;
   }
-  
+
   .button {
-    margin-bottom: 10px;
+    margin: 10px;
     font-size: 100%;
     float: none;
   }
