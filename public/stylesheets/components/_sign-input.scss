@@ -14,19 +14,21 @@
     padding: 15px 10px 0 10px;
     background-color: transparent;
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     border: none;
 
-    &:focus + label {
-      color: $ocean-blue;
+    &:valid + label {
+      color: darken($placeholder-color, 5%);
+      background-color: transparent;
       transform: translateY(-15px);
       font-size: 80%;
     }
 
-    &:valid + label {
-      color: darken($placeholder-color, 5%);
-      background-color: transparent;
+    &:focus + label {
+      color: $ocean-blue;
       transform: translateY(-15px);
       font-size: 80%;
     }
