@@ -28,7 +28,7 @@ router.get('/', function(req, res) {
 router.post('/', middleware.isLoggedIn, cors(corsOptions), function(req, res) {
   var newComment = {
         // text: req.body.commentText,
-        text: 'Komentarz testowy. Możliwość zapisywania własnego tekstu do bazy danych została celowo zablokowana. Twój nick również nie zostanie wyświetlony.',
+        text: 'Komentarz testowy. Możliwość zapisywania własnego tekstu do bazy danych została zablokowana. Twój nick również nie zostanie wyświetlony.',
         author: {
           id: req.user._id,
           // username: req.user.username,
@@ -66,7 +66,7 @@ router.post('/', middleware.isLoggedIn, cors(corsOptions), function(req, res) {
 
 router.put('/', middleware.checkCommentOwnership, cors(corsOptions), function(req, res) {
   // Comment.findByIdAndUpdate(req.body.commentId, { text: req.body.editFormText },function(err) {
-  Comment.findByIdAndUpdate(req.body.commentId, { text: 'Zedytowany komentarz testowy. Możliwość zapisywania własnego tekstu do bazy danych została celowo zablokowana.' },function(err) {
+  Comment.findByIdAndUpdate(req.body.commentId, { text: 'Zedytowany komentarz testowy. Możliwość zapisywania własnego tekstu do bazy danych została zablokowana.' },function(err) {
     if(err){
       console.log('Update route: ERROR');
       res.redirect('back');
