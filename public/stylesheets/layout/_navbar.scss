@@ -28,7 +28,7 @@
 }
 
 .nav--animatable {
-  transition: transform 0.22s ease-out;
+  transition: transform 0.1s ease-out;
 }
 
 .nav--hidden.nav--animatable {
@@ -83,7 +83,7 @@
     border: 1px solid $border-gray;
     border-top: none;
     will-change: transform;
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.1s ease-in-out;
   }
 }
 
