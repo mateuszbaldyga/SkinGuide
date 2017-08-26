@@ -35,8 +35,9 @@
   > label {
     pointer-events: none;
     position: absolute;
-    width: 250px;
     bottom: 7px;
+    left: 0;
+    width: 250px;
     margin: 0 10px;
     will-change: transform font-size;
     transition: transform 0.1s cubic-bezier(.4,0,.2,1);
