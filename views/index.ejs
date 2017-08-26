@@ -30,7 +30,7 @@
   <div id="commentsWrapper" class="panel--comments__comments-wrapper">
     <% for(var len=comments.length, i=len-1; i>=0; i--) { %>
       <% if(i>len-5) { %>
-        <div class="comments-wrapper__comment <%= i %>">
+        <div class="comments-wrapper__comment">
           <% include ./partials/comment_template %>
         </div>
       <% } else if(i===len-5) { %>
@@ -38,7 +38,7 @@
           <% include ./partials/comment_template %>
         </div>
       <% } else { %>
-        <div class="comments-wrapper__comment display--none <%= i %>">
+        <div class="comments-wrapper__comment display--none">
           <% include ./partials/comment_template %>
         </div>
       <% } %>
@@ -74,6 +74,6 @@
 
 <% include ./partials/footer %>
 <% include ./partials/scripts %>
-<script type="text/javascript" src="/javascripts/index.min.js" defer></script>
+<script type="text/javascript" src="/javascripts/index.js" defer></script>
 </body>
 </html>

@@ -35,10 +35,10 @@
       </svg>
     </button>
     <div class="dropdown-wrapper__menu" data="<% if(typeof comments[i] !== 'undefined'){ %><%=comments[i]._id %><% } %>">
-      <button type="button" class="menu__button button-EditComment">
+      <button type="button" class="menu__button button-EditComment" comId="<%= i %>">
         Edytuj
       </button>
-      <button type="button" class="menu__button button-DeleteComment">
+      <button type="button" class="menu__button button-DeleteComment" comId="<%= i %>">
         Usuń
       </button>
     </div>

@@ -10,6 +10,8 @@ var initIndex = (() => {
         formNewComment = $('#formNewComment'),
         formNewCommentWrapper = document.getElementById('formNewCommentWrapper'),
         allComments = document.getElementsByClassName('comments-wrapper__comment'),
+        allCommentsLength = allComments.length,
+
         
         //CSS Class names
         displayNone = 'display--none',
@@ -33,7 +35,15 @@ var initIndex = (() => {
   let clickedStar = 0,
       amountOfVisibleComments = 4,
       commentsExpanded = false,
-      url = 'https://evening-hamlet-47726.herokuapp.com';
+      url = 'https://evening-hamlet-47726.herokuapp.com',
+      allCommentsOriginalText = [];
+
+      //getting copy of original comment text in order to use by function editComment
+      for(let i=0; i<allCommentsLength; i++) {
+        allCommentsOriginalText.push(allComments[i].childNodes[3].childNodes[7].innerText.trim());
+      }
+
+      // console.log(allCommentsOriginalText);
 
       //Dev or Deploy? check
       if(/^http\:\/\/localhost/.test(window.location.href)){
@@ -79,14 +89,27 @@ var initIndex = (() => {
   editComment();
 
 //Functions
+  function partlyHideLongComment() {
+    let comments = allComments.cloneNode();
+    for(let i=0; i<allCommentsLength; i++) {
+      let text = comments[i].childNodes[3].childNodes[7].innerText;
+      console.log(i);
+      if(text.length>200) {
+        allComments[i].classList.add('content__text--partly');
+      }
+    }
+  }
+
+
+
   function showAllComments() {
-    if(allComments.length > amountOfVisibleComments) {
+    if(allCommentsLength > amountOfVisibleComments) {
       $(allComments[amountOfVisibleComments]).off();
       $(allComments[amountOfVisibleComments+1]).on('click', function() {
         // console.log('showAll - Click!');
         commentsExpanded = true;
         allComments[amountOfVisibleComments+1].classList.remove(halfVisibleComment);
-        for(let i=amountOfVisibleComments+2, len=allComments.length; i<len; i++) {
+        for(let i=amountOfVisibleComments+2; i<allCommentsLength; i++) {
           allComments[i].classList.remove(displayNone);
         }
       });
@@ -249,7 +272,7 @@ var initIndex = (() => {
                  clickedStar = 0;
                  displayPostedComment(data);
                  destroyComment();
-                 editComment();
+                 editComment(true);
                  amountOfVisibleComments++;
                },
       error: error,
@@ -320,10 +343,10 @@ var initIndex = (() => {
 
     //display hidden comment
     if(!commentsExpanded) {
-      if(amountOfVisibleComments < allComments.length) {
+      if(amountOfVisibleComments < allCommentsLength) {
         allComments[amountOfVisibleComments].classList.remove(halfVisibleComment);
       }
-      if(amountOfVisibleComments+1 < allComments.length) {
+      if(amountOfVisibleComments+1 < allCommentsLength) {
         allComments[amountOfVisibleComments+1].classList.remove(displayNone);
         allComments[amountOfVisibleComments+1].classList.add(halfVisibleComment);
         showAllComments();
@@ -332,74 +355,80 @@ var initIndex = (() => {
 
   }
 
-  function editComment() {
-    let buttonEditComment = $('.button-EditComment'),
-        btnToggleDropdown = $(document.querySelectorAll('.dropdown-wrapper__button'));
+  function editComment(forNewComment = false) {
+    let dropdownBtn = document.getElementsByClassName('dropdown-wrapper__button'),
+        editBtn = document.getElementsByClassName('button-EditComment'),
+        len = forNewComment ? 2 : editBtn.length,
+        data = {};
 
-    buttonEditComment.each(function(){
-      if(getEventCount(this, 'click') === 0) {
-        $(this).on('click', () => {
-          // console.log('Edit button - Click!', getEventCount(this, 'click'));
-          let data = {
-                'commentId': $(this).parent().attr('data')
-              };
-          const commentContent = $(this).closest('div.comments-wrapper__comment'),
-                textDiv = commentContent.find('div.content__text'),
-                oldCommentText = textDiv.text().trim(),
-                editForm = `<form id='edit-form' class='content__edit-form'>
-                              <textarea id='text-area' class='edit-form__textarea'>${oldCommentText}</textarea>
-                              <div class='edit-form__buttons-container'>
-                                <button type='button' id='buttonAccept' class='button button--small button--accept'>Zatwierdź</button>
-                                <button type='button' id='buttonCancel' class='button button--small button--cancel'>Anuluj</button>
-                              </div>
-                            </form>`;
-                          
-          btnToggleDropdown.addClass(displayNone);
-          textDiv.replaceWith(editForm).promise().done( () => {
-            let editForm = commentContent.find('#edit-form');
-            //button-accept
-            commentContent.find('#buttonAccept').on('click', () => {
-              data.editFormText = editForm.find('#text-area').val();
-              let newTextDiv = textDiv.text(data.editFormText),
-                  dataForDisplay = {
-                    'editForm': editForm,
-                    'newTextDiv': newTextDiv,
-                    'btnToggleDropdown': btnToggleDropdown,
-                  };
-              if(data.editFormText !== oldCommentText) {
-                updateCommentToDatabase(data, dataForDisplay)
-              } 
-            });
-            //button-cancel
-            commentContent.find('#buttonCancel').on('click', () => {
-              editForm.replaceWith(textDiv);
-              btnToggleDropdown.removeClass(displayNone);
-            });
+    for(let i=1; i<len; i++) {
+      editBtn[i].addEventListener('click', function() {
+        console.log('click');
+        let comIndex = allCommentsLength - 1 - this.getAttribute('comId'),
+            editForm = `<form id='edit-form' class='content__edit-form'>
+                          <textarea id='text-area' class='edit-form__textarea'>${allCommentsOriginalText[comIndex]}</textarea>
+                          <div class='edit-form__buttons-container'>
+                            <button type='button' id='buttonAccept' class='button button--small button--accept'>Zatwierdź</button>
+                            <button type='button' id='buttonCancel' class='button button--small button--cancel'>Anuluj</button>
+                          </div>
+                        </form>`,
+            textNode = allComments[comIndex].childNodes[3].childNodes[7];
+        data.commentId = this.parentNode.getAttribute('data');
+
+        textNode.innerHTML = editForm;
+        acceptEvent();
+        cancelEvent();
+        showHideDropdownBtn(dropdownBtn, 'add');
+
+        function acceptEvent() {
+          let button = document.getElementById('buttonAccept');
+          button.addEventListener('click', function() {
+            console.log('click');
+            data.newText = document.getElementById('text-area').value;
+            updateCommentToDb(data);
+            showHideDropdownBtn(dropdownBtn, 'remove');
           });
-        });
-      }
-    });
-  }
+        }
 
-  function updateCommentToDatabase(data, dataForDisplay) {
-    $.ajax({
-      type: 'PUT',
-      url: url,
-      data: data,
-      // crossDomain: true,
-      // xhrFields: {
-      //   withCredentials: true
-      // },
-      success: () => {
-        displayEditedComment(dataForDisplay);
-      },
-      error: error,
-    });
-  }
+        function cancelEvent() {
+          let button = document.getElementById('buttonCancel');
+          button.addEventListener('click', function() {
+            textNode.innerText = allCommentsOriginalText[comIndex];
+            showHideDropdownBtn(dropdownBtn, 'remove');
+            console.log('click');
+          });
+        }
 
-  function displayEditedComment(dataForDisplay) {
-    dataForDisplay.editForm.replaceWith(dataForDisplay.newTextDiv);
-    dataForDisplay.btnToggleDropdown.removeClass(displayNone);
+        function showHideDropdownBtn(element, action) {
+          for(let i=0, len=element.length; i<len; i++) {
+            if(action === 'add') {
+              element[i].classList.add(displayNone);
+            } else {
+              element[i].classList.remove(displayNone);
+            }
+          }
+        }
+
+        function updateCommentToDb(data) {
+          console.log(data);
+          $.ajax({
+            type: 'PUT',
+            url: url,
+            data: data,
+            // crossDomain: true,
+            // xhrFields: {
+            //   withCredentials: true
+            // },
+            success: () => { displayEditedComment(data.newText); },
+            error: error,
+          });
+        }
+
+        function displayEditedComment(newText) {
+          textNode.innerText = newText;
+        }
+      });
+    }
   }
 
   function error(jqXHR, textStatus, errorThrown) {

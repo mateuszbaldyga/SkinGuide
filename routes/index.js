@@ -65,7 +65,7 @@ router.post('/', middleware.isLoggedIn, cors(corsOptions), function(req, res) {
 });
 
 router.put('/', middleware.checkCommentOwnership, cors(corsOptions), function(req, res) {
-  // Comment.findByIdAndUpdate(req.body.commentId, { text: req.body.editFormText },function(err) {
+  // Comment.findByIdAndUpdate(req.body.commentId, { text: req.body.newText },function(err) {
   Comment.findByIdAndUpdate(req.body.commentId, { text: 'Zedytowany komentarz testowy. Możliwość zapisywania własnego tekstu do bazy danych została zablokowana.' },function(err) {
     if(err){
       console.log('Update route: ERROR');
