@@ -61,7 +61,7 @@
     $('#nav__buttons li a').each(function () {
         let path = window.location.pathname + window.location.hash,
             href = $(this).attr('href');
-        if (path == href) {
+        if (path === href) {
             $(this).addClass('collapse__buttons--active');
         }
     });

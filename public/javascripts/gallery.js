@@ -1,5 +1,4 @@
 (() => {
-
 //Variables
   //Immutable
         //DOM Elements
@@ -60,7 +59,7 @@
   function anotherPhotoOnButtonClick(button, which) {
     $(button[curPic]).off().on('click', function() {
       bigPhotos[curPic].classList.remove(bigPhotoVisible);
-      if(which == 'next') {
+      if(which === 'next') {
         curPic = curPic+1 >= photosAmount ? 0 : curPic+1;
         // console.log('2', curPic);
         bigPhotos[curPic].classList.add(bigPhotoVisible);

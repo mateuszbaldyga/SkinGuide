@@ -1,5 +1,4 @@
 (() => {
-  
 //Variables
   //Immutable
         //DOM Elements
@@ -24,7 +23,7 @@
         commentsWrapper = '#commentsWrapper',
         
         //Values
-        months = [ '0', 'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca',
+        months = [ 'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca',
                    'sierpnia', 'września', 'października', 'listopada', 'grudnia',
         ],
         starsQuantity = stars.length;
@@ -45,31 +44,6 @@
       if(/^http\:\/\/localhost/.test(window.location.href)){
         url = 'http://localhost:3000';
       }
-
-//Classes
-  class dateNow {
-    constructor() {
-      this.today = new Date();
-      this.dd = this.today.getDate();
-      this.mm = this.today.getMonth()+1;//January is 0!
-      this.yyyy = this.today.getFullYear();
-    }
-    getDay() {
-      if(this.dd<10) {
-        this.dd = '0'+this.dd;
-      }
-      return this.dd;
-    }
-    getMonth() {
-      if(this.mm<10) {
-        this.mm = '0'+this.mm;
-      }
-      return this.mm;
-    }
-    getYear() {
-      return this.yyyy;
-    }
-  }
 
 //Functions Call
   partlyHideLongText();
@@ -168,21 +142,22 @@
   function dateFormat(objective) {
     let dateFields = objective.querySelectorAll('.content__date'),
         //today
-        toDate = new dateNow(),
-        toDay = toDate.getDay(),
+        toDate = new Date(),
+        toDay = toDate.getDate(),
         toMonth = toDate.getMonth(),
-        toYear = toDate.getYear();
+        toYear = toDate.getFullYear();
 
     for(let i=0, len = dateFields.length; i<len; i++) {
       let comDate = new Date(dateFields[i].innerText),
           comMinutes = comDate.getMinutes(),
           comDay = comDate.getDate(),
-          comMonth = comDate.getMonth() + 1,
+          comMonth = comDate.getMonth(),
           comYear = comDate.getFullYear(),
           dayComparison = toDay - comDay,
           comTime = `${comDate.getHours()}:${comMinutes<10?'0':''}${comMinutes}`;
-      if(toYear == comYear) {
-        if(toMonth == comMonth) {
+          console.log(typeof toMonth, typeof comMonth);
+      if(toYear === comYear) {
+        if(toMonth === comMonth) {
           if(dayComparison === 0){
             dateFields[i].innerText = `Dziś o ${comTime}`;
           } else if(dayComparison === 1){
