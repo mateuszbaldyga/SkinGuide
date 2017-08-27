@@ -1,4 +1,4 @@
-var initGallery = (function() {
+(() => {
 
 //Variables
   //Immutable
