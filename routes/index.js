@@ -28,7 +28,7 @@ router.get('/', function(req, res) {
 router.post('/', middleware.isLoggedIn, cors(corsOptions), function(req, res) {
   var newComment = {
         // text: req.body.commentText,
-        text: 'Komentarz testowy. Możliwość zapisywania własnego tekstu do bazy danych została zablokowana. Twój nick również nie zostanie wyświetlony.',
+        text: 'Komentarz testowy. Możliwość zapisywania własnego tekstu do bazy danych została zablokowana. Twój nick również nie zostanie wyświetlony. Duis malesuada metus non ligula efficitur maximus. Donec sit amet fermentum erat. Donec efficitur nec arcu in ullamcorper. Vivamus id sem dui.',
         author: {
           id: req.user._id,
           // username: req.user.username,
@@ -36,22 +36,7 @@ router.post('/', middleware.isLoggedIn, cors(corsOptions), function(req, res) {
           avatar: req.user.avatar
         },
       rating: req.body.numOfStars,
-      },
-      notify = {
-        from: 'moja.web.aplikacja@gmail.com',
-        to: 'matbaldyga@gmail.com',
-        subject: `!Nowy Komentarz od ${req.user.username}!`,
-        text: req.body.commentText
       };
-
-      gmailTransporter.sendMail(notify, function(error, response) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log(response);
-        }
-        gmailTransporter.close();
-      });
       
     Comment.create(newComment, function(err, newComment) {
       if(err) {

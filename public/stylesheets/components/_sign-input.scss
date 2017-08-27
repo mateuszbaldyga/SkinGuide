@@ -19,12 +19,12 @@
 
     &:valid + label {
       color: darken($placeholder-color, 5%);
-      transform: scale(0.8) translate(-32px, -30px);
+      transform: scale(0.8) translateY(-32px);
     }
 
     &:focus + label {
       color: $ocean-blue;
-      transform: scale(0.8) translate(-32px, -30px);
+      transform: scale(0.8) translateY(-32px);
     }
 
     &:-webkit-autofill {
@@ -37,9 +37,9 @@
     position: absolute;
     bottom: 7px;
     left: 0;
-    width: 250px;
     margin: 0 10px;
-    will-change: transform font-size;
+    transform-origin: 0%;
+    will-change: transform;
     transition: transform 0.1s cubic-bezier(.4,0,.2,1);
   }
 }

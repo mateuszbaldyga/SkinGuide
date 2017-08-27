@@ -34,11 +34,11 @@
         <polygon points="0,0 200,200 400,0 "/>
       </svg>
     </button>
-    <div class="dropdown-wrapper__menu" data="<% if(typeof comments[i] !== 'undefined'){ %><%=comments[i]._id %><% } %>">
-      <button type="button" class="menu__button button-EditComment" comId="<%= i %>">
+    <div class="dropdown-wrapper__menu" data-commentId="<% if(typeof comments[i] !== 'undefined'){ %><%=comments[i]._id %><% } %>" data-comIndex="<%= i %>">
+      <button type="button" class="menu__button button-EditComment">
         Edytuj
       </button>
-      <button type="button" class="menu__button button-DeleteComment" comId="<%= i %>">
+      <button type="button" class="menu__button button-DeleteComment">
         Usuń
       </button>
     </div>

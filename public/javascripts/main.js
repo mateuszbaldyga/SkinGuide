@@ -1,4 +1,4 @@
-var initMain = (function() {
+(() => {
 //Variables
   //Immutable
         //DOM Elements
