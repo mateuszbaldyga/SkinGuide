@@ -357,8 +357,10 @@
         button.addEventListener('click', function() {
           // console.log('click');
           data.newText = document.getElementById('text-area').value;
-          updateCommentToDb(data);
-          showHideDropdownBtn(dropdownBtn, 'remove');
+          if(data.newText !== allCommentsOriginalText[comIndex]) {
+            updateCommentToDb(data);
+            showHideDropdownBtn(dropdownBtn, 'remove');
+          }
         });
       }
 
