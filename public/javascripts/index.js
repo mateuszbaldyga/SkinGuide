@@ -155,7 +155,6 @@
           comYear = comDate.getFullYear(),
           dayComparison = toDay - comDay,
           comTime = `${comDate.getHours()}:${comMinutes<10?'0':''}${comMinutes}`;
-          console.log(typeof toMonth, typeof comMonth);
       if(toYear === comYear) {
         if(toMonth === comMonth) {
           if(dayComparison === 0){
