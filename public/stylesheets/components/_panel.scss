@@ -17,9 +17,19 @@
   }
 }
 
-article > p {
-  text-indent: 30px;
-  line-height: 1.25;
-  text-align: justify;
-  padding-bottom: 8px;
+article {
+  p {
+    text-indent: 3%;
+    line-height: 1.25;
+    text-align: justify;
+    padding-bottom: 8px;
+  }
+
+  ul {
+    padding-left: 8%;
+
+    @media screen and (max-width: map-get($breakpoints, small)) {
+      padding-left: 10%;
+    }
+  }
 }
